@@ -241,9 +241,11 @@ window.__ModuleLoader__.load({
       ['settings.richMode', '\u5bcc\u54e5\u6a21\u5f0f'],
       ['settings.richModeHint', '\u7eb3\u5165 PG / MB / \u89e3\u4f53\u5320\u673a / \u9650\u5b9a / \u6d77\u5916\u7b2c\u4e09\u65b9\uff0c\u4ee5\u53ca CSM / CS / \u98df\u73a9 / \u9650\u5b9a\u914d\u4ef6\u3002'],
       ['settings.vision', '\u672c\u5730\u89c6\u89c9\u6a21\u578b'],
-      ['settings.visionHint', '\u672c\u5730\u7aef\u70b9\u4e0d\u51fa\u672c\u673a\uff1b\u4f46\u586b\u8fdc\u7aef\u5730\u5740\uff08\u4f8b\u5982\u667a\u8c31\uff09\u5c31\u4f1a\u628a\u7167\u7247\u53d1\u7ed9\u8be5\u670d\u52a1\u5546\u3002\u672a\u914d\u7f6e\u65f6\u81ea\u52a8\u63a2\u6d4b 127.0.0.1:11434 / :1234 / :8080\u3002'],
+      ['settings.visionHint', '\u672c\u5730\u7aef\u70b9\u4e0d\u51fa\u672c\u673a\uff1b\u586b\u8fdc\u7aef\u5730\u5740\uff08\u4f8b\u5982\u667a\u8c31\uff09\u5c31\u4f1a\u628a\u7167\u7247\u53d1\u7ed9\u8be5\u670d\u52a1\u5546\uff0c\u5e76\u4e14\u5fc5\u987b\u586b\u6a21\u578b\u540d\u4e0e API Key\u3002\u672a\u914d\u7f6e\u65f6\u81ea\u52a8\u63a2\u6d4b 127.0.0.1:11434 / :1234 / :8080\u3002'],
       ['settings.visionUrl', '\u7aef\u70b9\u5730\u5740'],
       ['settings.visionModel', '\u6a21\u578b\u540d'],
+      ['settings.visionCopied', '\u5df2\u590d\u5236\u914d\u7f6e\u7247\u6bb5\u3002\u7c98\u5165 profile \u7684 cordis.patch.yml \u672b\u5c3e\uff0c\u5728\u6587\u4ef6\u91cc\u586b\u4e0a\u771f\u5bc6\u94a5\u2014\u2014\u5bc6\u94a5\u4e0d\u4f1a\u8fdb\u5165\u5bf9\u8bdd\u3002'],
+      ['settings.visionApiKey', '\u5bc6\u94a5\uff08API Key\uff09'],
       ['settings.visionApply', '\u751f\u6210\u914d\u7f6e\u6307\u4ee4'],
       ['settings.visionApplied', '\u5df2\u751f\u6210\u914d\u7f6e\u6307\u4ee4\uff0c\u53d1\u9001\u540e\u7531\u52a9\u624b\u5199\u5165\u3002'],
       ['settings.language', '\u754c\u9762\u8bed\u8a00'],
@@ -329,9 +331,11 @@ window.__ModuleLoader__.load({
       ['settings.richMode', '\u5bcc\u54e5\u6a21\u5f0f'],
       ['settings.richModeHint', '\u7d0d\u5165 PG / MB / \u89e3\u9ad4\u5320\u6a5f / \u9650\u5b9a / \u6d77\u5916\u7b2c\u4e09\u65b9\uff0c\u4ee5\u53ca CSM / CS / \u98df\u73a9 / \u9650\u5b9a\u914d\u4ef6\u3002'],
       ['settings.vision', '\u672c\u6a5f\u8996\u89ba\u6a21\u578b'],
-      ['settings.visionHint', '\u672c\u6a5f\u7aef\u9ede\u4e0d\u51fa\u672c\u6a5f\uff1b\u4f46\u586b\u9060\u7aef\u4f4d\u5740\uff08\u4f8b\u5982\u667a\u8b5c\uff09\u5c31\u6703\u628a\u7167\u7247\u767c\u9001\u7d66\u8a72\u670d\u52d9\u5546\u3002\u672a\u8a2d\u5b9a\u6642\u81ea\u52d5\u63a2\u6e2c 127.0.0.1:11434 / :1234 / :8080\u3002'],
+      ['settings.visionHint', '\u672c\u6a5f\u7aef\u9ede\u4e0d\u51fa\u672c\u6a5f\uff1b\u586b\u9060\u7aef\u4f4d\u5740\uff08\u4f8b\u5982\u667a\u8b5c\uff09\u5c31\u6703\u628a\u7167\u7247\u767c\u9001\u7d66\u8a72\u670d\u52d9\u5546\uff0c\u4e26\u4e14\u5fc5\u9808\u586b\u6a21\u578b\u540d\u8207 API Key\u3002\u672a\u8a2d\u5b9a\u6642\u81ea\u52d5\u63a2\u6e2c 127.0.0.1:11434 / :1234 / :8080\u3002'],
       ['settings.visionUrl', '\u7aef\u9ede\u4f4d\u5740'],
       ['settings.visionModel', '\u6a21\u578b\u540d\u7a31'],
+      ['settings.visionCopied', '\u5df2\u8907\u88fd\u914d\u7f6e\u7247\u6bb5\u3002\u8cbc\u5165 profile \u7684 cordis.patch.yml \u672b\u5c3e\uff0c\u5728\u6a94\u6848\u88e1\u586b\u4e0a\u771f\u5bc6\u9470\u2014\u2014\u5bc6\u9470\u4e0d\u6703\u9032\u5165\u5c0d\u8a71\u3002'],
+      ['settings.visionApiKey', '\u5bc6\u9470\uff08API Key\uff09'],
       ['settings.visionApply', '\u7522\u751f\u8a2d\u5b9a\u6307\u4ee4'],
       ['settings.visionApplied', '\u5df2\u7522\u751f\u8a2d\u5b9a\u6307\u4ee4\uff0c\u9001\u51fa\u5f8c\u7531\u52a9\u624b\u5beb\u5165\u3002'],
       ['settings.language', '\u4ecb\u9762\u8a9e\u8a00'],
@@ -417,9 +421,11 @@ window.__ModuleLoader__.load({
       ['settings.richMode', 'Collector mode'],
       ['settings.richModeHint', 'Include PG / Metal Build / Kaitai-Shou-Ki / limited / overseas third party, and CSM / CS / shokugan / limited accessories.'],
       ['settings.vision', 'Local vision model'],
-      ['settings.visionHint', 'A local endpoint keeps photos on this machine. A REMOTE address (Zhipu, for example) sends them to that provider. The address you enter here is written into the plugin config by the assistant. Unset, it probes 127.0.0.1:11434 / :1234 / :8080.'],
+      ['settings.visionHint', 'A local endpoint keeps photos on this machine. A REMOTE address (Zhipu, for example) sends them to that provider and then requires a model name and an API key. Unset, it probes 127.0.0.1:11434 / :1234 / :8080.'],
       ['settings.visionUrl', 'Endpoint URL'],
       ['settings.visionModel', 'Model name'],
+      ['settings.visionCopied', 'Config snippet copied. Paste it at the end of the profile cordis.patch.yml and put the real key in the file - the key never enters this conversation.'],
+      ['settings.visionApiKey', 'API key'],
       ['settings.visionApply', 'Prepare config instruction'],
       ['settings.visionApplied', 'Config instruction prepared; send it and the assistant writes the setting.'],
       ['settings.language', 'Interface language'],
@@ -505,9 +511,11 @@ window.__ModuleLoader__.load({
       ['settings.richMode', '\u30b3\u30ec\u30af\u30bf\u30fc\u30e2\u30fc\u30c9'],
       ['settings.richModeHint', 'PG / \u30e1\u30bf\u30eb\u30d3\u30eb\u30c9 / \u89e3\u4f53\u5320\u6a5f / \u9650\u5b9a / \u6d77\u5916\u30b5\u30fc\u30c9\u30d1\u30fc\u30c6\u30a3\u3001\u304a\u3088\u3073 CSM / CS / \u98df\u73a9 / \u9650\u5b9a\u30aa\u30d7\u30b7\u30e7\u30f3\u3092\u542b\u3081\u307e\u3059\u3002'],
       ['settings.vision', '\u30ed\u30fc\u30ab\u30eb\u8996\u899a\u30e2\u30c7\u30eb'],
-      ['settings.visionHint', '\u30ed\u30fc\u30ab\u30eb\u30a8\u30f3\u30c9\u30dd\u30a4\u30f3\u30c8\u306a\u3089\u5199\u771f\u306f\u672c\u6a5f\u304b\u3089\u51fa\u307e\u305b\u3093\u3002\u9060\u9694\u30a2\u30c9\u30ec\u30b9\uff08\u4f8b\uff1aZhipu\uff09\u3092\u5165\u529b\u3059\u308b\u3068\u3001\u5199\u771f\u306f\u305d\u306e\u30d7\u30ed\u30d0\u30a4\u30c0\u30fc\u306b\u9001\u4fe1\u3055\u308c\u307e\u3059\u3002\u672a\u8a2d\u5b9a\u6642\u306f 127.0.0.1:11434 / :1234 / :8080 \u3092\u81ea\u52d5\u691c\u51fa\u3057\u307e\u3059\u3002'],
+      ['settings.visionHint', '\u30ed\u30fc\u30ab\u30eb\u30a8\u30f3\u30c9\u30dd\u30a4\u30f3\u30c8\u306a\u3089\u5199\u771f\u306f\u672c\u6a5f\u304b\u3089\u51fa\u307e\u305b\u3093\u3002\u9060\u9694\u30a2\u30c9\u30ec\u30b9\uff08\u4f8b\uff1aZhipu\uff09\u306a\u3089\u305d\u306e\u30d7\u30ed\u30d0\u30a4\u30c0\u30fc\u306b\u9001\u4fe1\u3055\u308c\u3001\u30e2\u30c7\u30eb\u540d\u3068 API \u30ad\u30fc\u304c\u5fc5\u9808\u3067\u3059\u3002\u672a\u8a2d\u5b9a\u6642\u306f 127.0.0.1:11434 / :1234 / :8080 \u3092\u81ea\u52d5\u691c\u51fa\u3057\u307e\u3059\u3002'],
       ['settings.visionUrl', '\u30a8\u30f3\u30c9\u30dd\u30a4\u30f3\u30c8'],
       ['settings.visionModel', '\u30e2\u30c7\u30eb\u540d'],
+      ['settings.visionCopied', '\u8a2d\u5b9a\u30b9\u30cb\u30da\u30c3\u30c8\u3092\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f\u3002profile \u306e cordis.patch.yml \u672b\u5c3e\u306b\u8cbc\u308a\u4ed8\u3051\u3001\u30d5\u30a1\u30a4\u30eb\u5185\u3067\u5b9f\u306e\u30ad\u30fc\u3092\u5165\u308c\u3066\u304f\u3060\u3055\u3044\u2014\u2014\u30ad\u30fc\u306f\u4f1a\u8a71\u306b\u5165\u308a\u307e\u305b\u3093\u3002'],
+      ['settings.visionApiKey', 'API \u30ad\u30fc'],
       ['settings.visionApply', '\u8a2d\u5b9a\u6307\u793a\u3092\u4f5c\u6210'],
       ['settings.visionApplied', '\u8a2d\u5b9a\u6307\u793a\u3092\u4f5c\u6210\u3057\u307e\u3057\u305f\u3002\u9001\u4fe1\u3059\u308b\u3068\u30a2\u30b7\u30b9\u30bf\u30f3\u30c8\u304c\u66f8\u304d\u8fbc\u307f\u307e\u3059\u3002'],
       ['settings.language', '\u8868\u793a\u8a00\u8a9e'],
@@ -558,6 +566,8 @@ window.__ModuleLoader__.load({
         ['result.confidence', '\uc2e0\ub8b0\ub3c4'],
         ['settings.title', '\ubca8\ud2b8 / \uac74\ud504\ub77c \uc2dd\ubcc4'],
         ['settings.richMode', '\uceec\ub809\ud130 \ubaa8\ub4dc'],
+        ['settings.visionApiKey', 'API \ud0a4'],
+        ['settings.visionCopied', '\uc124\uc815 \uc2a4\ub2c8\ud3ab\uc744 \ubcf5\uc0ac\ud588\uc2b5\ub2c8\ub2e4. profile\uc758 cordis.patch.yml \ub05d\uc5d0 \ubd99\uc5ec \ub123\uace0 \ud30c\uc77c \uc548\uc5d0\uc11c \uc2e4\uc81c \ud0a4\ub97c \uc785\ub825\ud558\uc138\uc694 - \ud0a4\ub294 \ub300\ud654\uc5d0 \ub4e4\uc5b4\uac00\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.'],
         ['settings.language', '\uc778\ud130\ud398\uc774\uc2a4 \uc5b8\uc5b4'],
         ['settings.clearCache', '\uae30\ub85d \ube44\uc6b0\uae30'],
         ['common.save', '\uc800\uc7a5'],
@@ -581,6 +591,8 @@ window.__ModuleLoader__.load({
         ['result.confidence', 'Confiance'],
         ['settings.title', 'Ceinture / Gunpla'],
         ['settings.richMode', 'Mode collectionneur'],
+        ['settings.visionApiKey', 'Cl\u00e9 API'],
+        ['settings.visionCopied', 'Extrait de configuration copi\u00e9. Collez-le \u00e0 la fin du cordis.patch.yml du profil et saisissez la vraie cl\u00e9 dans le fichier - la cl\u00e9 n\u2019entre jamais dans cette conversation.'],
         ['settings.language', "Langue de l'interface"],
         ['settings.clearCache', 'Vider le cache'],
         ['common.save', 'Enregistrer'],
@@ -604,6 +616,8 @@ window.__ModuleLoader__.load({
         ['result.confidence', 'Confianza'],
         ['settings.title', 'Cintur\u00f3n / Gunpla'],
         ['settings.richMode', 'Modo coleccionista'],
+        ['settings.visionApiKey', 'Clave de API'],
+        ['settings.visionCopied', 'Fragmento de configuraci\u00f3n copiado. P\u00e9galo al final del cordis.patch.yml del perfil y escribe la clave real en el archivo: la clave nunca entra en esta conversaci\u00f3n.'],
         ['settings.language', 'Idioma de la interfaz'],
         ['settings.clearCache', 'Vaciar cach\u00e9'],
         ['common.save', 'Guardar'],
@@ -627,6 +641,8 @@ window.__ModuleLoader__.load({
         ['result.confidence', 'Confian\u00e7a'],
         ['settings.title', 'Cinto / Gunpla'],
         ['settings.richMode', 'Modo colecionador'],
+        ['settings.visionApiKey', 'Chave de API'],
+        ['settings.visionCopied', 'Excerto de configura\u00e7\u00e3o copiado. Cole-o no fim do cordis.patch.yml do perfil e escreva a chave real no ficheiro - a chave nunca entra nesta conversa.'],
         ['settings.language', 'Idioma da interface'],
         ['settings.clearCache', 'Limpar cache'],
         ['common.save', 'Guardar'],
@@ -650,6 +666,8 @@ window.__ModuleLoader__.load({
         ['result.confidence', '\u0414\u043e\u0441\u0442\u043e\u0432\u0435\u0440\u043d\u043e\u0441\u0442\u044c'],
         ['settings.title', '\u0420\u0435\u043c\u0435\u043d\u044c / Gunpla'],
         ['settings.richMode', '\u0420\u0435\u0436\u0438\u043c \u043a\u043e\u043b\u043b\u0435\u043a\u0446\u0438\u043e\u043d\u0435\u0440\u0430'],
+        ['settings.visionApiKey', 'API-\u043a\u043b\u044e\u0447'],
+        ['settings.visionCopied', '\u0424\u0440\u0430\u0433\u043c\u0435\u043d\u0442 \u043a\u043e\u043d\u0444\u0438\u0433\u0443\u0440\u0430\u0446\u0438\u0438 \u0441\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d. \u0412\u0441\u0442\u0430\u0432\u044c\u0442\u0435 \u0435\u0433\u043e \u0432 \u043a\u043e\u043d\u0435\u0446 cordis.patch.yml \u043f\u0440\u043e\u0444\u0438\u043b\u044f \u0438 \u0432\u043f\u0438\u0448\u0438\u0442\u0435 \u043d\u0430\u0441\u0442\u043e\u044f\u0449\u0438\u0439 \u043a\u043b\u044e\u0447 \u0432 \u0444\u0430\u0439\u043b\u0435 \u2014 \u043a\u043b\u044e\u0447 \u043d\u0435 \u043f\u043e\u043f\u0430\u0434\u0430\u0435\u0442 \u0432 \u0434\u0438\u0430\u043b\u043e\u0433.'],
         ['settings.language', '\u042f\u0437\u044b\u043a \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430'],
         ['settings.clearCache', '\u041e\u0447\u0438\u0441\u0442\u0438\u0442\u044c \u043a\u044d\u0448'],
         ['common.save', '\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c'],
@@ -673,6 +691,8 @@ window.__ModuleLoader__.load({
         ['result.confidence', '\u4fe1\u5514\u4fe1\u5f97\u904e'],
         ['settings.title', '\u8170\u5e36 / \u9ad8\u9054\u8b58\u5225'],
         ['settings.language', '\u4ecb\u9762\u8a9e\u8a00'],
+        ['settings.visionApiKey', 'API \u5bc6\u9470'],
+        ['settings.visionCopied', '\u5df2\u8907\u88fd\u914d\u7f6e\u7247\u6bb5\u3002\u8cbc\u5165 profile \u7684 cordis.patch.yml \u672b\u5c3e\uff0c\u5728\u6a94\u6848\u88e1\u586b\u4e0a\u771f\u5bc6\u9470\u2014\u2014\u5bc6\u9470\u5514\u6703\u5165\u5c0d\u8a71\u3002'],
         ['settings.clearCache', '\u6e05\u5feb\u53d6'],
         ['common.save', '\u5132\u5b58'],
       ]),
@@ -695,6 +715,8 @@ window.__ModuleLoader__.load({
         ['result.confidence', '\u0110\u1ed9 tin c\u1eady'],
         ['settings.title', '\u0110ai / Gunpla'],
         ['settings.richMode', 'Ch\u1ebf \u0111\u1ed9 nh\u00e0 s\u01b0u t\u1ea7m'],
+        ['settings.visionApiKey', 'Kh\u00f3a API'],
+        ['settings.visionCopied', '\u0110\u00e3 sao ch\u00e9p \u0111o\u1ea1n c\u1ea5u h\u00ecnh. D\u00e1n v\u00e0o cu\u1ed1i cordis.patch.yml c\u1ee7a profile v\u00e0 \u0111i\u1ec1n kh\u00f3a th\u1eadt trong t\u1ec7p - kh\u00f3a kh\u00f4ng bao gi\u1edd v\u00e0o cu\u1ed9c tr\u00f2 chuy\u1ec7n n\u00e0y.'],
         ['settings.language', 'Ng\u00f4n ng\u1eef giao di\u1ec7n'],
         ['settings.clearCache', 'X\u00f3a b\u1ed9 nh\u1edb \u0111\u1ec7m'],
         ['common.save', 'L\u01b0u'],
@@ -718,6 +740,8 @@ window.__ModuleLoader__.load({
         ['result.confidence', 'Konfidenz'],
         ['settings.title', 'G\u00fcrtel / Gunpla'],
         ['settings.richMode', 'Sammler-Modus'],
+        ['settings.visionApiKey', 'API-Schl\u00fcssel'],
+        ['settings.visionCopied', 'Konfigurationsausschnitt kopiert. F\u00fcgen Sie ihn am Ende der cordis.patch.yml des Profils ein und tragen Sie den echten Schl\u00fcssel in der Datei ein - der Schl\u00fcssel gelangt nie in dieses Gespr\u00e4ch.'],
         ['settings.language', 'Sprache der Oberfl\u00e4che'],
         ['settings.clearCache', 'Cache leeren'],
         ['common.save', 'Speichern'],
@@ -741,6 +765,8 @@ window.__ModuleLoader__.load({
         ['result.confidence', 'Affidabilit\u00e0'],
         ['settings.title', 'Cintura / Gunpla'],
         ['settings.richMode', 'Modalit\u00e0 collezionista'],
+        ['settings.visionApiKey', 'Chiave API'],
+        ['settings.visionCopied', 'Frammento di configurazione copiato. Incollalo in fondo al cordis.patch.yml del profilo e inserisci la chiave reale nel file: la chiave non entra mai in questa conversazione.'],
         ['settings.language', "Lingua dell'interfaccia"],
         ['settings.clearCache', 'Svuota cache'],
         ['common.save', 'Salva'],
@@ -764,6 +790,8 @@ window.__ModuleLoader__.load({
         ['result.confidence', 'Betrouwbaarheid'],
         ['settings.title', 'Riem / Gunpla'],
         ['settings.richMode', 'Verzamelaarsmodus'],
+        ['settings.visionApiKey', 'API-sleutel'],
+        ['settings.visionCopied', 'Configuratiefragment gekopieerd. Plak het achteraan de cordis.patch.yml van het profiel en vul de echte sleutel in het bestand in - de sleutel komt nooit in dit gesprek.'],
         ['settings.language', 'Interfacetaal'],
         ['settings.clearCache', 'Cache wissen'],
         ['common.save', 'Opslaan'],
@@ -787,6 +815,8 @@ window.__ModuleLoader__.load({
         ['result.confidence', 'Pewno\u015b\u0107'],
         ['settings.title', 'Pasek / Gunpla'],
         ['settings.richMode', 'Tryb kolekcjonera'],
+        ['settings.visionApiKey', 'Klucz API'],
+        ['settings.visionCopied', 'Skopiowano fragment konfiguracji. Wklej go na ko\u0144cu cordis.patch.yml profilu i wpisz prawdziwy klucz w pliku - klucz nigdy nie trafia do tej rozmowy.'],
         ['settings.language', 'J\u0119zyk interfejsu'],
         ['settings.clearCache', 'Wyczy\u015b\u0107 pami\u0119\u0107 podr\u0119czn\u0105'],
         ['common.save', 'Zapisz'],
@@ -966,6 +996,10 @@ window.__ModuleLoader__.load({
       richMode: false,
       visionUrl: '',
       visionModel: '',
+      // Held only so the page can show the user which endpoint is configured. It is
+      // deliberately NOT handed to the assistant: that path writes the secret into
+      // the conversation text. The config snippet carries a placeholder instead.
+      visionApiKey: '',
       allowBaidu: false,
       kind: 'belt',
       hasBox: true,
@@ -1111,6 +1145,40 @@ window.__ModuleLoader__.load({
         return false
       }
     }
+    /**
+     * Copy text to the clipboard, with a fallback for older engines.
+     *
+     * `navigator.clipboard` needs a secure context and a user gesture; the textarea
+     * path covers cases where the API is missing or rejected.
+     * @param {string} text - what to copy.
+     * @returns {boolean} whether the copy is believed to have succeeded.
+     */
+    function copyToClipboard(text) {
+      try {
+        if (typeof navigator !== 'undefined' && navigator.clipboard !== undefined && typeof navigator.clipboard.writeText === 'function') {
+          void navigator.clipboard.writeText(text).catch(() => {})
+          return true
+        }
+      } catch {
+        // fall through to the textarea path
+      }
+      try {
+        if (typeof document === 'undefined') return false
+        const area = document.createElement('textarea')
+        area.value = text
+        area.setAttribute('readonly', 'readonly')
+        area.style.position = 'fixed'
+        area.style.opacity = '0'
+        document.body.appendChild(area)
+        area.select()
+        const ok = typeof document.execCommand === 'function' ? document.execCommand('copy') : false
+        document.body.removeChild(area)
+        return ok
+      } catch {
+        return false
+      }
+    }
+
     // #endregion
 
     // #region OnboardingGate
@@ -1583,17 +1651,33 @@ window.__ModuleLoader__.load({
       // the live active locale (not a stored copy) is also what the select shows.
       const language = useActiveLocale(locale)
 
-      /** Ask the agent to persist the local vision endpoint into the plugin config. */
-      const applyVision = () => {
-        const instruction = [
-          '\u8bf7\u628a\u672c\u5730\u89c6\u89c9\u8bc6\u522b\u7aef\u70b9\u5199\u5165 tokusatsu-gunpla \u63d2\u4ef6\u914d\u7f6e\uff08visionBaseUrl / visionModel\uff09\uff0c\u4e0d\u8981\u6539\u52a8\u5176\u5b83\u5b57\u6bb5\uff1a',
-          `visionBaseUrl: ${JSON.stringify(settings.visionUrl)}`,
-          `visionModel: ${JSON.stringify(settings.visionModel)}`,
-          '\u8bf4\u660e\uff1a\u8be5\u7aef\u70b9\u5fc5\u987b\u662f OpenAI \u517c\u5bb9\u7684\u672c\u5730\u670d\u52a1\uff0c\u4f8b\u5982 Ollama (http://127.0.0.1:11434/v1) \u6216 LM Studio\u3002',
+      /**
+       * Hand the endpoint settings to the user as a config snippet.
+       *
+       * This deliberately does NOT go through the assistant. The only persistence
+       * path the client has is "send a message", which would put the API key into the
+       * conversation text. Copying a snippet that carries a PLACEHOLDER keeps the
+       * secret out of the transcript: the user pastes it and fills the key in locally.
+       */
+      const handOffVision = () => {
+        const snippet = [
+          '- id: tokusatsu-gunpla',
+          '  config:',
+          '    visionEnabled: true',
+          `    visionBaseUrl: ${JSON.stringify(settings.visionUrl)}`,
+          `    visionModel: ${JSON.stringify(settings.visionModel)}`,
+          "    visionApiKey: 'PASTE-YOUR-API-KEY-HERE'",
         ].join('\n')
         setNotice('')
-        void submitInstruction(session, instruction).then((accepted) => {
-          setNotice(accepted ? t('settings.visionApplied') : t('result.clipboard'))
+        const copied = copyToClipboard(snippet)
+        if (copied) {
+          setNotice(t('settings.visionCopied'))
+          return
+        }
+        // No clipboard: queue the snippet so the user can select and copy it, and say
+        // so plainly. The snippet holds no secret, so this fallback leaks nothing.
+        void submitInstruction(session, snippet).then((accepted) => {
+          setNotice(accepted ? t('settings.visionCopied') : t('result.clipboard'))
         })
       }
 
@@ -1627,15 +1711,29 @@ window.__ModuleLoader__.load({
                     className: 'TKG_input',
                     type: 'text',
                     value: settings.visionModel,
-                    placeholder: 'llava / qwen2.5-vl / minicpm-v',
+                    placeholder: 'llava / qwen2.5-vl / glm-5.3-flash',
                     onChange: (event) => store.set({ visionModel: event.target.value }),
+                  }),
+                ],
+              }),
+              jsxs('div', {
+                className: 'TKG_field',
+                children: [
+                  jsx('label', { className: 'TKG_label', children: t('settings.visionApiKey') }),
+                  jsx('input', {
+                    className: 'TKG_input',
+                    type: 'password',
+                    autoComplete: 'off',
+                    value: settings.visionApiKey,
+                    placeholder: 'PASTE-YOUR-API-KEY-HERE',
+                    onChange: (event) => store.set({ visionApiKey: event.target.value }),
                   }),
                 ],
               }),
               jsxs('div', {
                 className: 'TKG_row',
                 children: [
-                  jsx('button', { type: 'button', className: 'TKG_btn', disabled: settings.visionUrl.trim() === '', onClick: applyVision, children: t('settings.visionApply') }),
+                  jsx('button', { type: 'button', className: 'TKG_btn', disabled: settings.visionUrl.trim() === '', onClick: handOffVision, children: t('settings.visionApply') }),
                   notice !== '' ? jsx('span', { className: 'TKG_hint', children: notice }) : null,
                 ],
               }),

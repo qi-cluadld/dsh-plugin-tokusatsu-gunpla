@@ -220,17 +220,42 @@ Host 侧失败会在日志里出现 `tokusatsu-gunpla:` 前缀且**没有**界�
 
 #### 接智谱（远端示例）
 
+在 profile 的 `cordis.patch.yml` **末尾**追加：
+
 ```yaml
-visionEnabled: true
-visionBaseUrl: 'https://open.bigmodel.cn/api/paas/v4'
-visionModel: 'glm-5.3-flash'
-visionApiKey: '<你的智谱 API Key>'
+- id: tokusatsu-gunpla
+  config:
+    visionEnabled: true
+    visionBaseUrl: 'https://open.bigmodel.cn/api/paas/v4'
+    visionModel: 'glm-5.3-flash'
+    visionApiKey: '<你的智谱 API Key>'
 ```
 
+- `id` 必须是 `tokusatsu-gunpla`（和 bundle 里那一行一致 → 属于**改配置**，不是新增一行）
+- **缩进用空格，不要 Tab**
 - 兼容格式：OpenAI Chat Completions，图片走 `type: image_url` + Base64 Data URL
 - 国内直连，不需要 VPN
 - API Key 在 https://bigmodel.cn/usercenter/proj-mgmt/apikeys 生成
 - 换成别的 OpenAI 兼容服务（含本机）只需改这三项
+- 改完**完全退出应用再打开**（profile 是启动时读的，不是热加载）
+
+#### 用设置页生成配置片段
+
+设置页「腰带 / 高达识别」里有**端点地址 / 模型名 / 密钥**三个输入框，填好后点「生成配置指令」，会把一段**带占位符的 YAML 片段复制到剪贴板**：
+
+```yaml
+- id: tokusatsu-gunpla
+  config:
+    visionEnabled: true
+    visionBaseUrl: "你填的地址"
+    visionModel: "你填的模型"
+    visionApiKey: 'PASTE-YOUR-API-KEY-HERE'
+```
+
+粘到 `cordis.patch.yml` 末尾后，**在文件里本地填上真密钥**。
+
+> **为什么密钥不进对话**：客户端唯一能持久化配置的通道是"把内容作为一条消息发给助手"，那样密钥会**明文出现在对话记录里**。所以这个按钮只复制片段、且**片段里是占位符**——密钥只存在于你自己的配置文件里。
+> 输入框里填的密钥仅存在浏览器本地（localStorage），用于你确认"配的是哪个端点"。
 
 > 模型名以[智谱模型页](https://docs.bigmodel.cn/cn/guide/models/vlm/glm-5.3-flash)为准；旧型号 `glm-4v` 已不是主推，但仍可用。
 

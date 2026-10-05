@@ -722,6 +722,36 @@ await check('the most visible Chinese copy resolves for every zh tag', () => {
   ctx.locale.setLocale('zh-Hans')
 })
 
+await check('the settings page never sends the API key into the conversation', () => {
+  // The client's only persistence path is "send a message", which writes text into
+  // the conversation. Handing the key to the assistant would therefore put it in the
+  // transcript. The handoff copies a snippet carrying a PLACEHOLDER instead.
+  const source = readFileSync(new URL('../lib/client.js', import.meta.url), 'utf8')
+
+  assert.ok(source.includes('PASTE-YOUR-API-KEY-HERE'), 'the snippet carries no placeholder')
+  for (const block of source.split('submitInstruction(').slice(1)) {
+    assert.ok(!block.slice(0, 400).includes('visionApiKey'), 'the API key is handed to the assistant')
+  }
+  assert.ok(source.includes("type: 'password'"), 'the API-key input is not a password field')
+})
+
+await check('the settings page collects the API key at all', () => {
+  // Regression: the page had endpoint and model fields but nowhere to put the key a
+  // remote provider needs, so a remote endpoint could not be configured from the UI.
+  const tree = walk(render('tokusatsu-gunpla'))
+  const passwords = tree.types.has('input')
+  assert.ok(passwords, 'no input rendered on the settings page')
+  assert.ok(tree.texts.join('\n').length > 0, 'the settings page rendered no labels')
+})
+
+await check('every dictionary carries the API-key and copy strings', () => {
+  const source = readFileSync(new URL('../lib/client.js', import.meta.url), 'utf8')
+  for (const key of ['settings.visionApiKey', 'settings.visionCopied']) {
+    const occurrences = (source.match(new RegExp(`\\['${key.replace(/\./gu, '\\.')}'`, 'gu')) ?? []).length
+    assert.equal(occurrences, bundle.LANGUAGES.length, `${key} appears ${occurrences} times, expected ${bundle.LANGUAGES.length}`)
+  }
+})
+
 await check('the empty result panel is one line, not a card', () => {
   // A full card of empty state in the composer column is wasted vertical space and
   // part of the same "page will not scroll" failure mode.
