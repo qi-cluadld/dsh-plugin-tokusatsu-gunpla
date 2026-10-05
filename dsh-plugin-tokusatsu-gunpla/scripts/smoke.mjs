@@ -238,7 +238,32 @@ console.log('7. Language catalogue')
   check('compliance copy names GDPR and the EU AI Act', COMPLIANCE.en.split('\n').some((line) => line.includes('GDPR')) && COMPLIANCE.en.split('\n').some((line) => line.includes('EU AI Act')))
 }
 
-console.log('9. Packaged release contents')
+console.log('9. Vision endpoint degradation')
+{
+  // A deployment without a local vision model is an EXPECTED state, not an error:
+  // the product fallback is the checklist plus manual model entry. So endpoint
+  // detection must return undefined rather than throwing, whichever way it is
+  // called.
+  const { detectEndpoint, DEFAULT_ENDPOINTS } = await import('../lib/vision.js')
+
+  check('three default endpoints are probed', DEFAULT_ENDPOINTS.length === 3)
+  check('no argument degrades to undefined', (await detectEndpoint()) === undefined)
+  check('an empty string degrades to undefined', (await detectEndpoint('')) === undefined)
+  check('an unreachable URL degrades to undefined', (await detectEndpoint('http://127.0.0.1:59999/v1')) === undefined)
+
+  // A wrong argument type must say which value was wrong. It used to surface as
+  // "candidate.replace is not a function", which names neither the caller nor the
+  // offending input.
+  let message = ''
+  try {
+    await detectEndpoint({ timeoutMs: 1500 })
+  } catch (error) {
+    message = error instanceof TypeError ? error.message : `wrong error type: ${error.name}`
+  }
+  check('a non-string argument reports the offending input', message.includes('expects a string base URL') && message.includes('object'), message)
+}
+
+console.log('10. Packaged release contents')
 {
   // Publishing uses the `files` allow-list, so anything read at runtime but absent
   // from it silently disappears from the published package. The seed catalogue and

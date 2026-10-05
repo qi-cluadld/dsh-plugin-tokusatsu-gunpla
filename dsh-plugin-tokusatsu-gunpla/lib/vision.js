@@ -97,10 +97,16 @@ export async function encodeImage(path) {
 }
 
 /**
- * @param {string} baseUrl - configured or candidate endpoint.
+ * @param {string} [baseUrl] - configured endpoint, or undefined to auto-probe.
  * @returns {Promise<{ baseUrl: string, models: string[] } | undefined>} the first reachable endpoint.
  */
 export async function detectEndpoint(baseUrl) {
+  // Both call sites pass a string or undefined. A wrong type used to fail as
+  // "candidate.replace is not a function", which says nothing about which value
+  // was wrong — the message now names the offending input.
+  if (baseUrl !== undefined && typeof baseUrl !== 'string') {
+    throw new TypeError(`detectEndpoint expects a string base URL or undefined, received ${typeof baseUrl}: ${JSON.stringify(baseUrl)}`)
+  }
   const candidates = baseUrl ? [baseUrl] : DEFAULT_ENDPOINTS
   for (const candidate of candidates) {
     const root = candidate.replace(/\/+$/u, '')
