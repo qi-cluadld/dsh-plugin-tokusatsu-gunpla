@@ -86,7 +86,15 @@ export const REQUIREMENTS = [
     appliesTo: ['belt'],
     title: '带扣单独拆下拍摄',
     hint: '把带扣从带子上拆下，正面、背面各一张，背面要有铭牌。',
-    reason: '带扣背面的商标、年份与产地铭牌是腰带鉴定的核心证据，装在带子上拍不到。',
+    reason: '带扣背面的商标、年份与产地铭牌是腰带鉴定的核心证据；拆下来才能贴着拍清背面的铭文。',
+  },
+  {
+    id: 'panel-rear',
+    level: 'required',
+    appliesTo: ['belt'],
+    title: '面板背面铭牌翻拍',
+    hint: '面板与带子一体的腰带：把整条腰带翻过来，拍面板背面，铭牌、© 年份、BANDAI 与产地都在这一面。',
+    reason: '一体成型的腰带没有可拆下的带扣，但把腰带整体翻过来同样能拍到铭牌——这是带扣背面铭牌的等价证据，不必拆件。',
   },
   {
     id: 'device-detached',
@@ -128,12 +136,26 @@ export const REQUIREMENTS = [
  * @param {string} input.kind - belt | device | accessory | gunpla | figure | unknown.
  * @param {boolean} [input.hasBox] - whether the user has the packaging to hand.
  * @param {boolean} [input.richMode] - 富哥模式, which adds a few evidence requirements for high-value items.
- * @returns {{ kind: string, hasBox: boolean, requirements: any[], satisfied: string[], missing: any[], blocked: boolean, nextAction: string }} the plan.
+ * @param {boolean} [input.buckleSeparable] - whether the belt's buckle/centre panel can be taken off the strap. `false` swaps the detach requirement for the panel-rear one; `undefined` (unknown) keeps the default rule.
+ * @returns {{ kind: string, hasBox: boolean, buckleSeparable: boolean|null, requirements: any[], satisfied: string[], missing: any[], blocked: boolean, nextAction: string }} the plan.
  */
-export function planChecklist({ kind = 'unknown', hasBox = false, richMode = false } = {}) {
+export function planChecklist({ kind = 'unknown', hasBox = false, richMode = false, buckleSeparable } = {}) {
+  const separable = typeof buckleSeparable === 'boolean' ? buckleSeparable : undefined
   const applicable = REQUIREMENTS.filter((requirement) => requirement.appliesTo.includes(kind))
   const requirements = applicable
     .filter((requirement) => (hasBox ? true : requirement.id !== 'box-front' && requirement.id !== 'box-side'))
+    // A belt whose centre panel is moulded into the strap can NEVER satisfy
+    // `buckle-detached`, so demanding it left such a belt blocked forever — with
+    // its confidence capped below the high band no matter what the user shot. The
+    // replacement is a swap, not a downgrade: the panel's rear nameplate is the
+    // same core evidence, and flipping the whole belt over reaches it without
+    // taking anything apart. Unknown separability keeps the default rule, so
+    // nothing changes for belts that do come apart.
+    .filter((requirement) => {
+      if (requirement.id === 'buckle-detached') return separable !== false
+      if (requirement.id === 'panel-rear') return separable === false
+      return true
+    })
     .map((requirement) => ({ ...requirement, satisfied: false }))
 
   if (richMode) {
@@ -153,6 +175,7 @@ export function planChecklist({ kind = 'unknown', hasBox = false, richMode = fal
   return {
     kind,
     hasBox,
+    buckleSeparable: separable ?? null,
     requirements,
     satisfied: [],
     missing,
@@ -230,10 +253,21 @@ export function reminderLines(plan, limit = 5) {
  * stay on screen for the whole session rather than appear only on failure, so
  * this returns the standing banner text per category.
  * @param {string} kind - capture category.
+ * @param {object} [options] - separability of the item at hand.
+ * @param {boolean} [options.buckleSeparable] - `false` when the belt's panel is one piece with the strap, which is the case the standing belt rule used to get wrong.
  * @returns {{ primary: string, secondary: string }} banner text.
  */
-export function captureBanner(kind) {
+export function captureBanner(kind, { buckleSeparable } = {}) {
   if (kind === 'belt') {
+    // The standing rule has to follow the hardware: telling the owner of a
+    // one-piece belt to detach its buckle is not a strict rule, it is an
+    // impossible instruction that would keep the checklist blocked for good.
+    if (buckleSeparable === false) {
+      return {
+        primary: '一体式腰带：面板不可拆，把整条腰带翻过来拍面板背面的铭牌；变身道具能拆就单独拆下拍。',
+        secondary: '再补带子整体、电池仓、变身音，判断会更准。',
+      }
+    }
     return {
       primary: '腰带必须：带扣单独拆下拍、变身道具单独拆下拍。装在带子上的照片无法用于鉴定。',
       secondary: '再补带子整体、电池仓、变身音，判断会更准。',

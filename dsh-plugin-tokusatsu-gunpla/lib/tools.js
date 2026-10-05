@@ -17,10 +17,19 @@ import { DECISION_QUESTIONS, decideBelt } from './decide.js'
 import { identify } from './identify.js'
 import { assessSource, buildSourcePlan, confirmAccount, crossVerify, scopeOf, TIERS } from './sources.js'
 import { loadKnowledge, recordCorrection, searchRecords, upsertLearned } from './store.js'
+import { visionSettings } from './vision.js'
 import { KINDS, KIND_VALUES } from './i18n.js'
 
 /** Session event type carrying one identification result (mirrored from the plugin root). */
 const RESULT_EVENT = 'tokusatsu/result'
+
+/**
+ * Marker the vision layer puts in a note when the endpoint itself is misconfigured.
+ *
+ * Kept as a shared constant so the note writer and the panel reader cannot drift:
+ * the note is the single source of truth, and this is only how it is recognised.
+ */
+export const SETUP_ISSUE_MARKER = '[配置问题]'
 
 /** Categories the tools accept, shared by every schema that takes a `kind`. */
 const KIND_PROPERTY = {
@@ -37,7 +46,7 @@ const MANUAL_DESCRIPTION = [
   'sizeClass（POCKET/HAND/SPAN/LARGE/UNKNOWN）、colorway（主色调）、scale（比例，如 1/144）、',
   'partsCount（板件数整数）、audioEvidence（none/beep/voice/bgm/unknown）、ledColor、',
   'copyrightMarkShape（铭牌描述）、textSharpness（sharp/soft/blurry/unknown）、packagingFinish、',
-  'beltStrapMaterial、hasMetalParts（布尔）、hasScrews（布尔）、defects（数组）、visibleText（数组）。',
+  'beltStrapMaterial、hasMetalParts（布尔）、hasScrews（布尔）、buckleSeparable（布尔，带扣/面板能否从带子上拆下，一体式填 false）、defects（数组）、visibleText（数组）。',
   '看不清就不要填，不要猜。',
 ].join('')
 
@@ -124,12 +133,18 @@ export function registerTools(ctx, { config, knowledge }) {
         useCache: args.useCache !== false,
       }
       const result = await identify(config, request)
+      // `buckleSeparable` has been part of the observation contract all along but
+      // was read by nothing, which is what left one-piece belts permanently
+      // blocked. Either the local model or the user's manual override may report
+      // it, so accept both spellings and leave anything else unknown.
+      const observed = result.observations?.buckleSeparable
+      const buckleSeparable = observed === false || observed === 'false' ? false : observed === true || observed === 'true' ? true : undefined
       const plan = evaluateChecklist(
-        planChecklist({ kind: request.kind, hasBox: request.hasBox, richMode: config.richMode }).requirements,
+        planChecklist({ kind: request.kind, hasBox: request.hasBox, richMode: config.richMode, buckleSeparable }).requirements,
         request.provided,
         result.candidates.length > 0 && result.confidence.level !== 'low',
       )
-      const payload = { ...result, checklist: { ...plan, hasBox: request.hasBox }, reminders: reminderLines(plan) }
+      const payload = { ...result, checklist: { ...plan, hasBox: request.hasBox, buckleSeparable: buckleSeparable ?? null }, reminders: reminderLines(plan) }
       // Publish the whole result to the session so the browser half can render
       // it: a client plugin has no other way to read tool output. Only the fields
       // the result panel draws are persisted, to keep the session log small.
@@ -154,11 +169,13 @@ export function registerTools(ctx, { config, knowledge }) {
     description: [
       '生成或核对拍照清单。这是纯本地规则，零 token。',
       '在用户准备拍照前调用一次，把 primary 提醒原样显示在界面上（腰带必须拆带扣、拆变身道具；高达必须有盒子正面）。',
+      '腰带的面板与带子一体、拆不下来时传 buckleSeparable=false：清单会用「面板背面铭牌翻拍」替代「带扣单独拆下拍摄」，这类腰带不会永远卡在必拍项上。',
       '用户拍完后再调用一次并传入 provided，工具会算出还缺什么。blocked 为真时不要给出确定性结论。',
     ].join('\n'),
     parameters: {
       kind: KIND_PROPERTY,
       hasBox: { type: 'boolean', description: '是否有包装盒可拍。' },
+      buckleSeparable: { type: 'boolean', description: '腰带的带扣/面板能否从带子上拆下。不可拆（一体式）传 false；不确定就不要传。' },
       provided: { type: 'array', items: { type: 'string' }, description: '已经拍到的清单项 id。' },
     },
     output: {
@@ -179,12 +196,14 @@ export function registerTools(ctx, { config, knowledge }) {
     },
     isConcurrencySafe: () => true,
     execute(args) {
-      const plan = planChecklist({ kind: args.kind ?? 'unknown', hasBox: args.hasBox === true, richMode: config.richMode })
+      const buckleSeparable = typeof args.buckleSeparable === 'boolean' ? args.buckleSeparable : undefined
+      const plan = planChecklist({ kind: args.kind ?? 'unknown', hasBox: args.hasBox === true, richMode: config.richMode, buckleSeparable })
       const evaluation = evaluateChecklist(plan.requirements, args.provided ?? [])
       return Promise.resolve({
         kind: plan.kind,
         hasBox: plan.hasBox,
-        banner: captureBanner(plan.kind),
+        buckleSeparable: plan.buckleSeparable,
+        banner: captureBanner(plan.kind, { buckleSeparable }),
         requirements: evaluation.requirements,
         satisfied: evaluation.satisfied,
         missing: evaluation.missing,
@@ -357,16 +376,17 @@ export function registerTools(ctx, { config, knowledge }) {
         }
         default: {
           const base = await knowledge()
+          const vision = visionSettings(config)
           return {
             mode: 'stats',
             counts: base.counts,
             tiers: TIERS.map((tier) => ({ tier: tier.id, label: tier.label })),
             richMode: config.richMode,
-            vision: { enabled: config.vision.enabled, baseUrl: config.vision.baseUrl ?? '(自动探测)', model: config.vision.model || '(第一个可用)' },
+            vision: { enabled: vision.enabled, baseUrl: vision.baseUrl ?? '(自动探测)', model: vision.model || '(第一个可用)' },
             rendered: [
               `库内条目：seed ${base.counts.seed} / learned ${base.counts.learned} / 用户纠正 ${base.counts.corrected}`,
               `富哥模式：${config.richMode ? '开启' : '关闭'}`,
-              `本地视觉端点：${config.vision.enabled ? config.vision.baseUrl || '自动探测 127.0.0.1:11434 / :1234 / :8080' : '已关闭'}，模型 ${config.vision.model || '第一个可用'}`,
+              `本地视觉端点：${vision.enabled ? vision.baseUrl || '自动探测 127.0.0.1:11434 / :1234 / :8080' : '已关闭'}，模型 ${vision.model || '第一个可用'}`,
             ].join('\n'),
           }
         }
@@ -388,6 +408,7 @@ export function registerTools(ctx, { config, knowledge }) {
  * @returns {object} the panel projection, plain JSON.
  */
 export function forPanel(result) {
+  const notes = result.notes ?? []
   return {
     status: result.status,
     observationSource: result.observationSource,
@@ -399,8 +420,13 @@ export function forPanel(result) {
     judgment: result.judgment,
     scope: result.scope,
     confidence: result.confidence,
-    notes: result.notes,
+    notes,
     reminders: result.reminders ?? [],
+    // A misconfigured endpoint is a different situation from "the photo did not
+    // show enough". The panel has to say which, or the user reads "enter the model
+    // number" as the answer when the answer is one configuration line. Recognised
+    // by the marker the vision layer writes, so no second source of truth.
+    setupIssue: notes.find((note) => typeof note === 'string' && note.includes(SETUP_ISSUE_MARKER)) ?? null,
   }
 }
 

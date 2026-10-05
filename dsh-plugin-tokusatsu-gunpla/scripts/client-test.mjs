@@ -486,6 +486,29 @@ function walk(node) {
 }
 
 /**
+ * Find the first rendered element matching a predicate.
+ *
+ * `walk` reports metadata about the tree; driving a control needs the element
+ * itself, props and all, so a test can invoke the handler the renderer would.
+ * @param {unknown} node - a rendered node or array of them.
+ * @param {(node: any) => boolean} predicate - matcher over element nodes.
+ * @returns {any | undefined} the matching element.
+ */
+function findElement(node, predicate) {
+  if (node === null || node === undefined || typeof node !== 'object') return undefined
+  if (Array.isArray(node)) {
+    for (const item of node) {
+      const found = findElement(item, predicate)
+      if (found !== undefined) return found
+    }
+    return undefined
+  }
+  if (node.__el !== true) return undefined
+  if (predicate(node)) return node
+  return findElement(node.props.children, predicate)
+}
+
+/**
  * Invoke one registered component the way the renderer would, with the inject
  * face the registration declared, and fully render the tree it returns.
  *
@@ -838,11 +861,51 @@ await check('dropping the box switches to the alternative-evidence path', () => 
 })
 
 await check('belt mode still demands the two detached shots', () => {
-  settingsStore.set({ kind: 'belt', hasBox: true, provided: ['strap-overall'] })
+  settingsStore.set({ kind: 'belt', hasBox: true, buckleDetachable: true, provided: ['strap-overall'] })
   const text = walk(render('tokusatsu-gunpla-capture')).texts.join('\n')
   assert.ok(text.includes('带扣单独拆下拍摄'), 'detached-buckle requirement missing')
   assert.ok(text.includes('变身道具单独拆下拍摄'), 'detached-device requirement missing')
   assert.ok(text.includes('仍有必拍项未完成'), 'belt mode should stay blocked without the detached shots')
+})
+
+await check('a one-piece belt swaps the detach requirement for the panel-rear shot', () => {
+  // The real case this exists for: a belt whose centre panel is moulded into the
+  // strap, so there is no buckle to take off. Demanding a detached-buckle shot left
+  // such a belt blocked forever, so the requirement must be REPLACED by the
+  // panel-rear nameplate shot, which its owner can actually take.
+  settingsStore.set({ kind: 'belt', hasBox: true, buckleDetachable: false, provided: [] })
+  const tree = walk(render('tokusatsu-gunpla-capture'))
+  assert.ok(!tree.items.includes('带扣单独拆下拍摄'), 'detach requirement still offered for a one-piece belt')
+  assert.ok(tree.items.includes('面板背面铭牌翻拍'), 'panel-rear requirement missing for a one-piece belt')
+  assert.ok(tree.items.includes('变身道具单独拆下拍摄'), 'the device requirement was lost with the panel swap')
+  const text = tree.texts.join('\n')
+  assert.ok(text.includes('面板不可拆'), 'the standing banner still demands a detachable buckle')
+  assert.ok(!text.includes('装在带子上'), 'the separable-belt banner is still rendered')
+})
+
+await check('going back to a separable belt restores the detach requirement', () => {
+  settingsStore.set({ kind: 'belt', hasBox: true, buckleDetachable: true, provided: [] })
+  const tree = walk(render('tokusatsu-gunpla-capture'))
+  assert.ok(tree.items.includes('带扣单独拆下拍摄'), 'detach requirement missing for a separable belt')
+  assert.ok(!tree.items.includes('面板背面铭牌翻拍'), 'panel-rear requirement offered for a separable belt')
+})
+
+await check('the capture guide exposes a separability control that drives the checklist', () => {
+  settingsStore.set({ kind: 'belt', hasBox: true, buckleDetachable: true, provided: [] })
+  const entry = registered.find((item) => item.options.id === 'tokusatsu-gunpla-capture')
+  const props = entry.options.inject('session-test')
+  const control = findElement(renderWith(entry.component, props), (node) => node.props['data-tkg'] === 'buckle-separable')
+  assert.ok(control !== undefined, 'the capture guide renders no separability control on the belt tab')
+  assert.equal(control.props.checked, true, 'the control does not reflect the separable default')
+  control.props.onChange({ target: { checked: false } })
+  assert.equal(props.store.getSnapshot().buckleDetachable, false, 'the control did not write the separability flag')
+  assert.ok(walk(renderWith(entry.component, props)).items.includes('面板背面铭牌翻拍'), 'turning the control off did not swap the checklist')
+
+  // The control is belt-only: a gunpla kit has no buckle to detach, so offering it
+  // there would ask a question with no possible answer.
+  settingsStore.set({ kind: 'gunpla', hasBox: true, provided: [] })
+  const gunpla = walk(render('tokusatsu-gunpla-capture'))
+  assert.ok(!gunpla.checkboxes.some((box) => box.tkg === 'buckle-separable'), 'the separability control leaked onto the gunpla tab')
 })
 
 await check('accepting the disclaimer is recorded in the store', () => {

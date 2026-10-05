@@ -206,6 +206,10 @@ window.__ModuleLoader__.load({
       ['capture.banner.other.secondary', '\u770b\u4e0d\u6e05\u7684\u5b57\u6bb5\u7559\u7a7a\uff0c\u4e0d\u8981\u731c\uff1b\u624b\u52a8\u8865\u578b\u53f7\u6c38\u8fdc\u53ef\u7528\u3002'],
       ['capture.hasBox', '\u6709\u5305\u88c5\u76d2\u53ef\u62cd'],
       ['capture.noBox', '\u6ca1\u6709\u5305\u88c5\u76d2'],
+      ['capture.separable', '\u5e26\u6263\u53ef\u4ece\u5e26\u5b50\u4e0a\u62c6\u4e0b'],
+      ['capture.nonSeparable', '\u4e00\u4f53\u5f0f\uff0c\u9762\u677f\u4e0d\u53ef\u62c6'],
+      ['capture.banner.belt.panel.primary', '\u4e00\u4f53\u5f0f\u8170\u5e26\uff1a\u9762\u677f\u4e0d\u53ef\u62c6\uff0c\u628a\u6574\u6761\u8170\u5e26\u7ffb\u8fc7\u6765\u62cd\u9762\u677f\u80cc\u9762\u7684\u94ed\u724c\uff1b\u53d8\u8eab\u9053\u5177\u80fd\u62c6\u5c31\u5355\u72ec\u62c6\u4e0b\u62cd\u3002'],
+      ['capture.banner.belt.panel.secondary', '\u518d\u8865\u5e26\u5b50\u6574\u4f53\u3001\u7535\u6c60\u4ed3\u3001\u53d8\u8eab\u97f3\uff0c\u5224\u65ad\u4f1a\u66f4\u51c6\u3002'],
       ['capture.checklist', '\u62cd\u7167\u6e05\u5355'],
       ['capture.blocked', '\u4ecd\u6709\u5fc5\u62cd\u9879\u672a\u5b8c\u6210\uff0c\u5148\u8865\u62cd\u518d\u8bc6\u522b\u3002'],
       ['capture.ready', '\u6e05\u5355\u5df2\u6ee1\u8db3\uff0c\u53ef\u4ee5\u8ba9\u52a9\u624b\u5f00\u59cb\u8bc6\u522b\u3002'],
@@ -231,6 +235,7 @@ window.__ModuleLoader__.load({
       ['result.manualPlaceholder', '\u4f8b\u5982 HGUC 191 RX-78-2 \u6216 CSM Decade Driver'],
       ['result.submit', '\u751f\u6210\u7ea0\u6b63\u6307\u4ee4'],
       ['result.clipboard', '\u5df2\u590d\u5236\u5230\u526a\u8d34\u677f\uff08\u627e\u4e0d\u5230\u8f93\u5165\u6846\uff0c\u624b\u52a8\u7c98\u8d34\u5373\u53ef\uff09\u3002'],
+      ['result.setupIssue', '\u914d\u7f6e\u95ee\u9898'],
       ['result.lastPick', '\u6700\u8fd1\u4e00\u6b21\u786e\u8ba4'],
       ['settings.title', '\u8170\u5e26 / \u9ad8\u8fbe\u8bc6\u522b'],
       ['settings.richMode', '\u5bcc\u54e5\u6a21\u5f0f'],
@@ -289,6 +294,10 @@ window.__ModuleLoader__.load({
       ['capture.banner.other.secondary', '\u770b\u4e0d\u6e05\u7684\u6b04\u4f4d\u7559\u7a7a\uff0c\u4e0d\u8981\u731c\uff1b\u624b\u52d5\u88dc\u578b\u865f\u6c38\u9060\u53ef\u7528\u3002'],
       ['capture.hasBox', '\u6709\u5305\u88dd\u76d2\u53ef\u62cd'],
       ['capture.noBox', '\u6c92\u6709\u5305\u88dd\u76d2'],
+      ['capture.separable', '\u5e36\u6263\u53ef\u5f9e\u5e36\u5b50\u4e0a\u62c6\u4e0b'],
+      ['capture.nonSeparable', '\u4e00\u9ad4\u5f0f\uff0c\u9762\u677f\u4e0d\u53ef\u62c6'],
+      ['capture.banner.belt.panel.primary', '\u4e00\u9ad4\u5f0f\u8170\u5e36\uff1a\u9762\u677f\u4e0d\u53ef\u62c6\uff0c\u8acb\u628a\u6574\u689d\u8170\u5e36\u7ffb\u904e\u4f86\u62cd\u9762\u677f\u80cc\u9762\u7684\u9298\u724c\uff1b\u8b8a\u8eab\u9053\u5177\u80fd\u62c6\u5c31\u55ae\u7368\u62c6\u4e0b\u62cd\u3002'],
+      ['capture.banner.belt.panel.secondary', '\u518d\u88dc\u5e36\u5b50\u6574\u9ad4\u3001\u96fb\u6c60\u5009\u3001\u8b8a\u8eab\u97f3\uff0c\u5224\u65b7\u6703\u66f4\u6e96\u3002'],
       ['capture.checklist', '\u62cd\u7167\u6e05\u55ae'],
       ['capture.blocked', '\u4ecd\u6709\u5fc5\u62cd\u9805\u672a\u5b8c\u6210\uff0c\u5148\u88dc\u62cd\u518d\u8b58\u5225\u3002'],
       ['capture.ready', '\u6e05\u55ae\u5df2\u6eff\u8db3\uff0c\u53ef\u4ee5\u8b93\u52a9\u624b\u958b\u59cb\u8b58\u5225\u3002'],
@@ -314,6 +323,7 @@ window.__ModuleLoader__.load({
       ['result.manualPlaceholder', '\u4f8b\u5982 HGUC 191 RX-78-2 \u6216 CSM Decade Driver'],
       ['result.submit', '\u7522\u751f\u7cfe\u6b63\u6307\u4ee4'],
       ['result.clipboard', '\u5df2\u8907\u88fd\u5230\u526a\u8cbc\u7c3f\uff08\u627e\u4e0d\u5230\u8f38\u5165\u6846\uff0c\u624b\u52d5\u8cbc\u4e0a\u5373\u53ef\uff09\u3002'],
+      ['result.setupIssue', '\u914d\u7f6e\u554f\u984c'],
       ['result.lastPick', '\u6700\u8fd1\u4e00\u6b21\u78ba\u8a8d'],
       ['settings.title', '\u8170\u5e36 / \u92fc\u5f48\u8b58\u5225'],
       ['settings.richMode', '\u5bcc\u54e5\u6a21\u5f0f'],
@@ -372,6 +382,10 @@ window.__ModuleLoader__.load({
       ['capture.banner.other.secondary', 'Leave fields you cannot read blank rather than guessing; manual entry always works.'],
       ['capture.hasBox', 'Box available'],
       ['capture.noBox', 'No box'],
+      ['capture.separable', 'Buckle detaches from the strap'],
+      ['capture.nonSeparable', 'One piece: the panel cannot be detached'],
+      ['capture.banner.belt.panel.primary', 'One-piece belt: the panel cannot be detached. Flip the whole belt over and shoot the nameplate on its rear face; detach the transformation device if it comes out.'],
+      ['capture.banner.belt.panel.secondary', 'Add the full strap, the battery bay, and a sound clip for a firmer judgment.'],
       ['capture.checklist', 'Photo checklist'],
       ['capture.blocked', 'Mandatory photos are still missing. Take them before identifying.'],
       ['capture.ready', 'Checklist satisfied - the assistant can identify now.'],
@@ -397,6 +411,7 @@ window.__ModuleLoader__.load({
       ['result.manualPlaceholder', 'e.g. HGUC 191 RX-78-2 or CSM Decade Driver'],
       ['result.submit', 'Prepare correction'],
       ['result.clipboard', 'Copied to the clipboard (no composer field found - paste it manually).'],
+      ['result.setupIssue', 'Configuration problem'],
       ['result.lastPick', 'Last confirmation'],
       ['settings.title', 'Belt / Gunpla ID'],
       ['settings.richMode', 'Collector mode'],
@@ -455,6 +470,10 @@ window.__ModuleLoader__.load({
       ['capture.banner.other.secondary', '\u8aad\u3081\u306a\u3044\u9805\u76ee\u306f\u7a7a\u6b04\u306e\u307e\u307e\u306b\u3002\u63a8\u6e2c\u3067\u57cb\u3081\u306a\u3044\u3067\u304f\u3060\u3055\u3044\u3002\u624b\u5165\u529b\u306f\u3044\u3064\u3067\u3082\u4f7f\u3048\u307e\u3059\u3002'],
       ['capture.hasBox', '\u7bb1\u304c\u3042\u308b'],
       ['capture.noBox', '\u7bb1\u304c\u306a\u3044'],
+      ['capture.separable', '\u30d0\u30c3\u30af\u30eb\u306f\u30d9\u30eb\u30c8\u304b\u3089\u5916\u305b\u308b'],
+      ['capture.nonSeparable', '\u4e00\u4f53\u578b\u3067\u30d1\u30cd\u30eb\u306f\u5916\u305b\u306a\u3044'],
+      ['capture.banner.belt.panel.primary', '\u4e00\u4f53\u578b\u30d9\u30eb\u30c8\uff1a\u30d1\u30cd\u30eb\u306f\u5916\u305b\u307e\u305b\u3093\u3002\u30d9\u30eb\u30c8\u3054\u3068\u88cf\u8fd4\u3057\u3001\u30d1\u30cd\u30eb\u88cf\u9762\u306e\u9298\u677f\u3092\u64ae\u5f71\u3057\u3066\u304f\u3060\u3055\u3044\u3002\u5909\u8eab\u30a2\u30a4\u30c6\u30e0\u304c\u5916\u308c\u308b\u306a\u3089\u5358\u4f53\u3067\u3082\u64ae\u5f71\u3092\u3002'],
+      ['capture.banner.belt.panel.secondary', '\u30d9\u30eb\u30c8\u5168\u4f53\u30fb\u96fb\u6c60\u5ba4\u30fb\u5909\u8eab\u97f3\u3082\u6dfb\u3048\u308b\u3068\u7cbe\u5ea6\u304c\u4e0a\u304c\u308a\u307e\u3059\u3002'],
       ['capture.checklist', '\u64ae\u5f71\u30c1\u30a7\u30c3\u30af\u30ea\u30b9\u30c8'],
       ['capture.blocked', '\u5fc5\u9808\u306e\u64ae\u5f71\u9805\u76ee\u304c\u6b8b\u3063\u3066\u3044\u307e\u3059\u3002\u5148\u306b\u64ae\u5f71\u3057\u3066\u304f\u3060\u3055\u3044\u3002'],
       ['capture.ready', '\u30c1\u30a7\u30c3\u30af\u30ea\u30b9\u30c8\u3092\u6e80\u305f\u3057\u307e\u3057\u305f\u3002\u8b58\u5225\u3092\u958b\u59cb\u3067\u304d\u307e\u3059\u3002'],
@@ -480,6 +499,7 @@ window.__ModuleLoader__.load({
       ['result.manualPlaceholder', '\u4f8b\uff1aHGUC 191 RX-78-2 / CSM \u30c7\u30a3\u30b1\u30a4\u30c9\u30e9\u30a4\u30d0\u30fc'],
       ['result.submit', '\u8a02\u6b63\u6307\u793a\u3092\u4f5c\u6210'],
       ['result.clipboard', '\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u306b\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f\uff08\u5165\u529b\u6b04\u304c\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3002\u624b\u52d5\u3067\u8cbc\u308a\u4ed8\u3051\u3066\u304f\u3060\u3055\u3044\uff09\u3002'],
+      ['result.setupIssue', '\u8a2d\u5b9a\u306e\u554f\u984c'],
       ['result.lastPick', '\u76f4\u8fd1\u306e\u78ba\u5b9a'],
       ['settings.title', '\u30d9\u30eb\u30c8 / \u30ac\u30f3\u30d7\u30e9\u8b58\u5225'],
       ['settings.richMode', '\u30b3\u30ec\u30af\u30bf\u30fc\u30e2\u30fc\u30c9'],
@@ -534,6 +554,7 @@ window.__ModuleLoader__.load({
         ['capture.alternative', '\ub300\uccb4'],
         ['capture.optional', '\uc120\ud0dd'],
         ['result.title', '\uc2dd\ubcc4 \uacb0\uacfc'],
+        ['result.setupIssue', '\uc124\uc815 \ubb38\uc81c'],
         ['result.confidence', '\uc2e0\ub8b0\ub3c4'],
         ['settings.title', '\ubca8\ud2b8 / \uac74\ud504\ub77c \uc2dd\ubcc4'],
         ['settings.richMode', '\uceec\ub809\ud130 \ubaa8\ub4dc'],
@@ -556,6 +577,7 @@ window.__ModuleLoader__.load({
         ['capture.alternative', 'Alternative'],
         ['capture.optional', 'Facultatif'],
         ['result.title', "R\u00e9sultat de l'identification"],
+        ['result.setupIssue', 'Probl\u00e8me de configuration'],
         ['result.confidence', 'Confiance'],
         ['settings.title', 'Ceinture / Gunpla'],
         ['settings.richMode', 'Mode collectionneur'],
@@ -578,6 +600,7 @@ window.__ModuleLoader__.load({
         ['capture.alternative', 'Alternativa'],
         ['capture.optional', 'Opcional'],
         ['result.title', 'Resultado de la identificaci\u00f3n'],
+        ['result.setupIssue', 'Problema de configuraci\u00f3n'],
         ['result.confidence', 'Confianza'],
         ['settings.title', 'Cintur\u00f3n / Gunpla'],
         ['settings.richMode', 'Modo coleccionista'],
@@ -600,6 +623,7 @@ window.__ModuleLoader__.load({
         ['capture.alternative', 'Alternativa'],
         ['capture.optional', 'Opcional'],
         ['result.title', 'Resultado da identifica\u00e7\u00e3o'],
+        ['result.setupIssue', 'Problema de configura\u00e7\u00e3o'],
         ['result.confidence', 'Confian\u00e7a'],
         ['settings.title', 'Cinto / Gunpla'],
         ['settings.richMode', 'Modo colecionador'],
@@ -622,6 +646,7 @@ window.__ModuleLoader__.load({
         ['capture.alternative', '\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u0430'],
         ['capture.optional', '\u041d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e'],
         ['result.title', '\u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442 \u0440\u0430\u0441\u043f\u043e\u0437\u043d\u0430\u0432\u0430\u043d\u0438\u044f'],
+        ['result.setupIssue', '\u041f\u0440\u043e\u0431\u043b\u0435\u043c\u0430 \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438'],
         ['result.confidence', '\u0414\u043e\u0441\u0442\u043e\u0432\u0435\u0440\u043d\u043e\u0441\u0442\u044c'],
         ['settings.title', '\u0420\u0435\u043c\u0435\u043d\u044c / Gunpla'],
         ['settings.richMode', '\u0420\u0435\u0436\u0438\u043c \u043a\u043e\u043b\u043b\u0435\u043a\u0446\u0438\u043e\u043d\u0435\u0440\u0430'],
@@ -644,6 +669,7 @@ window.__ModuleLoader__.load({
         ['capture.alternative', '\u66ff\u4ee3'],
         ['capture.optional', '\u96a8\u610f'],
         ['result.title', '\u8b58\u5225\u7d50\u679c'],
+        ['result.setupIssue', '\u914d\u7f6e\u554f\u984c'],
         ['result.confidence', '\u4fe1\u5514\u4fe1\u5f97\u904e'],
         ['settings.title', '\u8170\u5e36 / \u9ad8\u9054\u8b58\u5225'],
         ['settings.language', '\u4ecb\u9762\u8a9e\u8a00'],
@@ -665,6 +691,7 @@ window.__ModuleLoader__.load({
         ['capture.alternative', 'Thay th\u1ebf'],
         ['capture.optional', 'T\u00f9y ch\u1ecdn'],
         ['result.title', 'K\u1ebft qu\u1ea3 nh\u1eadn di\u1ec7n'],
+        ['result.setupIssue', 'V\u1ea5n \u0111\u1ec1 c\u1ea5u h\u00ecnh'],
         ['result.confidence', '\u0110\u1ed9 tin c\u1eady'],
         ['settings.title', '\u0110ai / Gunpla'],
         ['settings.richMode', 'Ch\u1ebf \u0111\u1ed9 nh\u00e0 s\u01b0u t\u1ea7m'],
@@ -687,6 +714,7 @@ window.__ModuleLoader__.load({
         ['capture.alternative', 'Alternative'],
         ['capture.optional', 'Optional'],
         ['result.title', 'Identifikationsergebnis'],
+        ['result.setupIssue', 'Konfigurationsproblem'],
         ['result.confidence', 'Konfidenz'],
         ['settings.title', 'G\u00fcrtel / Gunpla'],
         ['settings.richMode', 'Sammler-Modus'],
@@ -709,6 +737,7 @@ window.__ModuleLoader__.load({
         ['capture.alternative', 'Alternativa'],
         ['capture.optional', 'Facoltativo'],
         ['result.title', "Risultato dell'identificazione"],
+        ['result.setupIssue', 'Problema di configurazione'],
         ['result.confidence', 'Affidabilit\u00e0'],
         ['settings.title', 'Cintura / Gunpla'],
         ['settings.richMode', 'Modalit\u00e0 collezionista'],
@@ -731,6 +760,7 @@ window.__ModuleLoader__.load({
         ['capture.alternative', 'Alternatief'],
         ['capture.optional', 'Optioneel'],
         ['result.title', 'Identificatieresultaat'],
+        ['result.setupIssue', 'Configuratieprobleem'],
         ['result.confidence', 'Betrouwbaarheid'],
         ['settings.title', 'Riem / Gunpla'],
         ['settings.richMode', 'Verzamelaarsmodus'],
@@ -753,6 +783,7 @@ window.__ModuleLoader__.load({
         ['capture.alternative', 'Alternatywa'],
         ['capture.optional', 'Opcjonalne'],
         ['result.title', 'Wynik rozpoznania'],
+        ['result.setupIssue', 'Problem z konfiguracj\u0105'],
         ['result.confidence', 'Pewno\u015b\u0107'],
         ['settings.title', 'Pasek / Gunpla'],
         ['settings.richMode', 'Tryb kolekcjonera'],
@@ -864,6 +895,7 @@ window.__ModuleLoader__.load({
       { id: 'purchase-record', level: 'alternative', kinds: ['gunpla', 'figure', 'belt', 'device', 'accessory', 'unknown'], title: { 'zh-Hans': '\u8d2d\u4e70\u8bb0\u5f55', 'zh-Hant': '\u8cfc\u8cb7\u8a18\u9304', en: 'Purchase record', ja: '\u8cfc\u5165\u8a18\u9332' }, hint: { 'zh-Hans': '\u8ba2\u5355\u9875\u6216\u6536\u636e\uff0c\u9700\u542b\u5546\u54c1\u5168\u540d\u4e0e\u5e97\u94fa\u3002', 'zh-Hant': '\u8a02\u55ae\u9801\u6216\u6536\u64da\uff0c\u9700\u542b\u5546\u54c1\u5168\u540d\u8207\u5e97\u5bb6\u3002', en: 'Order page or receipt with the full product name and shop.', ja: '\u5546\u54c1\u540d\u3068\u5e97\u8217\u304c\u5206\u304b\u308b\u6ce8\u6587\u753b\u9762\u30fb\u9818\u53ce\u66f8\u3002' } },
       { id: 'manual-model', level: 'alternative', kinds: ['gunpla', 'figure', 'belt', 'device', 'accessory', 'unknown'], title: { 'zh-Hans': '\u624b\u52a8\u8865\u578b\u53f7', 'zh-Hant': '\u624b\u52d5\u88dc\u578b\u865f', en: 'Enter the model number', ja: '\u578b\u756a\u3092\u624b\u5165\u529b' }, hint: { 'zh-Hans': '\u76f4\u63a5\u8f93\u5165\u5b8c\u6574\u578b\u53f7\u3002', 'zh-Hant': '\u76f4\u63a5\u8f38\u5165\u5b8c\u6574\u578b\u865f\u3002', en: 'Type the full model number directly.', ja: '\u578b\u756a\u3092\u305d\u306e\u307e\u307e\u5165\u529b\u3057\u307e\u3059\u3002' } },
       { id: 'buckle-detached', level: 'required', kinds: ['belt'], title: { 'zh-Hans': '\u5e26\u6263\u5355\u72ec\u62c6\u4e0b\u62cd\u6444', 'zh-Hant': '\u5e36\u6263\u55ae\u7368\u62c6\u4e0b\u62cd\u651d', en: 'Buckle detached and photographed alone', ja: '\u30d0\u30c3\u30af\u30eb\u3092\u5916\u3057\u3066\u5358\u4f53\u64ae\u5f71' }, hint: { 'zh-Hans': '\u6b63\u9762\u3001\u80cc\u9762\u5404\u4e00\u5f20\uff0c\u80cc\u9762\u8981\u6709\u94ed\u724c\u3002', 'zh-Hant': '\u6b63\u9762\u3001\u80cc\u9762\u5404\u4e00\u5f35\uff0c\u80cc\u9762\u8981\u6709\u9298\u724c\u3002', en: 'One front and one back; the back must show the nameplate.', ja: '\u8868\u3068\u88cf\u3092\u54041\u679a\u3002\u88cf\u9762\u306e\u9298\u677f\u304c\u5199\u308b\u3053\u3068\u3002' } },
+      { id: 'panel-rear', level: 'required', kinds: ['belt'], title: { 'zh-Hans': '\u9762\u677f\u80cc\u9762\u94ed\u724c\u7ffb\u62cd', 'zh-Hant': '\u9762\u677f\u80cc\u9762\u9298\u724c\u7ffb\u62cd', en: 'Panel rear nameplate', ja: '\u30d1\u30cd\u30eb\u88cf\u9762\u306e\u9298\u677f' }, hint: { 'zh-Hans': '\u6574\u6761\u8170\u5e26\u7ffb\u8fc7\u6765\uff0c\u62cd\u9762\u677f\u80cc\u9762\uff1a\u94ed\u724c\u3001\u00a9 \u5e74\u4efd\u3001BANDAI \u4e0e\u4ea7\u5730\u3002', 'zh-Hant': '\u6574\u689d\u8170\u5e36\u7ffb\u904e\u4f86\uff0c\u62cd\u9762\u677f\u80cc\u9762\uff1a\u9298\u724c\u3001\u00a9 \u5e74\u4efd\u3001BANDAI \u8207\u7522\u5730\u3002', en: 'Flip the whole belt over and shoot the rear face of the panel: nameplate, \u00a9 year, BANDAI, origin.', ja: '\u30d9\u30eb\u30c8\u3054\u3068\u88cf\u8fd4\u3057\u3001\u30d1\u30cd\u30eb\u88cf\u9762\u306e\u9298\u677f\u30fb\u00a9\u5e74\u30fbBANDAI\u30fb\u539f\u7523\u56fd\u3092\u64ae\u5f71\u3002' } },
       { id: 'device-detached', level: 'required', kinds: ['belt'], title: { 'zh-Hans': '\u53d8\u8eab\u9053\u5177\u5355\u72ec\u62c6\u4e0b\u62cd\u6444', 'zh-Hant': '\u8b8a\u8eab\u9053\u5177\u55ae\u7368\u62c6\u4e0b\u62cd\u651d', en: 'Transformation device detached and photographed alone', ja: '\u5909\u8eab\u30a2\u30a4\u30c6\u30e0\u3092\u5916\u3057\u3066\u5358\u4f53\u64ae\u5f71' }, hint: { 'zh-Hans': '\u628a\u9053\u5177\u4ece\u5e26\u6263\u53d6\u51fa\u5206\u5f00\u62cd\u3002', 'zh-Hant': '\u628a\u9053\u5177\u5f9e\u5e36\u6263\u53d6\u51fa\u5206\u958b\u62cd\u3002', en: 'Take the device out of the buckle and photograph it separately.', ja: '\u30d9\u30eb\u30c8\u304b\u3089\u53d6\u308a\u51fa\u3057\u3066\u5225\u3005\u306b\u64ae\u5f71\u3002' } },
       { id: 'strap-overall', level: 'optional', kinds: ['belt'], title: { 'zh-Hans': '\u5e26\u5b50\u6574\u4f53', 'zh-Hant': '\u5e36\u5b50\u6574\u9ad4', en: 'Full strap', ja: '\u30d9\u30eb\u30c8\u5168\u4f53' }, hint: { 'zh-Hans': '\u5e26\u5b50\u644a\u5e73\uff0c\u5305\u542b\u6263\u5177\u4e0e\u5185\u886c\u3002', 'zh-Hant': '\u5e36\u5b50\u6524\u5e73\uff0c\u5305\u542b\u6263\u5177\u8207\u5167\u8961\u3002', en: 'Strap laid flat, showing hardware and lining.', ja: '\u91d1\u5177\u3068\u88cf\u5730\u304c\u898b\u3048\u308b\u3088\u3046\u5e73\u3089\u306b\u3002' } },
       { id: 'audio-evidence', level: 'optional', kinds: ['belt', 'device'], title: { 'zh-Hans': '\u97f3\u6548\u8bc1\u636e', 'zh-Hant': '\u97f3\u6548\u8b49\u64da', en: 'Audio evidence', ja: '\u97f3\u58f0\u306e\u6839\u62e0' }, hint: { 'zh-Hans': '\u6709\u6ca1\u6709\u53f0\u8bcd\u3001\u6709\u6ca1\u6709 BGM\u3002', 'zh-Hant': '\u6709\u6c92\u6709\u53f0\u8a5e\u3001\u6709\u6c92\u6709 BGM\u3002', en: 'Whether there are voice lines and BGM.', ja: '\u30bb\u30ea\u30d5\u3084 BGM \u306e\u6709\u7121\u3002' } },
@@ -873,6 +905,10 @@ window.__ModuleLoader__.load({
     /** Standing banner keys per capture category. */
     const BANNERS = {
       belt: ['capture.banner.belt.primary', 'capture.banner.belt.secondary'],
+      // The standing belt rule has to follow the hardware. A one-piece belt whose
+      // panel is moulded into the strap cannot satisfy "detach the buckle", so the
+      // banner that keeps quoting that rule would be the wrong instruction.
+      beltPanel: ['capture.banner.belt.panel.primary', 'capture.banner.belt.panel.secondary'],
       gunpla: ['capture.banner.gunpla.primary', 'capture.banner.gunpla.secondary'],
       other: ['capture.banner.other.primary', 'capture.banner.other.secondary'],
     }
@@ -933,6 +969,7 @@ window.__ModuleLoader__.load({
       allowBaidu: false,
       kind: 'belt',
       hasBox: true,
+      buckleDetachable: true,
       provided: [],
     }
 
@@ -1188,8 +1225,16 @@ window.__ModuleLoader__.load({
       const settings = React.useSyncExternalStore(store.subscribe, store.getSnapshot, store.getSnapshot)
       const language = useActiveLocale(locale)
       const kindKey = settings.kind === 'gunpla' || settings.kind === 'figure' ? 'gunpla' : settings.kind === 'belt' ? 'belt' : 'other'
-      const banner = BANNERS[kindKey]
-      const requirements = REQUIREMENTS.filter((item) => item.kinds.includes(settings.kind) && (settings.hasBox || (item.id !== 'box-front' && item.id !== 'box-side')))
+      // Separability is the belt equivalent of "do you have the box". When the panel
+      // is one piece with the strap there is no buckle to detach, so the detach
+      // requirement is swapped for the panel-rear nameplate shot, which is the same
+      // core evidence and is reachable by flipping the belt over, rather than left
+      // missing forever. Unknown separability keeps the default rule.
+      const separable = settings.buckleDetachable !== false
+      const banner = kindKey === 'belt' && !separable ? BANNERS.beltPanel : BANNERS[kindKey]
+      const requirements = REQUIREMENTS.filter((item) => item.kinds.includes(settings.kind)
+        && (settings.hasBox || (item.id !== 'box-front' && item.id !== 'box-side'))
+        && (item.id === 'buckle-detached' ? separable : item.id === 'panel-rear' ? !separable : true))
       const satisfied = new Set(settings.provided)
       const requiredMissing = requirements.filter((item) => item.level === 'required' && !satisfied.has(item.id))
       const alternativesMissing = requirements.filter((item) => item.level === 'alternative' && !satisfied.has(item.id))
@@ -1235,6 +1280,22 @@ window.__ModuleLoader__.load({
                 jsx('span', { className: 'TKG_hint', children: settings.hasBox ? t('capture.hasBox') : t('capture.noBox') }),
               ],
             }),
+            // Only a belt has a buckle to detach, so this control exists only on the
+            // belt tab and states which hardware the checklist is built for.
+            kindKey === 'belt'
+              ? jsx('label', {
+                className: 'TKG_switch',
+                children: [
+                  jsx('input', {
+                    type: 'checkbox',
+                    'data-tkg': 'buckle-separable',
+                    checked: separable,
+                    onChange: (event) => store.set({ buckleDetachable: event.target.checked, provided: [] }),
+                  }),
+                  jsx('span', { className: 'TKG_hint', children: separable ? t('capture.separable') : t('capture.nonSeparable') }),
+                ],
+              })
+              : null,
             jsxs('div', {
               className: 'TKG_checks',
               children: [
@@ -1378,6 +1439,20 @@ window.__ModuleLoader__.load({
                 }),
               ],
             }),
+
+            // A misconfigured endpoint is a setup problem, not an identification
+            // result. Shown first, and worded as the label plus the specific note, so
+            // the reader does not mistake "enter the model number" for the answer.
+            typeof result.setupIssue === 'string' && result.setupIssue !== ''
+              ? jsxs('div', {
+                className: 'TKG_banner TKG_error',
+                'data-tkg': 'setup-issue',
+                children: [
+                  t('result.setupIssue'),
+                  jsx('div', { className: 'TKG_bannerSub', children: result.setupIssue.replace(/^\[[^\]]*\]\s*/u, '') }),
+                ],
+              })
+              : null,
 
             result.bootleg?.suspected === true
               ? jsxs('div', {

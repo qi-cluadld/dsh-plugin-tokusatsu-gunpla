@@ -239,9 +239,20 @@ export async function identify(config, request) {
   if (images.length > 0) {
     vision = await recognize(config, { images, kind, hint, signal })
     if (vision.status === 'unavailable') {
-      notes.push(`本地视觉模型不可用（${vision.reason}），已切换到拍照清单 + 手动补型号路径，本步骤零 token。`)
+      if (vision.reason === 'model-required') {
+        // A configuration mistake, not a missing local model. Saying "local vision
+        // model unavailable" here sent the user looking for an Ollama install they
+        // never had, while the real fix was one config line. The marker lets the
+        // result panel surface this above the manual-entry box instead of beside it.
+        const advertised = Array.isArray(vision.models) && vision.models.length > 0
+          ? `该端点提供：${vision.models.slice(0, 5).join(' / ')}。`
+          : ''
+        notes.push(`[配置问题] 已配置远端识别端点（${vision.tried?.[0] ?? ''}）但没有指定模型名，本次未发图。请在配置里填 visionModel（例如智谱的 glm-5.3-flash）。${advertised}`)
+      } else {
+        notes.push(`视觉识别不可用（${vision.reason}），已切换到拍照清单 + 手动补型号路径，本步骤零 token。`)
+      }
     } else if (vision.status === 'failed') {
-      notes.push(`本地视觉模型调用失败：${vision.error}。请补拍或手动补型号。`)
+      notes.push(`视觉模型调用失败：${vision.error}。请补拍，或检查端点与 API Key。`)
     }
   } else {
     notes.push('本次未提供图片，按手动证据处理。')

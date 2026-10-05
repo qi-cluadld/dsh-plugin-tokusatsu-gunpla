@@ -117,6 +117,35 @@ const unrelated = projection.apply(folded, { type: 'turn/start', data: {} })
 check('ignores unrelated events by reference', unrelated === folded)
 check('wire view round-trips', projection.wire.view(folded) === folded)
 
+console.log('\n5. Every tool executes against the real Config')
+{
+  // Registration being green says nothing about execution. The flat/nested vision
+  // configuration mismatch crashed gear_identify and gear_knowledge at CALL time
+  // — in production, on the first photo — while every check above still passed,
+  // because nothing here had ever invoked a tool. Calling each one once with the
+  // same Config-derived config the loader passes is the cheap pin for that class
+  // of bug.
+  const calls = {
+    gear_checklist: { kind: 'belt', hasBox: true },
+    gear_decide_edition: {},
+    gear_identify: { images: [], kind: 'belt' },
+    gear_knowledge: { mode: 'stats' },
+  }
+  for (const tool of tools) {
+    let error
+    let value
+    try {
+      value = await tool.execute(calls[tool.name] ?? {}, {})
+    } catch (thrown) {
+      error = thrown instanceof Error ? thrown.message : String(thrown)
+    }
+    check(`${tool.name}: executes without throwing`, error === undefined, error)
+    check(`${tool.name}: returns a value`, value !== undefined && value !== null, typeof value)
+  }
+  const stats = await tools.find((tool) => tool.name === 'gear_knowledge').execute({ mode: 'stats' }, {})
+  check('stats reports the vision setting from the flat config', stats.vision.enabled === true, stats.vision)
+}
+
 console.log(`\n${checks - failures.length}/${checks} checks passed`)
 
 if (failures.length > 0) {

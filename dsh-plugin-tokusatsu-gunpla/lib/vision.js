@@ -1,12 +1,20 @@
 /**
- * Local vision endpoint client.
+ * OpenAI-compatible vision endpoint client.
  *
- * Recognition is deliberately a LOCAL capability. The plugin talks to whatever
- * OpenAI-compatible vision endpoint already runs on this machine (Ollama, LM
- * Studio, llama.cpp server, LocalAI, ...). When no endpoint answers, the
- * plugin does not silently escalate to a cloud model: it returns an
- * `unavailable` outcome so the caller can fall back to the photo checklist plus
- * manual model entry, which costs nothing.
+ * Two deployment shapes are supported, and they differ in what an empty model name
+ * means:
+ *
+ *   - a LOCAL endpoint on loopback (Ollama, LM Studio, llama.cpp server, LocalAI)
+ *     advertises a short list of already-downloaded models, so picking the first one
+ *     is a reasonable convenience;
+ *   - a REMOTE endpoint (Zhipu, for example) is a paid third-party service, and its
+ *     `/models` list is the provider's whole catalogue. Auto-picking from it would
+ *     send the user's photos to a model they never chose, so a remote endpoint
+ *     requires the model to be named explicitly.
+ *
+ * When no endpoint answers, the plugin does not silently escalate anywhere: it
+ * returns an `unavailable` outcome so the caller can fall back to the photo
+ * checklist plus manual model entry, which costs nothing.
  * @module @dsh-plugin/tokusatsu-gunpla/vision
  */
 
@@ -21,7 +29,7 @@ export const DEFAULT_ENDPOINTS = [
   'http://127.0.0.1:8080/v1',
 ]
 
-/** MIME types accepted for local inference. */
+/** MIME types accepted for inference. */
 const MIME_BY_EXTENSION = {
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
@@ -97,8 +105,26 @@ export async function encodeImage(path) {
 }
 
 /**
- * @param {string} [baseUrl] - configured endpoint, or undefined to auto-probe.
- * @returns {Promise<{ baseUrl: string, models: string[] } | undefined>} the first reachable endpoint.
+ * Is this endpoint on this machine?
+ *
+ * Loopback hosts are trusted to be the user's own server; anything else is treated
+ * as a third-party service, which changes whether a model may be picked for them.
+ * @param {string} baseUrl - endpoint base URL.
+ * @returns {boolean} true when the host is loopback.
+ */
+export function isLoopbackEndpoint(baseUrl) {
+  try {
+    const { hostname } = new URL(baseUrl)
+    return hostname === 'localhost' || hostname === '::1' || hostname === '[::1]' || /^127\./u.test(hostname)
+  } catch {
+    // An unparseable address cannot be proven local, so treat it as remote.
+    return false
+  }
+}
+
+/**
+ * @param {string} baseUrl - configured endpoint, or undefined to auto-probe.
+ * @returns {Promise<{ baseUrl: string, models: string[], local: boolean } | undefined>} the first reachable endpoint.
  */
 export async function detectEndpoint(baseUrl) {
   // Both call sites pass a string or undefined. A wrong type used to fail as
@@ -117,12 +143,42 @@ export async function detectEndpoint(baseUrl) {
       if (!response.ok) continue
       const body = await response.json()
       const models = Array.isArray(body?.data) ? body.data.map((item) => item?.id).filter((id) => typeof id === 'string') : []
-      return { baseUrl: root, models }
+      return { baseUrl: root, models, local: isLoopbackEndpoint(root) }
     } catch {
       continue
     }
   }
   return undefined
+}
+
+/**
+ * Read the plugin's vision settings out of the flat configuration.
+ *
+ * The plugin's `Config` schema declares these as FLAT keys (`visionEnabled`,
+ * `visionBaseUrl`, `visionModel`, ...), which is also what the settings page tells
+ * the assistant to write and what every README documents. Reading a nested
+ * `config.vision` object here made every consumer of a vision setting throw
+ * `Cannot read properties of undefined (reading 'enabled')` — including the
+ * `stats` branch of `gear_knowledge`, which never touches recognition at all.
+ * Routing all seven keys through this one function is what keeps that mapping
+ * defined exactly once.
+ * @param {object} [config] - resolved plugin configuration.
+ * @returns {{ enabled: boolean, baseUrl: string | undefined, model: string, apiKey: string, timeoutMs: number, maxImages: number, maxTokens: number }} vision settings, with the schema defaults applied so a partially-populated config (a test fixture, say) still behaves.
+ */
+export function visionSettings(config) {
+  const source = config ?? {}
+  const text = (value) => (typeof value === 'string' ? value : '')
+  const positive = (value, fallback) => (typeof value === 'number' && Number.isFinite(value) && value > 0 ? value : fallback)
+  const baseUrl = text(source.visionBaseUrl)
+  return {
+    enabled: source.visionEnabled !== false,
+    baseUrl: baseUrl === '' ? undefined : baseUrl,
+    model: text(source.visionModel),
+    apiKey: text(source.visionApiKey),
+    timeoutMs: positive(source.visionTimeoutMs, 120000),
+    maxImages: positive(source.visionMaxImages, 6),
+    maxTokens: positive(source.visionMaxTokens, 900),
+  }
 }
 
 /**
@@ -141,26 +197,41 @@ export async function detectEndpoint(baseUrl) {
  */
 export async function recognize(config, request) {
   const { images = [], kind = 'unknown', hint = '', signal } = request
+  const vision = visionSettings(config)
   if (images.length === 0) return { status: 'unavailable', reason: 'no-images', tried: [] }
-  if (!config.vision.enabled) return { status: 'unavailable', reason: 'disabled', tried: [] }
+  if (!vision.enabled) return { status: 'unavailable', reason: 'disabled', tried: [] }
 
-  const endpoint = await detectEndpoint(config.vision.baseUrl)
+  const endpoint = await detectEndpoint(vision.baseUrl)
   if (endpoint === undefined) {
     return {
       status: 'unavailable',
       reason: 'no-endpoint',
-      tried: config.vision.baseUrl ? [config.vision.baseUrl] : DEFAULT_ENDPOINTS,
+      tried: vision.baseUrl ? [vision.baseUrl] : DEFAULT_ENDPOINTS,
     }
   }
 
   let encoded
   try {
-    encoded = await Promise.all(images.slice(0, config.vision.maxImages).map((path) => encodeImage(path)))
+    encoded = await Promise.all(images.slice(0, vision.maxImages).map((path) => encodeImage(path)))
   } catch (error) {
     return { status: 'failed', error: error instanceof Error ? error.message : String(error) }
   }
 
-  const model = config.vision.model || endpoint.models[0]
+  // A remote endpoint must be told which model to use. Falling back to
+  // `endpoint.models[0]` here sent photos to whichever model the provider happened
+  // to list first, and when the provider advertises nothing the call failed as a
+  // vague `no-model` that looked like a broken local setup.
+  const requested = vision.model.trim()
+  if (requested === '' && endpoint.local === false) {
+    return {
+      status: 'unavailable',
+      reason: 'model-required',
+      tried: [endpoint.baseUrl],
+      models: endpoint.models,
+    }
+  }
+
+  const model = requested !== '' ? requested : endpoint.models[0]
   if (typeof model !== 'string' || model === '') {
     return { status: 'unavailable', reason: 'no-model', tried: [endpoint.baseUrl], models: endpoint.models }
   }
@@ -175,15 +246,15 @@ export async function recognize(config, request) {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        ...(config.vision.apiKey ? { authorization: `Bearer ${config.vision.apiKey}` } : {}),
+        ...(vision.apiKey ? { authorization: `Bearer ${vision.apiKey}` } : {}),
       },
       body: JSON.stringify({
         model,
         temperature: 0,
-        max_tokens: config.vision.maxTokens,
+        max_tokens: vision.maxTokens,
         messages: [{ role: 'user', content }],
       }),
-      signal: signal ?? AbortSignal.timeout(config.vision.timeoutMs),
+      signal: signal ?? AbortSignal.timeout(vision.timeoutMs),
     })
     if (!response.ok) {
       const detail = await response.text().catch(() => '')

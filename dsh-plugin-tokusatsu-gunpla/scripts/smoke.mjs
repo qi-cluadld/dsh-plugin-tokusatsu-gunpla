@@ -65,6 +65,29 @@ console.log('1. Photo requirements')
   check('belt unblocks once both detached shots exist', !evaluateChecklist(belt.requirements, ['buckle-detached', 'device-detached']).blocked)
   check('rich mode adds the provenance requirement', planChecklist({ kind: 'gunpla', hasBox: true, richMode: true }).requirements.some((item) => item.id === 'provenance-doc'))
   check('capture banner states the belt rule', captureBanner('belt').primary.includes('单独拆下'))
+
+  // A one-piece belt: the centre panel is moulded into the strap, so there is no
+  // buckle to detach. Demanding one kept the belt blocked forever (confidence was
+  // capped at 0.74 no matter what was shot), so the requirement must SWAP for the
+  // panel-rear nameplate shot rather than merely be relaxed.
+  const onePiece = planChecklist({ kind: 'belt', hasBox: true, buckleSeparable: false })
+  check('a one-piece belt drops the detach requirement', !onePiece.requirements.some((item) => item.id === 'buckle-detached'))
+  check('a one-piece belt requires the panel rear instead', onePiece.requirements.some((item) => item.id === 'panel-rear' && item.level === 'required'))
+  check('the detach requirement is still required for a separable belt', planChecklist({ kind: 'belt', buckleSeparable: true }).requirements.some((item) => item.id === 'buckle-detached' && item.level === 'required'))
+  check('unknown separability keeps the default rule', planChecklist({ kind: 'belt' }).requirements.some((item) => item.id === 'buckle-detached'))
+  check('and never offers the panel-rear shot', !planChecklist({ kind: 'belt' }).requirements.some((item) => item.id === 'panel-rear'))
+  check('the plan reports the separability it used', onePiece.buckleSeparable === false && planChecklist({ kind: 'belt' }).buckleSeparable === null)
+  check('a one-piece belt with the panel-rear shot is not blocked', !evaluateChecklist(onePiece.requirements, ['panel-rear', 'device-detached']).blocked)
+  const onePieceConfidence = judgeConfidence({
+    evaluation: evaluateChecklist(onePiece.requirements, ['panel-rear', 'device-detached', 'strap-overall']),
+    bestScore: 0.9,
+    bootlegSuspected: false,
+    visionUsed: false,
+    userConfirmed: true,
+  })
+  check('its confidence can now reach the high band', onePieceConfidence.level === 'high', onePieceConfidence)
+  check('the standing banner stops demanding a detach it cannot have', captureBanner('belt', { buckleSeparable: false }).primary.includes('翻过来'))
+  check('the separable banner is unchanged', captureBanner('belt', { buckleSeparable: true }).primary.includes('单独拆下'))
 }
 
 console.log('2. DX / CSM decision chain')
@@ -160,13 +183,32 @@ console.log('5. Source tiers, Bilibili rules, and filtering')
 
 console.log('6. End-to-end identification with manual evidence')
 {
+  // Flat vision keys, exactly as the plugin's Config schema declares them and as
+  // the settings page writes them. A nested `vision: {...}` fixture here would
+  // test a shape no deployment ever produces, which is how the flat/nested
+  // mismatch in vision.js survived a green suite.
   const config = {
     richMode: false,
-    vision: { enabled: false, baseUrl: '', model: '', apiKey: '', timeoutMs: 1000, maxImages: 2, maxTokens: 100 },
+    visionEnabled: false,
+    visionBaseUrl: '',
+    visionModel: '',
+    visionApiKey: '',
+    visionTimeoutMs: 1000,
+    visionMaxImages: 2,
+    visionMaxTokens: 100,
     cacheTtlMs: 60000,
     searchLanguage: 'zh',
     allowBaidu: false,
   }
+  const { recognize, visionSettings } = await import('../lib/vision.js')
+  const settings = visionSettings(config)
+  check('flat vision keys are read off the config', settings.enabled === false && settings.maxImages === 2 && settings.baseUrl === undefined, settings)
+  check('undefined config still yields usable defaults', visionSettings().enabled === true && visionSettings().maxImages === 6, visionSettings())
+  // The recognition path is what crashed in production: with images present and
+  // the endpoint off it must return a fallback outcome, not throw.
+  const disabled = await recognize(config, { images: ['nonexistent.jpg'], kind: 'belt' })
+  check('a disabled endpoint reports unavailable instead of throwing', disabled.status === 'unavailable' && disabled.reason === 'disabled', disabled)
+
   const result = await identify(config, {
     images: [],
     kind: 'gunpla',
@@ -218,6 +260,23 @@ console.log('6. End-to-end identification with manual evidence')
 
 console.log('7. Language catalogue')
 {
+  // The result panel has to tell a configuration mistake apart from an
+  // identification that simply lacked evidence. Otherwise the panel answers
+  // "enter the model number" when the real fix is one config line, which is exactly
+  // what happened when a remote endpoint was configured without a model name.
+  const { forPanel } = await import('../lib/tools.js')
+  const flagged = forPanel({
+    status: 'needs-manual',
+    notes: ['[配置问题] 已配置远端识别端点但没有指定模型名'],
+    confidence: { level: 'low', score: 0 },
+  })
+  check('a configuration note is surfaced as setupIssue', typeof flagged.setupIssue === 'string' && flagged.setupIssue.includes('配置问题'), flagged.setupIssue)
+  check('the note still reaches the panel', flagged.notes.length === 1)
+
+  const ordinary = forPanel({ status: 'ok', notes: ['本次未提供图片'], confidence: { level: 'low', score: 0 } })
+  check('an ordinary note is not reported as a setup issue', ordinary.setupIssue === null, ordinary.setupIssue)
+}
+{
   const { LANGUAGES, FALLBACK_LANGUAGE, pickLocalized, DISCLAIMER, COMPLIANCE } = await import('../lib/i18n.js')
   check('15 languages are declared', LANGUAGES.length === 15, LANGUAGES.length)
   check('the four fully-translated languages are present', ['zh-Hans', 'zh-Hant', 'en', 'ja'].every((id) => LANGUAGES.some((item) => item.id === id)))
@@ -244,12 +303,19 @@ console.log('9. Vision endpoint degradation')
   // the product fallback is the checklist plus manual model entry. So endpoint
   // detection must return undefined rather than throwing, whichever way it is
   // called.
-  const { detectEndpoint, DEFAULT_ENDPOINTS } = await import('../lib/vision.js')
+  const { detectEndpoint, DEFAULT_ENDPOINTS, isLoopbackEndpoint } = await import('../lib/vision.js')
 
   check('three default endpoints are probed', DEFAULT_ENDPOINTS.length === 3)
   check('no argument degrades to undefined', (await detectEndpoint()) === undefined)
   check('an empty string degrades to undefined', (await detectEndpoint('')) === undefined)
   check('an unreachable URL degrades to undefined', (await detectEndpoint('http://127.0.0.1:59999/v1')) === undefined)
+
+  // Which endpoints count as the user's own machine decides whether a model may be
+  // chosen for them. A remote endpoint is a paid third party.
+  check('loopback addresses are local', ['http://127.0.0.1:11434/v1', 'http://localhost:1234/v1', 'http://127.1.2.3:8080/v1'].every((url) => isLoopbackEndpoint(url)))
+  check('a remote address is not local', !isLoopbackEndpoint('https://open.bigmodel.cn/api/paas/v4'))
+  check('a LAN address is not local', !isLoopbackEndpoint('http://192.168.1.9:8080/v1'))
+  check('an unparseable address is treated as remote', !isLoopbackEndpoint('not a url'))
 
   // A wrong argument type must say which value was wrong. It used to surface as
   // "candidate.replace is not a function", which names neither the caller nor the
