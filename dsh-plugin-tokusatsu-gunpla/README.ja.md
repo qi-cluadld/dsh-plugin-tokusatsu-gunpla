@@ -84,7 +84,7 @@ UI 翻訳：韓国語、フランス語、スペイン語、ポルトガル語�
 ### 方法1：リポジトリのリンクをそのまま DSH に送る（推奨）
 
 ```
-このプラグインをインストールしてください：https://github.com/qi-cluadld/-/tree/main/dsh-plugin-tokusatsu-gunpla
+このプラグインをインストールしてください：https://github.com/qi-cluadld/dsh-plugin-tokusatsu-gunpla/tree/main/dsh-plugin-tokusatsu-gunpla
 ```
 
 DSH は `plugin_manager` の `install_bundle` で profile に導入します。これが**唯一サポートされる**インストール方法です。
@@ -92,8 +92,8 @@ DSH は `plugin_manager` の `install_bundle` で profile に導入します。�
 ### 方法2：clone してからローカルディレクトリを指定して導入する
 
 ```bash
-git clone https://github.com/qi-cluadld/-
-cd -/dsh-plugin-tokusatsu-gunpla
+git clone https://github.com/qi-cluadld/dsh-plugin-tokusatsu-gunpla
+cd dsh-plugin-tokusatsu-gunpla/dsh-plugin-tokusatsu-gunpla
 ```
 
 そのうえで、**このディレクトリの絶対パス**を `plugin_manager` に渡します：

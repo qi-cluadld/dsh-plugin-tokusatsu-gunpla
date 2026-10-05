@@ -84,7 +84,7 @@ Every language falls back to English, and a missing key never exposes the raw ke
 ### Option 1: send the repository link straight to DSH (recommended)
 
 ```
-Install this plugin for me: https://github.com/qi-cluadld/-/tree/main/dsh-plugin-tokusatsu-gunpla
+Install this plugin for me: https://github.com/qi-cluadld/dsh-plugin-tokusatsu-gunpla/tree/main/dsh-plugin-tokusatsu-gunpla
 ```
 
 DSH installs it into the profile through `plugin_manager`'s `install_bundle`. That is the **only supported** installation path.
@@ -92,8 +92,8 @@ DSH installs it into the profile through `plugin_manager`'s `install_bundle`. Th
 ### Option 2: clone it, then let DSH install from the local directory
 
 ```bash
-git clone https://github.com/qi-cluadld/-
-cd -/dsh-plugin-tokusatsu-gunpla
+git clone https://github.com/qi-cluadld/dsh-plugin-tokusatsu-gunpla
+cd dsh-plugin-tokusatsu-gunpla/dsh-plugin-tokusatsu-gunpla
 ```
 
 Then hand the **absolute path of that directory** to `plugin_manager`:
@@ -258,4 +258,3 @@ Placed in three places: the startup guide (behind a checkbox), this README, and 
 [MIT](LICENSE)
 
 This plugin does not endorse any domestic, KO, or overseas third-party product. Detecting a counterfeit is a warning, not a recommendation.
-.

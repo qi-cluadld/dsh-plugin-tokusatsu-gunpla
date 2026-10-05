@@ -1,0 +1,17 @@
+# Dependencies are resolved from the DSH profile's hoisted store during local
+# development (see docs/INSTALL.md), so nothing here is installed or committed.
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Editor and OS noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+*.tmp
+
+# Local data must never be published: corrections and whitelists are per user.
+plugin-data/

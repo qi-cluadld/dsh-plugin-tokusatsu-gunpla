@@ -37,10 +37,14 @@
     "figure"
   ],
   "license": "MIT",
-  "author": "(pending author confirmation)",
+  "author": "qi-cluadld",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OWNER/dsh-plugin-tokusatsu-gunpla.git"
+    "url": "git+https://github.com/qi-cluadld/dsh-plugin-tokusatsu-gunpla.git"
+  },
+  "homepage": "https://github.com/qi-cluadld/dsh-plugin-tokusatsu-gunpla#readme",
+  "bugs": {
+    "url": "https://github.com/qi-cluadld/dsh-plugin-tokusatsu-gunpla/issues"
   },
   "files": [
     "lib/**/*.js",

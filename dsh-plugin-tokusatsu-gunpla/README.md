@@ -84,7 +84,7 @@
 ### 方式一：把仓库链接发给 DSH（推荐）
 
 ```
-帮我安装这个插件：https://github.com/qi-cluadld/-/tree/main/dsh-plugin-tokusatsu-gunpla
+帮我安装这个插件：https://github.com/qi-cluadld/dsh-plugin-tokusatsu-gunpla/tree/main/dsh-plugin-tokusatsu-gunpla
 ```
 
 DSH 会用 `plugin_manager` 的 `install_bundle` 把它装进 profile。这是**唯一被支持**的安装方式。
@@ -92,8 +92,8 @@ DSH 会用 `plugin_manager` 的 `install_bundle` 把它装进 profile。这是**
 ### 方式二：先 clone 再让 DSH 从本地目录装
 
 ```bash
-git clone https://github.com/qi-cluadld/-
-cd -/dsh-plugin-tokusatsu-gunpla
+git clone https://github.com/qi-cluadld/dsh-plugin-tokusatsu-gunpla
+cd dsh-plugin-tokusatsu-gunpla/dsh-plugin-tokusatsu-gunpla
 ```
 
 然后把**这个目录的绝对路径**交给 `plugin_manager`：

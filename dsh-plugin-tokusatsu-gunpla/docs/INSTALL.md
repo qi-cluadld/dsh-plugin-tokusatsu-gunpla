@@ -20,7 +20,7 @@ This plugin is a standard DSH dual-face package: `lib/index.js` is the Host half
 把仓库链接直接发给 DSH：
 
 ```
-帮我安装这个插件：https://github.com/dsh-community/dsh-plugin-tokusatsu-gunpla
+帮我安装这个插件：https://github.com/qi-cluadld/dsh-plugin-tokusatsu-gunpla/tree/main/dsh-plugin-tokusatsu-gunpla
 ```
 
 DSH 会自己 clone、装依赖、写 profile 配置。
