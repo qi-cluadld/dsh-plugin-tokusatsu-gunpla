@@ -81,35 +81,41 @@ Every language falls back to English, and a missing key never exposes the raw ke
 
 ## Installation
 
-### Option 1: send the repository link straight to DSH
+### Option 1: send the repository link straight to DSH (recommended)
 
 ```
-Install this plugin for me: https://github.com/dsh-community/dsh-plugin-tokusatsu-gunpla
+Install this plugin for me: https://github.com/qi-cluadld/-/tree/main/dsh-plugin-tokusatsu-gunpla
 ```
 
-### Option 2: install it into a profile from the command line
+DSH installs it into the profile through `plugin_manager`'s `install_bundle`. That is the **only supported** installation path.
+
+### Option 2: clone it, then let DSH install from the local directory
 
 ```bash
-dsh plugin --profile <your-profile> add @dsh-plugin/tokusatsu-gunpla
+git clone https://github.com/qi-cluadld/-
+cd -/dsh-plugin-tokusatsu-gunpla
 ```
 
-Then add one line to that profile's `cordis.patch.yml`:
+Then hand the **absolute path of that directory** to `plugin_manager`:
 
-```yaml
-- name: '@dsh-plugin/tokusatsu-gunpla'
-  config:
-    richMode: false
+```
+Use plugin_manager, action install_bundle, and set target to this directory's absolute path
 ```
 
-### Option 3: local development (usable without publishing)
+### Do not install it by hand
 
-```bash
-git clone https://github.com/dsh-community/dsh-plugin-tokusatsu-gunpla
-cd dsh-plugin-tokusatsu-gunpla
+The following look like they work, and they make the plugin disappear:
 
-# Create a symlink inside the profile's node_modules (use a junction on Windows)
-# Then add the cordis.patch.yml line from option 2 above
-```
+- creating a symlink inside the profile's `node_modules` (a junction on Windows)
+- hand-writing a line into the profile's `cordis.patch.yml`
+- copying the package under `$DSH_HOME`
+
+Two reasons, both hard to self-diagnose:
+
+1. **Dependency resolution fails.** The loader resolves the package by its REAL path (symlinks are unlinked), so Node looks for `node_modules` upward from your workspace, where the DSH packages are not. Patching in a few is not enough either: `@deepseek-ai/dsh-tools` itself imports `dsh-scope`, `dsh-sandbox`, `dsh-llm` and others that are **absent from its own package.json**, so the whole tree is required.
+2. **The loader remembers the failure.** When a row fails to activate, the loader persists `disabled: true` back into the profile, and every later start skips it entirely.
+
+Both present identically: **no interface and no tools**, with no log. See [docs/INSTALL.md](docs/INSTALL.md) for how to tell them apart.
 
 See [docs/INSTALL.md](docs/INSTALL.md) for details.
 
@@ -252,3 +258,4 @@ Placed in three places: the startup guide (behind a checkbox), this README, and 
 [MIT](LICENSE)
 
 This plugin does not endorse any domestic, KO, or overseas third-party product. Detecting a counterfeit is a warning, not a recommendation.
+.
