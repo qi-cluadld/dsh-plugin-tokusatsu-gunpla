@@ -174,7 +174,7 @@ Three UI surfaces, all registered through the Harness slot system:
 
 1. **Startup guide** (above the conversation input area): large-text photo requirements + disclaimer checkbox + compliance notes + rich-mode toggle. **The capture interface does not appear until consent is checked.**
 2. **Capture guide** (persistent): category switch, persistent reminder banner, checkable photo checklist, live hints about what is still missing.
-3. **Result panel + settings page**: result cards carry confidence and evidence, and suspected cases let you pick the correction; the settings page manages language, rich mode, the Baidu entry point, the local endpoint, the disclaimer, and the compliance notes.
+3. **Result panel + settings page**: result cards carry confidence and evidence, and suspected cases let you pick the correction; the settings page manages language, Collector mode, the Baidu entry point, the local endpoint, the disclaimer, and the compliance notes.
 
 ---
 

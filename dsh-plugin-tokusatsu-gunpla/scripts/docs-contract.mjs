@@ -54,6 +54,17 @@ export const RICH_MODE_TERM = {
   'README.it.md': 'Modalità collezionista',
 }
 
+/**
+ * Spellings of the same feature that must NOT appear.
+ *
+ * Asserting only that the correct term is present is not enough: a partial
+ * replacement leaves both forms in the file, and a case-sensitive search misses a
+ * lowercase "rich mode" in running prose. This list is deliberately
+ * case-insensitive and covers every literal translation of 富 that the
+ * translations originally used.
+ */
+export const RICH_MODE_LEGACY = /Rich mode|Reicher Modus|reicher Modus|リッチモード|Mode enrichi|mode enrichi|Modo ampliado|Modo avançado|리치 모드|Расширенный режим|Modalità ricca/iu
+
 
 /**
  * Locate the disclaimer section of a README.

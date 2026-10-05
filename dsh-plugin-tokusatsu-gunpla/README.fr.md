@@ -172,9 +172,9 @@ Les valeurs de retour des outils portent déjà la conclusion et la chaîne de p
 
 Trois surfaces d'interface, toutes enregistrées via le système de slots du Harness (`conversation.input.dock`, `conversation.composer.dock`, `settings.section`) :
 
-1. **Guide de démarrage** (au-dessus de la zone de saisie de la conversation) : exigences photo en gros texte + case à cocher de l'avertissement + notes de conformité + bascule du mode enrichi. **L'interface de capture n'apparaît pas avant que le consentement ne soit coché.**
+1. **Guide de démarrage** (au-dessus de la zone de saisie de la conversation) : exigences photo en gros texte + case à cocher de l'avertissement + notes de conformité + bascule du Mode collectionneur. **L'interface de capture n'apparaît pas avant que le consentement ne soit coché.**
 2. **Guide de capture** (persistant) : sélecteur de catégorie, bannière de rappel persistante, liste de photos à cocher, indications en direct sur ce qui manque encore.
-3. **Panneau de résultats + page de réglages** : les fiches de résultat portent la confiance et les preuves, et les cas suspectés permettent de choisir la correction ; la page de réglages gère la langue, le mode enrichi, le point d'entrée Baidu, le point d'accès local, l'avertissement et les notes de conformité.
+3. **Panneau de résultats + page de réglages** : les fiches de résultat portent la confiance et les preuves, et les cas suspectés permettent de choisir la correction ; la page de réglages gère la langue, le Mode collectionneur, le point d'entrée Baidu, le point d'accès local, l'avertissement et les notes de conformité.
 
 ---
 

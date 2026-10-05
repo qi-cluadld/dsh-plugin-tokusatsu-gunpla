@@ -120,9 +120,13 @@ for (const [name, entry] of Object.entries(readmes)) {
 
   // The feature must be called what the UI calls it. Translating the Chinese name
   // literally produced "Rich mode" / "Reicher Modus" while the switch in the
-  // application reads "Collector mode" / "Sammler-Modus".
+  // application reads "Collector mode" / "Sammler-Modus". Both directions are
+  // asserted: the right term present AND no leftover of the wrong one, because a
+  // partial replacement would otherwise pass.
   const term = contract.RICH_MODE_TERM[name]
   check('names the rich-mode feature as the UI does', text.includes(term), { expected: term })
+  const legacy = text.match(contract.RICH_MODE_LEGACY)
+  check('carries no literal translation of the Chinese feature name', legacy === null, legacy?.[0])
 
   // This language's own disclaimer, clause by clause, ignoring each clause's
   // leading label so a translation may reword it.
