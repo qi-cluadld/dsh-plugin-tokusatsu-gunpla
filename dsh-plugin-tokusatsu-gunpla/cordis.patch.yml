@@ -1,0 +1,31 @@
+# 假面骑士DX腰带 & 万代高达识别助手 — bundle patch.
+#
+# This is the row the package contributes to the Harness composition. The
+# installer selects this file through `package.json` → `dsh.bundle.patch`, so a
+# user never hand-edits the profile.
+#
+# The `disabled: false` below is deliberate but NOT load-bearing: the profile's own
+# layer applies after every bundle layer, so a profile-level disable overrides this
+# value regardless of what it says. It is stated explicitly only so that "intent"
+# and "recorded state" are never confused when reading this file.
+#
+# If the plugin has disappeared from the UI, the state to check is the live bundle
+# registry (`plugin_manager` → `list_bundles`), not this file. Recovery is usually
+# toggling the bundle in 设置 → 插件, or restarting the app so the profile tree is
+# rebuilt from scratch.
+- insert:
+    - id: tokusatsu-gunpla
+      name: '@dsh-plugin/tokusatsu-gunpla'
+      disabled: false
+      config:
+        # 富哥模式：纳入 PG / MB / 解体匠机 / 限定 / 海外第三方，以及 CSM / CS / 食玩 / 限定配件
+        richMode: false
+        # 本地视觉端点。留空自动探测 127.0.0.1:11434 / :1234 / :8080；不填也能用（走拍照清单+手动补型号）
+        visionEnabled: true
+        visionBaseUrl: ''
+        visionModel: ''
+        # 中文检索以 Bing 为主；百度入口可选，展示时一律标「未认证」
+        searchLanguage: zh
+        allowBaidu: false
+        # 欧盟用户可设为 true，在引导页与设置页显示 GDPR / EU AI Act 说明
+        showCompliance: false

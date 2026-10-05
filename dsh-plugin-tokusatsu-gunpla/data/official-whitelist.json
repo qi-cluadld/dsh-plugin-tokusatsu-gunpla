@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "note": "官方认证主体白名单基线。条目由维护者与用户共同扩充；未命中的账号一律需要弹窗让用户确认，确认结果写入用户层白名单。",
+  "subjects": [
+    {
+      "id": "bandai-official",
+      "subject": "株式会社バンダイ / BANDAI",
+      "aliases": ["万代", "BANDAI", "バンダイ", "Bandai Namco", "万代南梦宫"],
+      "domains": ["bandai.co.jp", "bandai-hobby.net", "bandai.com", "bn-pictures.co.jp", "bandainamco.co.jp"],
+      "accounts": [
+        { "platform": "bilibili", "handle": "万代南梦宫官方", "lightning": "blue" },
+        { "platform": "x", "handle": "@bandai_official" },
+        { "platform": "youtube", "handle": "BANDAI" }
+      ],
+      "line": ["gunpla", "belt"]
+    },
+    {
+      "id": "bandai-hobby",
+      "subject": "BANDAI HOBBY / バンダイホビー",
+      "aliases": ["Bandai Hobby", "バンダイホビー", "万代模型"],
+      "domains": ["bandai-hobby.net", "bandaihobby.com"],
+      "accounts": [
+        { "platform": "bilibili", "handle": "万代模型", "lightning": "blue" },
+        { "platform": "weibo", "handle": "万代模型" }
+      ],
+      "line": ["gunpla"]
+    },
+    {
+      "id": "tamashii",
+      "subject": "魂ウェブ / TAMASHII NATIONS",
+      "aliases": ["魂ウェブ", "魂web", "TAMASHII", "魂商店", "Tamashii Web"],
+      "domains": ["tamashiiweb.com", "tamashii.jp"],
+      "accounts": [
+        { "platform": "bilibili", "handle": "魂web", "lightning": "blue" }
+      ],
+      "line": ["belt", "figure"]
+    },
+    {
+      "id": "kamen-rider-official",
+      "subject": "仮面ライダー公式 / 东映",
+      "aliases": ["假面骑士官方", "仮面ライダー公式", "Toei", "东映"],
+      "domains": ["kamen-rider-official.com", "toei.co.jp", "toei-tokusatsu-fan.com"],
+      "accounts": [
+        { "platform": "bilibili", "handle": "假面骑士官方", "lightning": "blue" }
+      ],
+      "line": ["belt"]
+    },
+    {
+      "id": "gundam-official",
+      "subject": "ガンダム公式 / GUNDAM.INFO",
+      "aliases": ["高达官方", "ガンダム公式", "GUNDAM INFO", "机动战士高达官方"],
+      "domains": ["gundam.info", "gundam-official.com"],
+      "accounts": [
+        { "platform": "bilibili", "handle": "高达官方", "lightning": "blue" }
+      ],
+      "line": ["gunpla"]
+    }
+  ],
+  "userConfirmed": []
+}

@@ -1,0 +1,78 @@
+{
+  "name": "@dsh-plugin/tokusatsu-gunpla",
+  "version": "0.1.0",
+  "description": "假面骑士DX腰带 & 万代高达识别助手 — local-first Kamen Rider DX belt and Bandai Gunpla identification assistant for DeepSeek Harness",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [],
+      "platform": "web"
+    }
+  },
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "kamen-rider",
+    "dx-belt",
+    "csm",
+    "gunpla",
+    "bandai",
+    "tokusatsu",
+    "figure"
+  ],
+  "license": "MIT",
+  "author": "(pending author confirmation)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OWNER/dsh-plugin-tokusatsu-gunpla.git"
+  },
+  "files": [
+    "lib/**/*.js",
+    "lib/types/**/*.d.ts",
+    "data/*.json",
+    "cordis.patch.yml",
+    "assets"
+  ],
+  "dependencies": {
+    "@deepseek-ai/cordis": "^4.0.4",
+    "@deepseek-ai/dsh-session-projection": "^0.2.0-rc.2",
+    "@deepseek-ai/dsh-tools": "^0.2.0-rc.2",
+    "@deepseek-ai/schemastery": "^3.18.4",
+    "zod": "^4.0.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.4",
+    "@deepseek-ai/dsh-tools": "^0.2.0-rc.2",
+    "@deepseek-ai/schemastery": "^3.18.4"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh-session-projection": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "test": "node scripts/test.mjs",
+    "test:host": "node scripts/smoke.mjs",
+    "test:activate": "node scripts/activate-check.mjs",
+    "test:client": "node scripts/client-test.mjs",
+    "test:docs": "node scripts/docs-check.mjs",
+    "verify:profile": "node scripts/verify-profile.mjs desktop",
+    "check": "node --check lib/index.js && node --check lib/client.js && node --check lib/tools.js"
+  }
+}
