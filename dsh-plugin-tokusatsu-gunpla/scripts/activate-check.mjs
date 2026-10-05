@@ -107,6 +107,23 @@ for (const tool of tools) {
   check(`${tool.name}: has an execute body`, typeof tool.execute === 'function')
 }
 
+console.log('\n3b. gear_identify tells the model when to call it')
+{
+  // The description is the only thing that makes the assistant act on an attached
+  // photo without being told to. A user who sends a belt photo and gets "which
+  // model 腰带 would you like me to analyse?" has been failed by this text, not by
+  // the recognition pipeline. So the load-bearing sentences are asserted.
+  const identifyTool = tools.find((tool) => tool.name === 'gear_identify')
+  const identify = identifyTool.description
+
+  check('says to call it when photos arrive', identify.includes('照片时**直接调用**') || identify.includes('直接调用'))
+  check('says the user need not ask', identify.includes('不需要用户说'))
+  check('says where attachment files live', identify.includes('attachments/v1/objects'))
+  check('warns that attachments have no extension', identify.includes('没有扩展名'))
+  check('forbids describing the photo as text instead of passing it', identify.includes('不要把照片里的内容自己描述一遍'))
+  check('the images parameter points at the attachment path', identifyTool.parameters.properties.images.description.includes('附件'))
+}
+
 console.log('\n4. Projection fold behaviour')
 const projection = projections[0]
 check('init() returns null', projection.init({}, 0) === null)
