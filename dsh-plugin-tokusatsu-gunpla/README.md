@@ -7,6 +7,9 @@
 [![dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-blue)](https://github.com/topics/dsh-plugin)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
+<!-- translation-notice -->
+> **关于翻译**：本文为简体中文版，是**权威版本**。其余 10 种语言由机器翻译 + 社区校对，措辞可能不准，**如有歧义以本版为准**。术语译错（尤其是 DX / CSM / 解体匠机 / 蓝闪电 这类圈内专有名词）请提 PR 修正。
+
 ---
 
 ## 这是什么

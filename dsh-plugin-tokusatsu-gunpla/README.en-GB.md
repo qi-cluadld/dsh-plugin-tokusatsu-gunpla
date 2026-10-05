@@ -7,6 +7,9 @@
 [![dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-blue)](https://github.com/topics/dsh-plugin)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
+<!-- translation-notice -->
+> **About the translations**: this English (UK) edition is machine-translated plus community proofreading, so wording may be imprecise. The **[Simplified Chinese edition](README.md) is authoritative** — where the two disagree, follow it. Terminology errors (especially fan-community terms such as DX, CSM, Kaitai-Shou-Ki or the Bilibili bolt levels) are welcome as pull requests.
+
 ---
 
 ## What this is

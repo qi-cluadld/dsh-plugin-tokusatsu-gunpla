@@ -7,6 +7,9 @@ Português | [简体中文](README.md) [English](README.en.md) [English (UK)](RE
 [![dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-blue)](https://github.com/topics/dsh-plugin)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
+<!-- translation-notice -->
+> **Sobre as traduções**: esta versão em português é traduzida automaticamente e revista pela comunidade, pelo que a redação pode ser imprecisa. A **[versão em chinês simplificado](README.md) é a autoritativa** — em caso de divergência, é ela que prevalece. Erros de terminologia (por exemplo DX, CSM, Kaitai-Shou-Ki ou os níveis de raio do Bilibili) são bem-vindos como pull request.
+
 ---
 
 ## O que é isto

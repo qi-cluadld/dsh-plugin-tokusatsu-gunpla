@@ -7,6 +7,9 @@
 [![dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-blue)](https://github.com/topics/dsh-plugin)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
+<!-- translation-notice -->
+> **번역 안내**: 이 한국어판은 기계 번역과 커뮤니티 교정을 거친 것이므로 표현이 부정확할 수 있습니다. **[간체 중국어판](README.md)이 정본**이며, 내용이 다를 경우 중국어판을 따르십시오. 전문 용어(DX / CSM / 해체장기 / Bilibili 번개 등급 등) 오류는 PR로 알려 주시면 감사하겠습니다.
+
 ---
 
 ## 무엇인가요

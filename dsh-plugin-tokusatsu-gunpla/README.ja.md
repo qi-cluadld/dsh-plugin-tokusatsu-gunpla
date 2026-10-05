@@ -7,6 +7,9 @@
 [![dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-blue)](https://github.com/topics/dsh-plugin)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
+<!-- translation-notice -->
+> **翻訳について**：本日本語版は機械翻訳＋コミュニティ校正であり、表現が不正確な場合があります。**[簡体字中国語版](README.md)が正**です。相違がある場合は中国語版に従ってください。専門用語（DX / CSM / 解体匠機 / Bilibili の稲妻等級など）の誤りは PR でご指摘ください。
+
 ---
 
 ## これは何か

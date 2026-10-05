@@ -128,6 +128,21 @@ for (const [name, entry] of Object.entries(readmes)) {
   const legacy = text.match(contract.RICH_MODE_LEGACY)
   check('carries no literal translation of the Chinese feature name', legacy === null, legacy?.[0])
 
+  // A reader who meets an awkward sentence must learn above the fold that the
+  // Chinese edition is authoritative, rather than concluding the project is
+  // careless. The notice is placed before the first horizontal rule.
+  const noticeIndex = text.indexOf('<!-- translation-notice -->')
+  const firstRule = text.indexOf('\n---')
+  check('carries the translation notice above the fold', noticeIndex > 0 && noticeIndex < firstRule, { noticeIndex, firstRule })
+  const notice = text.slice(noticeIndex, noticeIndex + 700)
+  // Every edition must point at the authoritative one. The Chinese file IS that
+  // edition, so it declares itself authoritative instead of linking to itself.
+  check(
+    'the notice identifies the authoritative edition',
+    language === 'zh-Hans' ? /权威版本|authoritative/u.test(notice) : notice.includes('README.md'),
+    { language },
+  )
+
   // This language's own disclaimer, clause by clause, ignoring each clause's
   // leading label so a translation may reword it.
   const clauses = i18n.DISCLAIMER[language].split('\n').filter((line) => line.trim() !== '')

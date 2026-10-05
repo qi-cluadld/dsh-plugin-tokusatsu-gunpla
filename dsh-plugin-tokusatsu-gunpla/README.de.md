@@ -7,6 +7,9 @@
 [![dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-blue)](https://github.com/topics/dsh-plugin)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
+<!-- translation-notice -->
+> **Zu den Übersetzungen**: Diese deutsche Fassung ist maschinell übersetzt und von der Community gegengelesen; Formulierungen können ungenau sein. Maßgeblich ist die **[chinesische Fassung in Kurzzeichen](README.md)** — bei Abweichungen gilt sie. Hinweise zu Fachbegriffen (etwa DX, CSM, Kaitai-Shou-Ki oder die Blitz-Stufen auf Bilibili) sind als Pull Request willkommen.
+
 ---
 
 ## Worum es hier geht
