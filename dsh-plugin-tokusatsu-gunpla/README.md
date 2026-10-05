@@ -81,35 +81,41 @@
 
 ## 安装
 
-### 方式一：直接把仓库链接发给 DSH
+### 方式一：把仓库链接发给 DSH（推荐）
 
 ```
-帮我安装这个插件：https://github.com/dsh-community/dsh-plugin-tokusatsu-gunpla
+帮我安装这个插件：https://github.com/qi-cluadld/-/tree/main/dsh-plugin-tokusatsu-gunpla
 ```
 
-### 方式二：命令行装进某个 profile
+DSH 会用 `plugin_manager` 的 `install_bundle` 把它装进 profile。这是**唯一被支持**的安装方式。
+
+### 方式二：先 clone 再让 DSH 从本地目录装
 
 ```bash
-dsh plugin --profile <你的profile> add @dsh-plugin/tokusatsu-gunpla
+git clone https://github.com/qi-cluadld/-
+cd -/dsh-plugin-tokusatsu-gunpla
 ```
 
-然后在该 profile 的 `cordis.patch.yml` 加一行：
+然后把**这个目录的绝对路径**交给 `plugin_manager`：
 
-```yaml
-- name: '@dsh-plugin/tokusatsu-gunpla'
-  config:
-    richMode: false
+```
+用 plugin_manager，action 用 install_bundle，target 填这个目录的绝对路径
 ```
 
-### 方式三：本地开发（不发布也能用）
+### ⚠️ 不要手工装
 
-```bash
-git clone https://github.com/dsh-community/dsh-plugin-tokusatsu-gunpla
-cd dsh-plugin-tokusatsu-gunpla
+下面这些做法**看起来能用，实际上会让插件消失**：
 
-# 在 profile 的 node_modules 里建软链（Windows 用 junction）
-# 然后照上面方式二加 cordis.patch.yml 那一行
-```
+- 手工在 profile 的 `node_modules` 里建软链（Windows 用 junction）
+- 手写 profile 的 `cordis.patch.yml` 加一行
+- 把包复制到 `$DSH_HOME` 下
+
+原因有两个，都很难自查：
+
+1. **依赖解析会失败。** 加载器把插件包按**真实路径**解析（symlink 被解开），于是 Node 从你的工作区往上找 `node_modules`，那里没有 DSH 的包，import 直接失败。部分补齐也不行——`@deepseek-ai/dsh-tools` 自己还会 import `dsh-scope`、`dsh-sandbox`、`dsh-llm` 等**没写进它 package.json** 的包，必须整套链。
+2. **加载器会记住失败。** 一行没激活，加载器就把 `disabled: true` 持久化写回 profile，之后**每次启动都不再尝试**。
+
+这两种情况的表现完全一样：**界面和工具全都没有**，且没有日志。排查方法见 [docs/INSTALL.md](docs/INSTALL.md#插件被自动停用重点)。
 
 详见 [docs/INSTALL.md](docs/INSTALL.md)。
 
