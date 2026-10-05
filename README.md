@@ -26,8 +26,11 @@ DSH 会用 `plugin_manager` 的 `install_bundle` 装进 profile。**这是唯一
 
 ## 文档
 
-- [插件说明（中文）](dsh-plugin-tokusatsu-gunpla/README.md)
-- [English](dsh-plugin-tokusatsu-gunpla/README.en.md) · [日本語](dsh-plugin-tokusatsu-gunpla/README.ja.md)
+插件说明共 11 种语言：
+
+- [简体中文](dsh-plugin-tokusatsu-gunpla/README.md) · [English](dsh-plugin-tokusatsu-gunpla/README.en.md) · [English (UK)](dsh-plugin-tokusatsu-gunpla/README.en-GB.md) · [日本語](dsh-plugin-tokusatsu-gunpla/README.ja.md)
+- [Deutsch](dsh-plugin-tokusatsu-gunpla/README.de.md) · [Français](dsh-plugin-tokusatsu-gunpla/README.fr.md) · [Español](dsh-plugin-tokusatsu-gunpla/README.es.md) · [Português](dsh-plugin-tokusatsu-gunpla/README.pt.md)
+- [한국어](dsh-plugin-tokusatsu-gunpla/README.ko.md) · [Русский](dsh-plugin-tokusatsu-gunpla/README.ru.md) · [Italiano](dsh-plugin-tokusatsu-gunpla/README.it.md)
 - [安装与排错](dsh-plugin-tokusatsu-gunpla/docs/INSTALL.md)
 
 ## 免责声明

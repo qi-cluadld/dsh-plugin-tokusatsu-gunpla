@@ -2,7 +2,7 @@
 
 **DeepSeek Harness 插件** · 特摄 + 胶佬双修助手 · 桌面端识别，手机只负责拍照
 
-[English](README.en.md) | [日本語](README.ja.md) | 简体中文
+简体中文 | [English](README.en.md) | [English (UK)](README.en-GB.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Português](README.pt.md) | [한국어](README.ko.md) | [Русский](README.ru.md) | [Italiano](README.it.md)
 
 [![dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-blue)](https://github.com/topics/dsh-plugin)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
@@ -76,6 +76,9 @@
 完整支持：**简体中文 / 繁体中文 / 英文 / 日文**。
 界面翻译：韩、法、西、葡、俄、粤、越、德、意、荷、波兰。
 所有语言的兜底都是英文，缺键不会露出原始 key。
+
+**文档语言**（每种语言一份完整 README）：
+[简体中文](README.md) · [English](README.en.md) · [English (UK)](README.en-GB.md) · [日本語](README.ja.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · [Español](README.es.md) · [Português](README.pt.md) · [한국어](README.ko.md) · [Русский](README.ru.md) · [Italiano](README.it.md)
 
 ---
 

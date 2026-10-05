@@ -2,7 +2,7 @@
 
 **DeepSeek Harness プラグイン** · 特撮 + プラモデル両対応アシスタント · 識別はデスクトップ側、スマホは撮影のみ
 
-[English](README.en.md) | 日本語 | [简体中文](README.md)
+[简体中文](README.md) | [English](README.en.md) | [English (UK)](README.en-GB.md) | 日本語 | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Português](README.pt.md) | [한국어](README.ko.md) | [Русский](README.ru.md) | [Italiano](README.it.md)
 
 [![dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-blue)](https://github.com/topics/dsh-plugin)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)

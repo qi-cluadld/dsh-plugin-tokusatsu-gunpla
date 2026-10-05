@@ -38,6 +38,7 @@ function check(label, condition, detail) {
 }
 
 const i18n = await import(new URL('lib/i18n.js', root).href)
+const contract = await import(new URL('scripts/docs-contract.mjs', root).href)
 
 /** Tool names: exactly these four, never a fifth. */
 const TOOLS = ['gear_identify', 'gear_checklist', 'gear_decide_edition', 'gear_knowledge']
@@ -54,11 +55,24 @@ for (const [language, text] of Object.entries(i18n.DISCLAIMER)) {
   check(`the ${language} disclaimer carries exactly seven clauses`, clauses.length === 7, clauses.length)
 }
 
+/**
+ * Every documentation language, paired with the file that carries it.
+ *
+ * The list is the single source for which translations must exist, so adding a
+ * README means adding one row here and the whole contract applies to it.
+ */
+const DOC_LANGUAGES = ['en', 'en-GB', 'ja', 'de', 'fr', 'es', 'pt', 'ko', 'ru', 'it']
+
 const readmes = {
   'README.md': { text: await read('README.md'), language: 'zh-Hans' },
-  'README.en.md': { text: await read('README.en.md'), language: 'en' },
-  'README.ja.md': { text: await read('README.ja.md'), language: 'ja' },
 }
+for (const language of DOC_LANGUAGES) {
+  readmes[`README.${language}.md`] = { text: await read(`README.${language}.md`), language }
+}
+
+/** Every other language version, which each file must link. */
+const otherReadmes = (name) =>
+  Object.keys(readmes).filter((other) => other !== name).map((other) => other.replace(/^README/u, 'README'))
 
 for (const [name, entry] of Object.entries(readmes)) {
   console.log(`\n${name}`)
@@ -81,28 +95,25 @@ for (const [name, entry] of Object.entries(readmes)) {
   check('carries both QQ group numbers', text.includes('419573550') && text.includes('579938880'))
   check('names the banned search engines', text.includes('360') && text.includes('2345') && /搜狗|sogou/iu.test(text))
 
-  // Accept either the "two independent sources" phrasing used by each translation.
-  check(
-    'states the two-source ingress rule',
-    /(?:2\s*个独立来源|至少\s*2\s*个独立来源|2\s*independent\s+sources|two\s+independent\s+sources|2\s*つの独立|独立した情報源|独立来源数)/iu.test(text),
-  )
-
-  check('states that AI content is display-only', /只展示|display-only|表示のみ/u.test(text))
-  check('states the counterfeit warning is not an endorsement', /不背书|No endorsement|not an endorsement|推奨しません|推奨ではありません|不代表推荐/u.test(text))
+  // These statements must be present in every language. The patterns live in
+  // scripts/docs-contract.mjs and match the phrasings the translations actually
+  // use, so a failure means the statement is missing, not merely worded
+  // differently.
+  check('states the two-source ingress rule', contract.REQUIRED_STATEMENTS.twoSources.test(text))
+  check('states that AI content is display-only', contract.REQUIRED_STATEMENTS.displayOnly.test(text))
+  check('states the counterfeit warning is not an endorsement', contract.REQUIRED_STATEMENTS.notEndorsement.test(text))
 
   // The UI section must name the real slot identifiers, or at minimum describe
   // all three surfaces the plugin actually registers. Surface wording differs per
   // translation, so match vocabulary rather than fixed sentences.
   const slotNames = ['conversation.input.dock', 'conversation.composer.dock', 'settings.section'].filter((slot) => text.includes(slot))
-  const surfaces = [
-    /引导|onboard|guide|startup|ガイド|案内/iu,
-    /拍照|capture|photo|拍摄|撮影/iu,
-    /结果|result|面板|panel|設定|setting|結果/iu,
-  ].filter((pattern) => pattern.test(text))
+  const surfaces = contract.SURFACE_PATTERNS.filter((pattern) => pattern.test(text))
   check('names the three registered slots or describes all three surfaces', slotNames.length === 3 || surfaces.length === 3, { slotNames, surfaces: surfaces.length })
 
-  const links = (text.match(/README(?:\.en|\.ja)?\.md/gu) ?? [])
-  check('links the other two language versions', links.length >= 2, links)
+  // Each version must offer a way to every other version, so a reader who lands
+  // on the wrong language is never stuck.
+  const missingLinks = otherReadmes(name).filter((other) => !text.includes(other))
+  check('links every other language version', missingLinks.length === 0, missingLinks)
 
   const missingConfig = CONFIG_KEYS.filter((key) => !text.includes(key))
   check('documents every configuration key', missingConfig.length === 0, missingConfig)
@@ -118,10 +129,10 @@ for (const [name, entry] of Object.entries(readmes)) {
   check(`carries its own ${language} disclaimer clauses verbatim`, matched.length === probes.length, { matched: matched.length, probes: probes.length })
 
   // Each clause must be presented as a numbered item inside the disclaimer
-  // section. The scope matters: the document also numbers the tool list, so a
-  // whole-file count cannot distinguish the two.
-  const afterHeading = text.split(/^#+ .*(?:免责声明|Disclaimer|免責事項)/mu)[1] ?? ''
-  const numbered = (afterHeading.match(/^\d\.\s+\*\*/gmu) ?? []).length
+  // section. The scope matters: the document also numbers the tool list and the
+  // UI-surface list, so a whole-file count cannot distinguish them.
+  const section = contract.disclaimerSection(text)
+  const numbered = (section.match(/^\d\.\s+\*\*/gmu) ?? []).length
   check('renders the disclaimer as seven numbered clauses', numbered === 7, numbered)
 }
 

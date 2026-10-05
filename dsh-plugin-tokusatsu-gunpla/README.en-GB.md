@@ -2,7 +2,7 @@
 
 **DeepSeek Harness plugin** · Tokusatsu + plastic-model dual-purpose assistant · recognition on the desktop, the phone only takes photos
 
-[简体中文](README.md) | English | [English (UK)](README.en-GB.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Português](README.pt.md) | [한국어](README.ko.md) | [Русский](README.ru.md) | [Italiano](README.it.md)
+[简体中文](README.md) [English](README.en.md) [日本語](README.ja.md) [Deutsch](README.de.md) [Français](README.fr.md) [Español](README.es.md) [Português](README.pt.md) [한국어](README.ko.md) [Русский](README.ru.md) [Italiano](README.it.md)
 
 [![dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-blue)](https://github.com/topics/dsh-plugin)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
@@ -16,7 +16,7 @@ An identification assistant that runs inside DeepSeek Harness, built for exactly
 - **Kamen Rider belts**: DX or CSM? Is it a KO?
 - **Bandai Gunpla kits**: EG / HG / RG / MG / PG / MB / Dissection Craft Machine — which grade is it? Is it a bootleg?
 
-One design rule holds throughout: **apart from the "write a review" step, nothing calls a large model.** The photo checklist, recognition, the DX/CSM call, knowledge-base lookups, source grading, and fake-news filtering all happen on this machine, at zero tokens. Results go into a local cache, so re-identifying the same batch of photos does not recompute anything.
+One design rule holds throughout: **apart from the "write a review" step, nothing calls a large model.** The photo checklist, recognition, the DX/CSM call, knowledge-base lookups, source grading and fake-news filtering all happen on this machine, at zero tokens. Results go into a local cache, so re-identifying the same batch of photos does not recompute anything.
 
 > This plugin is not an official tool. Identification is reference only — see [Disclaimer](#disclaimer).
 
@@ -60,7 +60,7 @@ Official site > X/YouTube official account (VPN required) > domestic official ac
 **Bilibili account recognition**: blue bolt = official; yellow bolt = reference only; no bolt = lowest.
 A blue bolt **is not enough** — the account must simultaneously have a verified subject, a custom avatar, and a title **and** description that both reflect a toy/model theme. If any one of these is missing, the plugin **opens a dialog for the user to confirm**, and the confirmation goes into the user whitelist so it never asks again.
 
-**Ingress rule**: at least **2 independent sources** must agree, and at least 1 of them must be a fileable source. Otherwise the entry is marked "unconfirmed". **AI-generated content is display-only and is never filed.**
+**Ingress rule**: at least **2 independent sources** must agree, and at least 1 of them must be a source that can be filed. Otherwise the entry is marked "unconfirmed". **AI-generated content is display-only and is never filed.**
 
 **Search engines**: Chinese Bing first; the Baidu entry point is optional and is always labelled "unverified" when shown; Google for non-Chinese markets, Yandex for Russian; **360 / Sogou / 2345 are never used**.
 
@@ -170,7 +170,7 @@ The tool return values already carry the conclusion and the evidence chain, so t
 
 ## Interface
 
-Three UI surfaces, all registered through the Harness slot system:
+Three UI surfaces, all registered through the Harness slot system (`conversation.input.dock`, `conversation.composer.dock`, `settings.section`):
 
 1. **Startup guide** (above the conversation input area): large-text photo requirements + disclaimer checkbox + compliance notes + rich-mode toggle. **The capture interface does not appear until consent is checked.**
 2. **Capture guide** (persistent): category switch, persistent reminder banner, checkable photo checklist, live hints about what is still missing.
@@ -197,7 +197,7 @@ Neither test needs a network or a model.
 
 ```
 lib/
-  index.js      plugin entry, config schema, session projection (results to the UI)
+  index.js      plugin entry point, config schema, session projection (results to the UI)
   tools.js      the four model-visible tools
   identify.js   main identification flow (evidence → bootleg gate → match → judgement → confidence)
   checklist.js  photo requirement engine
@@ -221,8 +221,8 @@ Local data directory: `$DSH_HOME/plugin-data/tokusatsu-gunpla/`. Deleting it is 
 Placed in three places: the startup guide (behind a checkbox), this README, and the settings page:
 
 1. **Identification is reference only**: this plugin is not an official tool and its results can be wrong.
-2. **Unofficial**: not affiliated with, authorized by, or endorsed by Bandai, Toei, Tsuburaya, or any vendor.
-3. **Data comes from public sources**: entries are compiled from public material and may be outdated or inaccurate; always defer to official information.
+2. **Unofficial**: not affiliated with, authorised by, or endorsed by Bandai, Toei, Tsuburaya, or any vendor.
+3. **Data comes from public sources**: entries are compiled from public material and may be out of date or inaccurate; always defer to official information.
 4. **QQ bridging carries a ban risk**: if you enable QQ forwarding, the account risk is yours.
 5. **AI content is not buying advice**: generated reviews or descriptions are not investment or purchase recommendations.
 6. **Open source, provided as is**: no warranty of any kind, express or implied; use at your own risk.
@@ -249,12 +249,12 @@ Placed in three places: the startup guide (behind a checkbox), this README, and 
 - For browser hijacking, check 360 / 2345 first; recommended: Kaspersky Free / Huorong / the minimal Tencent PC Manager, and use Geek to uninstall; removing 360 leftovers needs administrator rights
 - The EU AI Act basically exempts "open source + local data"
 - For Russian, use Yandex / VK / RuTube
-- The READMEs are machine-translated plus community proofreading, and **the Chinese version is authoritative**
+- The READMEs are machine translated plus community proofreading, and **the Chinese version is authoritative**
 
 ---
 
-## License
+## Licence
 
 [MIT](LICENSE)
 
-This plugin does not endorse any domestic, KO, or overseas third-party product. Detecting a counterfeit is a warning, not a recommendation.
+This plugin does not endorse any domestic, KO or overseas third-party product. Detecting a counterfeit is a warning, not a recommendation.
