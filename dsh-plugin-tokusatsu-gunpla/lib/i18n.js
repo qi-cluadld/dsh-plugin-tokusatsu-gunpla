@@ -176,14 +176,16 @@ export const DISCLAIMER = {
  */
 export const COMPLIANCE = {
   'zh-Hans': [
-    'GDPR：识别数据默认只存在本机（$DSH_HOME/plugin-data/tokusatsu-gunpla）。插件不上传照片与知识库。',
+    'GDPR：识别数据默认只存在本机（$DSH_HOME/plugin-data/tokusatsu-gunpla）。知识库不上传。',
+    'GDPR：若你把识别端点配成**远端地址**（例如智谱），照片会发送给该服务商——这是你主动配置的结果，本地端点则不出本机。',
     'GDPR：可随时删除本地数据目录以行使删除权；插件不建立用户画像。',
     'EU AI Act：本插件为开源、非高风险用途的 AI 系统，仅做辅助识别与信息整理。',
     'EU AI Act：所有 AI 生成内容均标注来源与层级，并且只展示、不入库。',
     '透明度：识别结果附带置信度与证据链，用户可随时纠正，纠正优先于自动结果。',
   ].join('\n'),
   en: [
-    'GDPR: recognition data stays on this machine by default ($DSH_HOME/plugin-data/tokusatsu-gunpla). The plugin uploads neither photos nor the knowledge base.',
+    'GDPR: recognition data stays on this machine by default ($DSH_HOME/plugin-data/tokusatsu-gunpla). The knowledge base is never uploaded.',
+    'GDPR: if you point the recognition endpoint at a REMOTE address (Zhipu, for example), photos are sent to that provider. That is your own configuration; a local endpoint keeps them on this machine.',
     'GDPR: deleting the local data directory exercises your erasure right; the plugin builds no user profiles.',
     'EU AI Act: this is an open-source AI system for non-high-risk assistance with identification and information organisation.',
     'EU AI Act: all AI-generated content is labelled with its source tier and is display-only, never filed.',

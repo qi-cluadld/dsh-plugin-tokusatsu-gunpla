@@ -9,9 +9,13 @@ This plugin is a standard DSH dual-face package: `lib/index.js` is the Host half
 ## 前置条件
 
 - DeepSeek Harness 桌面版（本插件按 `0.1.5-rc.3` 的插件契约开发，`dsh.client.platform` 为 `web`）
-- 可选：一个本机 OpenAI 兼容视觉端点（Ollama / LM Studio / llama.cpp server / LocalAI）
+- **可选**：一个 OpenAI 兼容视觉端点，二选一：
+  - **本机端点**（推荐，隐私最好）：Ollama / LM Studio / llama.cpp server / LocalAI
+  - **远端端点**：例如智谱 `https://open.bigmodel.cn/api/paas/v4`，模型 `glm-5.3-flash`
 
-**不需要**联网、**不需要**云端模型也能用：拍照清单、判断树、知识库查询、来源分级全部本地执行。
+**不需要**视觉端点也能用：拍照清单、判断树、知识库查询、来源分级全部本地执行，只少了"看图识别"。
+
+> ⚠️ **配远端端点会把照片发出去。** 本机端点不出本机；填了远端地址（智谱等）照片就会发送给该服务商，并按它的计费产生费用。**这是你自己的配置选择**——不填就永远不上传。详见下面「识别跑在哪里」。
 
 ---
 
@@ -200,7 +204,33 @@ Host 侧失败会在日志里出现 `tokusatsu-gunpla:` 前缀且**没有**界�
 | `$DSH_HOME/plugin-data/tokusatsu-gunpla/whitelist-user.json` | 用户确认过的官方账号白名单 |
 | `$DSH_HOME/plugin-data/tokusatsu-gunpla/cache/identify.json` | 识别结果缓存 |
 
-删除整个目录 = 行使 GDPR 删除权。插件不建立用户画像，不上传任何照片或知识库内容。
+删除整个目录 = 行使 GDPR 删除权。插件不建立用户画像。**知识库内容从不上传**；照片是否上传取决于你配的端点（见下）。
+
+### 识别跑在哪里
+
+| 模式 | 照片去向 | 说明 |
+|---|---|---|
+| **本机端点**（`visionBaseUrl` 留空自动探测） | 哪也不去 | Ollama 等跑在 `127.0.0.1` 的服务。零成本、可断网 |
+| **远端端点**（例如智谱） | **该服务商的服务器** | 填 base URL + 模型 + API key。**你自己配的，费用按对方计费** |
+| **没配模型** | 哪也不去 | 拍照清单、手动补型号、知识库照常工作，只是不能看图 |
+
+**插件自己不会主动上传任何东西**——照片离开本机，只发生在你把端点指向远端地址的时候。
+
+#### 接智谱（远端示例）
+
+```yaml
+visionEnabled: true
+visionBaseUrl: 'https://open.bigmodel.cn/api/paas/v4'
+visionModel: 'glm-5.3-flash'
+visionApiKey: '<你的智谱 API Key>'
+```
+
+- 兼容格式：OpenAI Chat Completions，图片走 `type: image_url` + Base64 Data URL
+- 国内直连，不需要 VPN
+- API Key 在 https://bigmodel.cn/usercenter/proj-mgmt/apikeys 生成
+- 换成别的 OpenAI 兼容服务（含本机）只需改这三项
+
+> 模型名以[智谱模型页](https://docs.bigmodel.cn/cn/guide/models/vlm/glm-5.3-flash)为准；旧型号 `glm-4v` 已不是主推，但仍可用。
 
 ---
 
@@ -210,7 +240,7 @@ Host 侧失败会在日志里出现 `tokusatsu-gunpla:` 前缀且**没有**界�
 |---|---|
 | 界面和四个工具都没有 | 插件被加载器自动停用了。见下面「插件被自动停用」 |
 | 界面完全不出现（工具正常） | 检查 `cordis.patch.yml` 缩进与 `name` 拼写；确认是顶层数组（`- insert:` 顶格）。Client 半边可能未进图：确认 `package.json` 有 `exports["./client"]` 与 `dsh.client.platform: "web"` |
-| 「本地视觉模型不可用」 | 正常降级，不是错误。启动 Ollama 并 `ollama pull qwen2.5-vl`，或在配置里填 `visionBaseUrl` |
+| 「本地视觉模型不可用」 | 正常降级，不是错误。启动 Ollama 并 `ollama pull qwen2.5-vl`，或在配置里填 `visionBaseUrl`（本机或远端都行） |
 | 识别总说证据不足 | 这是设计行为。按拍照清单补拍：腰带必须拆带扣、拆变身道具；高达必须有盒子正面 |
 | 结果标「疑似」 | 得分接近或缺少标识证据。点选候选即可，选择会进纠正库 |
 | `ERR_MODULE_NOT_FOUND` | 依赖没解析到。见上面第 2 步 |

@@ -19,7 +19,7 @@ Un assistant d'identification qui tourne à l'intérieur de DeepSeek Harness, co
 - **Ceintures Kamen Rider** : DX ou CSM ? Est-ce un KO ?
 - **Maquettes Bandai Gunpla** : EG / HG / RG / MG / PG / MB / Dissection Craft Machine — quel grade est-ce ? Est-ce un bootleg ?
 
-Une règle de conception s'applique du début à la fin : **mis à part l'étape « écrire une évaluation », rien n'appelle de grand modèle.** La liste de photos, la reconnaissance, l'arbitrage DX/CSM, les consultations de la base de connaissances, la notation des sources et le filtrage des fausses informations se font tous sur cette machine, à zéro token. Les résultats vont dans un cache local, donc ré-identifier le même lot de photos ne recalcule rien.
+Une règle de conception s'applique du début à la fin : **en reconnaissance locale, mis à part l'étape « écrire une évaluation », rien n'appelle de grand modèle.** La liste de photos, la reconnaissance, l'arbitrage DX/CSM, les consultations de la base de connaissances, la notation des sources et le filtrage des fausses informations se font tous sur cette machine, à zéro token. Les résultats vont dans un cache local, donc ré-identifier le même lot de photos ne recalcule rien.
 
 > Ce plugin n'est pas un outil officiel. L'identification est donnée à titre indicatif — voir [Avertissement](#avertissement).
 
@@ -144,7 +144,17 @@ Tout se modifie dans le `cordis.patch.yml` du profil :
 
 ### À propos de la « reconnaissance par petit modèle local »
 
-Le plugin **ne téléverse jamais** vos photos dans le cloud. Il appelle un point d'accès de vision compatible OpenAI qui **tourne déjà sur votre propre machine** :
+**Où tourne la reconnaissance.** Trois modes, selon la façon dont vous le configurez :
+
+| Mode | Les photos vont | Remarques |
+|---|---|---|
+| **Point d'accès local** (adresse vide, sondage automatique) | nulle part — elles restent sur cette machine | Ollama ou tout serveur compatible OpenAI sur `127.0.0.1`. Coût nul, fonctionne hors ligne. |
+| **Point d'accès distant** (par exemple Zhipu avec `glm-5.3-flash`) | **les serveurs de ce fournisseur** | Renseignez l'URL de base et le modèle, puis la clé API. C'est votre propre choix de configuration. |
+| **Aucun modèle configuré** | nulle part | La liste de photos, la saisie manuelle du modèle et la base de connaissances fonctionnent toujours ; seule la reconnaissance de photos est désactivée. |
+
+Le plugin ne téléverse jamais rien de lui-même. Les photos ne quittent cette machine **que** lorsque vous pointez le point d'accès vers une adresse distante.
+
+Voici le cas local, avec un point d'accès de vision compatible OpenAI qui **tourne déjà sur votre propre machine** :
 
 ```bash
 # Exemple : Ollama
@@ -233,7 +243,7 @@ Placé à trois endroits : le guide de démarrage (derrière une case à cocher)
 
 ### GDPR / EU AI Act (utilisateurs de l'UE)
 
-- **GDPR** : les données d'identification restent sur cette machine par défaut (`$DSH_HOME/plugin-data/tokusatsu-gunpla`), et le plugin ne téléverse ni les photos ni la base de connaissances. Supprimer le répertoire de données local exerce votre droit à l'effacement ; le plugin ne construit aucun profil utilisateur.
+- **GDPR** : les données d'identification restent sur cette machine par défaut (`$DSH_HOME/plugin-data/tokusatsu-gunpla`), et la base de connaissances n'est jamais téléversée. **Si vous configurez un point d'accès de reconnaissance distant, les photos sont envoyées à ce fournisseur** — c'est votre propre configuration ; un point d'accès local les garde ici. Supprimer le répertoire de données local exerce votre droit à l'effacement ; le plugin ne construit aucun profil utilisateur.
 - **EU AI Act** : ce plugin est un système d'IA open source à usage non à haut risque, qui ne fait que de l'identification assistée et de l'organisation d'informations. Tout contenu généré par IA est étiqueté avec son niveau de source et est uniquement affiché, jamais archivé.
 - **Transparence** : les résultats viennent avec une confiance et une chaîne de preuves, et les corrections de l'utilisateur priment sur les résultats automatiques.
 

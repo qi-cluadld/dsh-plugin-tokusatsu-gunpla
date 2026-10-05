@@ -65,6 +65,90 @@ export const RICH_MODE_TERM = {
  */
 export const RICH_MODE_LEGACY = /Rich mode|Reicher Modus|reicher Modus|リッチモード|Mode enrichi|mode enrichi|Modo ampliado|Modo avançado|리치 모드|Расширенный режим|Modalità ricca/iu
 
+/**
+ * The unconditional no-upload sentences the documentation used to carry.
+ *
+ * These are listed as exact phrases rather than expressed as a semantic pattern.
+ * A pattern broad enough to catch every paraphrase also flags the ACCURATE
+ * statements ("the knowledge base is never uploaded", "the plugin never uploads
+ * anything by itself"), and a guard that cries wolf gets ignored — which is how the
+ * original false promise survived review in the first place.
+ *
+ * The reliable half of the check is REQUIRED_REMOTE_DISCLOSURE below: every edition
+ * must state that a remote endpoint sends photos to the provider.
+ */
+export const ABSOLUTE_NO_UPLOAD = [
+  'never uploads your photos to the cloud',
+  'photos are never uploaded',
+  'are never uploaded to the cloud',
+  '插件不上传照片与知识库',
+  '绝不上传照片',
+  '不会上传照片',
+  '写真は一切アップロードしません',
+  'lädt keine Fotos hoch',
+  'werden nie hochgeladen',
+  'no sube ninguna foto',
+  'não envia fotografias',
+  '사진을 업로드하지 않습니다',
+  'не загружает фотографии',
+  'non carica mai foto',
+]
+
+/**
+ * The disclosure every edition must carry: a remote endpoint sends photos to the
+ * provider. Phrase-based per language, because that is verifiable.
+ */
+export const REQUIRED_REMOTE_DISCLOSURE = [
+  '发送给该服务商',
+  '寄送给该服务商',
+  'sends them to that provider',
+  'sends your photos to that provider',
+  'photos are sent to that provider',
+  '送信されます',
+  'gesendet',
+  'envoyées',
+  'se envían',
+  'são enviadas',
+  '전송됩니다',
+  'отправлен',
+  'vengono inviate',
+]
+
+/**
+ * Strip inline Markdown emphasis so phrase matching survives formatting.
+ *
+ * Documentation wraps words in `**` for emphasis, so the sentence "photos are
+ * **never** uploaded" would slip past a check that matches "photos are never
+ * uploaded". The self-test caught exactly that hole.
+ * @param {string} text - document text.
+ * @returns {string} the text with `*`, `_` and `` ` `` markers removed.
+ */
+export function stripEmphasis(text) {
+  return text.replace(/[*_`]/gu, '')
+}
+
+/** Truthy when `text` carries no absolute photo-upload promise. */
+export function hasNoAbsoluteUploadPromise(text) {
+  const plain = stripEmphasis(text)
+  return ABSOLUTE_NO_UPLOAD.every((phrase) => !plain.includes(phrase))
+}
+
+/** Truthy when `text` discloses that a remote endpoint receives the photos. */
+export function disclosesRemoteUpload(text) {
+  const plain = stripEmphasis(text)
+  return REQUIRED_REMOTE_DISCLOSURE.some((phrase) => plain.includes(phrase))
+}
+
+
+/**
+ * The disclosure that must accompany a remote endpoint, per language.
+ *
+ * Every edition has to say the photos go to the provider, so a reader cannot
+ * configure one without knowing.
+ */
+export const REMOTE_UPLOAD_DISCLOSURE = /发送给该服务商|sends them to that provider|sends your photos to that provider|送信されます|gesendet|envoyées|se envían|são enviadas|전송됩니다|отправлен|vengono inviate/iu
+
+
 
 /**
  * Locate the disclaimer section of a README.

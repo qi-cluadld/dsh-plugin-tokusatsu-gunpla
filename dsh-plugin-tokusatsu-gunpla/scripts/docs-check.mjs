@@ -55,6 +55,26 @@ for (const [language, text] of Object.entries(i18n.DISCLAIMER)) {
   check(`the ${language} disclaimer carries exactly seven clauses`, clauses.length === 7, clauses.length)
 }
 
+// The privacy guard is only worth having if it actually fires. These cases pin its
+// behaviour, including the hole the first version had: documentation wraps words in
+// Markdown emphasis, so "photos are **never** uploaded" slipped past a check that
+// matched the unemphasised phrase.
+{
+  const cases = [
+    ['the old false claim', 'The plugin **never** uploads your photos to the cloud.', false],
+    ['the old false claim unemphasised', 'The plugin never uploads your photos to the cloud.', false],
+    ['an emphasised paraphrase', 'photos are **never** uploaded to any server', false],
+    ['the Chinese false claim', '插件不上传照片与知识库。', false],
+    ['an accurate scoped statement', 'The plugin never uploads anything by itself.', true],
+    ['an accurate knowledge-base claim', 'the knowledge base is never uploaded', true],
+    ['the corrected wording', 'Photos leave this machine **only** when you point the endpoint at a remote address.', true],
+  ]
+  for (const [label, text, expected] of cases) {
+    check(`the privacy guard ${expected ? 'accepts' : 'rejects'} ${label}`, contract.hasNoAbsoluteUploadPromise(text) === expected)
+  }
+  check('the privacy guard recognises the remote-upload disclosure', contract.disclosesRemoteUpload('photos are sent to that provider'))
+}
+
 /**
  * Every documentation language, paired with the file that carries it.
  *
@@ -142,6 +162,14 @@ for (const [name, entry] of Object.entries(readmes)) {
     language === 'zh-Hans' ? /权威版本|authoritative/u.test(notice) : notice.includes('README.md'),
     { language },
   )
+
+  // A remote recognition endpoint sends photos to that provider, so no edition may
+  // still carry the unconditional no-upload promise, and every edition must
+  // disclose the remote case. A false privacy claim is worse than no claim.
+  check('makes no absolute no-upload promise', contract.hasNoAbsoluteUploadPromise(text))
+  check('discloses that a remote endpoint sends photos to the provider', contract.disclosesRemoteUpload(text))
+  check('names the remote endpoint option', /Zhipu/u.test(text))
+  check('names a working remote model', text.includes('glm-5.3-flash'))
 
   // This language's own disclaimer, clause by clause, ignoring each clause's
   // leading label so a translation may reword it.

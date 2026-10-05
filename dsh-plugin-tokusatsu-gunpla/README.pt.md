@@ -19,7 +19,7 @@ Um assistente de identificação que corre dentro do DeepSeek Harness, feito exa
 - **Cintos Kamen Rider**: DX ou CSM? É um KO?
 - **Kits Gunpla da Bandai**: EG / HG / RG / MG / PG / MB / Dissection Craft Machine — que grade é? É uma imitação?
 
-Uma regra de design mantém-se em todo o projeto: **exceto no passo "escrever uma análise", nada chama um modelo grande.** A lista de fotografias, o reconhecimento, a decisão DX/CSM, as consultas à base de conhecimento, a classificação de fontes e o filtro de notícias falsas acontecem todos nesta máquina, a zero tokens. Os resultados vão para uma cache local, por isso voltar a identificar o mesmo lote de fotografias não recalcula nada.
+Uma regra de design mantém-se em todo o projeto: **com reconhecimento local, exceto no passo "escrever uma análise", nada chama um modelo grande.** A lista de fotografias, o reconhecimento, a decisão DX/CSM, as consultas à base de conhecimento, a classificação de fontes e o filtro de notícias falsas acontecem todos nesta máquina, a zero tokens. Os resultados vão para uma cache local, por isso voltar a identificar o mesmo lote de fotografias não recalcula nada.
 
 > Este plugin não é uma ferramenta oficial. A identificação é apenas uma referência — ver [Aviso legal](#aviso-legal).
 
@@ -144,7 +144,15 @@ Tudo se altera no `cordis.patch.yml` do perfil:
 
 ### Sobre o "reconhecimento com modelo pequeno local"
 
-O plugin **nunca** envia as suas fotografias para a nuvem. Chama um endpoint de visão compatível com OpenAI que **já está a correr na sua própria máquina**:
+**Onde corre o reconhecimento.** Três modos, consoante a configuração:
+
+| Modo | Para onde vão as fotografias | Notas |
+|---|---|---|
+| **Endpoint local** (endereço vazio, sondagem automática) | para lado nenhum — ficam nesta máquina | Ollama ou qualquer servidor compatível com OpenAI em `127.0.0.1`. Custo zero, funciona offline. |
+| **Endpoint remoto** (por exemplo Zhipu com `glm-5.3-flash`) | **para os servidores desse fornecedor** | Preencha o URL base e o modelo, e defina a chave de API. É uma escolha sua de configuração. |
+| **Sem modelo configurado** | para lado nenhum | A lista de fotografias, a introdução manual do modelo e a base de conhecimento continuam a funcionar; só o reconhecimento de fotografias fica desligado. |
+
+O plugin nunca envia nada por si próprio. As fotografias só saem desta máquina **quando** aponta o endpoint para um endereço remoto.
 
 ```bash
 # Exemplo: Ollama
@@ -233,7 +241,7 @@ Colocado em três locais: o guia de arranque (atrás de uma caixa de verificaç�
 
 ### GDPR / EU AI Act (utilizadores da UE)
 
-- **GDPR**: os dados de identificação ficam nesta máquina por predefinição (`$DSH_HOME/plugin-data/tokusatsu-gunpla`), e o plugin não envia nem as fotografias nem a base de conhecimento. Apagar o diretório de dados local exerce o seu direito ao apagamento; o plugin não cria perfis de utilizador.
+- **GDPR**: os dados de identificação ficam nesta máquina por predefinição (`$DSH_HOME/plugin-data/tokusatsu-gunpla`), e a base de conhecimento nunca é enviada. **Se configurar um endpoint de reconhecimento remoto, as fotografias são enviadas para esse fornecedor** — isso é uma escolha sua de configuração; um endpoint local mantém-nas aqui. Apagar o diretório de dados local exerce o seu direito ao apagamento; o plugin não cria perfis de utilizador.
 - **EU AI Act**: este plugin é um sistema de IA de código aberto para uso não de alto risco, que faz apenas identificação assistida e organização de informação. Todo o conteúdo gerado por IA é rotulado com o seu nível de fonte e é apenas para visualização, nunca arquivado.
 - **Transparência**: os resultados vêm com confiança e uma cadeia de evidências, e as correções do utilizador têm prioridade sobre os resultados automáticos.
 

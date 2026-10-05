@@ -19,7 +19,7 @@ An identification assistant that runs inside DeepSeek Harness, built for exactly
 - **Kamen Rider belts**: DX or CSM? Is it a KO?
 - **Bandai Gunpla kits**: EG / HG / RG / MG / PG / MB / Dissection Craft Machine — which grade is it? Is it a bootleg?
 
-One design rule holds throughout: **apart from the "write a review" step, nothing calls a large model.** The photo checklist, recognition, the DX/CSM call, knowledge-base lookups, source grading and fake-news filtering all happen on this machine, at zero tokens. Results go into a local cache, so re-identifying the same batch of photos does not recompute anything.
+One design rule holds throughout: **with local recognition, apart from the "write a review" step, nothing calls a large model.** The photo checklist, recognition, the DX/CSM call, knowledge-base lookups, source grading and fake-news filtering all happen on this machine, at zero tokens. Results go into a local cache, so re-identifying the same batch of photos does not recompute anything.
 
 > This plugin is not an official tool. Identification is reference only — see [Disclaimer](#disclaimer).
 
@@ -144,7 +144,15 @@ Everything is changed in the profile's `cordis.patch.yml`:
 
 ### About "local small-model recognition"
 
-The plugin **never** uploads your photos to the cloud. It calls an OpenAI-compatible vision endpoint that is **already running on your own machine**:
+**Where recognition runs.** Three modes, depending on how you configure it:
+
+| Mode | Photos go to | Notes |
+|---|---|---|
+| **Local endpoint** (empty address, auto-probe) | nowhere — they stay on this machine | Ollama or any OpenAI-compatible server on `127.0.0.1`. Zero cost, works offline. |
+| **Remote endpoint** (for example Zhipu with `glm-5.3-flash`) | **that provider's servers** | Fill in the base URL and model, and set the API key. This is your own configuration choice. |
+| **No model configured** | nowhere | The checklist, manual model entry and knowledge base still work; only photo recognition is off. |
+
+The plugin never uploads anything by itself. Photos leave this machine **only** when you point the endpoint at a remote address.
 
 ```bash
 # Example: Ollama
@@ -233,7 +241,7 @@ Placed in three places: the startup guide (behind a checkbox), this README, and 
 
 ### GDPR / EU AI Act (EU users)
 
-- **GDPR**: identification data stays on this machine by default (`$DSH_HOME/plugin-data/tokusatsu-gunpla`), and the plugin uploads neither photos nor the knowledge base. Deleting the local data directory exercises your right to erasure; the plugin builds no user profiles.
+- **GDPR**: recognition data stays on this machine by default (`$DSH_HOME/plugin-data/tokusatsu-gunpla`), and the knowledge base is never uploaded. **If you configure a remote recognition endpoint, photos are sent to that provider** — that is your own configuration; a local endpoint keeps them here. Deleting the local data directory exercises your right to erasure; the plugin builds no user profiles.
 - **EU AI Act**: this plugin is an open-source AI system for non-high-risk use, doing assisted identification and information organisation only. All AI-generated content is labelled with its source tier and is display-only, never filed.
 - **Transparency**: results come with confidence and an evidence chain, and user corrections outrank automatic results.
 

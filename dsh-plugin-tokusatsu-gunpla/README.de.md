@@ -19,7 +19,7 @@ Ein Identifikationsassistent, der in DeepSeek Harness läuft und für genau zwei
 - **Kamen Rider Gürtel**: DX oder CSM? Ist es ein KO?
 - **Bandai Gunpla Kits**: EG / HG / RG / MG / PG / MB / Dissection Craft Machine — welcher Grad ist es? Ist es eine Raubkopie?
 
-Eine Designregel gilt durchgehend: **außer beim Schritt „eine Bewertung schreiben“ ruft nichts ein großes Modell auf.** Die Foto-Checkliste, die Erkennung, die DX/CSM-Entscheidung, die Abfragen der Wissensbasis, die Quellenbewertung und die Filterung von Falschnachrichten geschehen alle auf dieser Maschine, bei null Tokens. Die Ergebnisse landen in einem lokalen Cache, sodass die erneute Identifikation desselben Foto-Stapels nichts neu berechnet.
+Eine Designregel gilt durchgehend: **bei lokaler Erkennung ruft außer beim Schritt „eine Bewertung schreiben“ nichts ein großes Modell auf.** Die Foto-Checkliste, die Erkennung, die DX/CSM-Entscheidung, die Abfragen der Wissensbasis, die Quellenbewertung und die Filterung von Falschnachrichten geschehen alle auf dieser Maschine, bei null Tokens. Die Ergebnisse landen in einem lokalen Cache, sodass die erneute Identifikation desselben Foto-Stapels nichts neu berechnet.
 
 > Dieses Plugin ist kein offizielles Werkzeug. Die Identifikation dient nur als Hinweis — siehe [Haftungsausschluss](#haftungsausschluss).
 
@@ -144,7 +144,15 @@ Alles wird in der `cordis.patch.yml` des Profils geändert:
 
 ### Zur „lokalen Kleinmodell-Erkennung“
 
-Das Plugin lädt Ihre Fotos **niemals** in die Cloud hoch. Es ruft einen OpenAI-kompatiblen Vision-Endpunkt auf, der **bereits auf Ihrer eigenen Maschine läuft**:
+**Wo die Erkennung läuft.** Drei Modi, je nachdem, wie Sie es konfigurieren:
+
+| Modus | Fotos gehen an | Hinweise |
+|---|---|---|
+| **Lokaler Endpunkt** (leere Adresse, automatische Prüfung) | niemanden — sie bleiben auf dieser Maschine | Ollama oder jeder OpenAI-kompatible Server auf `127.0.0.1`. Null Kosten, funktioniert offline. |
+| **Entfernter Endpunkt** (zum Beispiel Zhipu mit `glm-5.3-flash`) | **die Server dieses Anbieters** | Basis-URL und Modell eintragen und den API-Schlüssel hinterlegen. Das ist Ihre eigene Konfigurationsentscheidung. |
+| **Kein Modell konfiguriert** | niemanden | Checkliste, manuelle Modelleingabe und Wissensbasis funktionieren weiter; nur die Fotoerkennung ist aus. |
+
+Das Plugin lädt von sich aus nichts hoch. Fotos verlassen diese Maschine **nur**, wenn Sie den Endpunkt auf eine entfernte Adresse richten.
 
 ```bash
 # Beispiel: Ollama
@@ -233,7 +241,7 @@ An drei Stellen platziert: in der Startanleitung (hinter einem Kontrollkästchen
 
 ### GDPR / EU AI Act (EU-Nutzer)
 
-- **GDPR**: Identifikationsdaten bleiben standardmäßig auf dieser Maschine (`$DSH_HOME/plugin-data/tokusatsu-gunpla`), und das Plugin lädt weder Fotos noch die Wissensbasis hoch. Das Löschen des lokalen Datenverzeichnisses übt Ihr Recht auf Löschung aus; das Plugin erstellt keine Nutzerprofile.
+- **GDPR**: Erkennungsdaten bleiben standardmäßig auf dieser Maschine (`$DSH_HOME/plugin-data/tokusatsu-gunpla`), und die Wissensbasis wird niemals hochgeladen. **Wenn Sie einen entfernten Erkennungsendpunkt konfigurieren, werden Fotos an diesen Anbieter gesendet** — das ist Ihre eigene Konfiguration; ein lokaler Endpunkt behält sie hier. Das Löschen des lokalen Datenverzeichnisses übt Ihr Recht auf Löschung aus; das Plugin erstellt keine Nutzerprofile.
 - **EU AI Act**: Dieses Plugin ist ein Open-Source-KI-System für nicht hochriskante Verwendung, das nur unterstützte Identifikation und Informationsorganisation betreibt. Alle KI-generierten Inhalte sind mit ihrer Quellenstufe gekennzeichnet und dienen nur der Anzeige, werden nie abgelegt.
 - **Transparenz**: Ergebnisse kommen mit Konfidenz und einer Nachweiskette, und Nutzerkorrekturen haben Vorrang vor automatischen Ergebnissen.
 
