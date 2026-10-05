@@ -1,7 +1,11 @@
 # Dependencies are resolved from the DSH profile's hoisted store during local
 # development (see docs/INSTALL.md), so nothing here is installed or committed.
 node_modules/
-pnpm-lock.yaml
+
+# pnpm-lock.yaml is deliberately NOT ignored: it is committed so dependency
+# resolution stays reproducible. Ignoring an already-tracked file has no effect
+# anyway, and the entry only misleads a reader into thinking it is untracked.
+# Lockfiles for the package managers this project does not use stay ignored.
 package-lock.json
 yarn.lock
 
