@@ -64,7 +64,7 @@ Un fulmine blu **non basta** — l'account deve avere contemporaneamente un sogg
 
 **Motori di ricerca**: prima Bing cinese; il punto d'ingresso Baidu è opzionale e viene sempre etichettato "non verificato" quando mostrato; Google per i mercati non cinesi, Yandex per il russo; **360 / Sogou / 2345 non vengono mai usati**.
 
-### Modalità ricca (opzionale)
+### Modalità collezionista (opzionale)
 
 Per impostazione predefinita il plugin copre solo gli articoli mainstream. Quando è attivata include anche:
 
@@ -127,7 +127,7 @@ Tutto si modifica nel `cordis.patch.yml` del profilo:
 
 | Campo | Predefinito | Descrizione |
 |---|---|---|
-| `richMode` | `false` | Modalità ricca |
+| `richMode` | `false` | Modalità collezionista |
 | `visionEnabled` | `true` | Se usare un endpoint di visione locale |
 | `visionBaseUrl` | `''` | Endpoint compatibile OpenAI; lascia vuoto per sondare automaticamente `127.0.0.1:11434 / :1234 / :8080` |
 | `visionModel` | `''` | Nome del modello; lascia vuoto per usare il primo che l'endpoint segnala |
@@ -172,9 +172,9 @@ I valori di ritorno degli strumenti portano già la conclusione e la catena di p
 
 Tre superfici UI, tutte registrate tramite il sistema di slot di Harness:
 
-1. **Guida iniziale** (slot `conversation.input.dock`, sopra l'area di input della conversazione): requisiti fotografici in testo grande + casella di accettazione dell'avvertenza legale + note di conformità + interruttore della modalità ricca. **L'interfaccia di acquisizione non compare finché il consenso non è spuntato.**
+1. **Guida iniziale** (slot `conversation.input.dock`, sopra l'area di input della conversazione): requisiti fotografici in testo grande + casella di accettazione dell'avvertenza legale + note di conformità + interruttore della Modalità collezionista. **L'interfaccia di acquisizione non compare finché il consenso non è spuntato.**
 2. **Guida all'acquisizione** (slot `conversation.composer.dock`, persistente): cambio di categoria, banner di promemoria persistente, checklist fotografica con caselle selezionabili, suggerimenti in tempo reale su cosa manca ancora.
-3. **Pannello dei risultati + pagina delle impostazioni** (slot `settings.section`): le schede dei risultati portano confidenza e prove, e i casi sospetti permettono di scegliere la correzione; la pagina delle impostazioni gestisce lingua, modalità ricca, punto d'ingresso Baidu, endpoint locale, avvertenza legale e note di conformità.
+3. **Pannello dei risultati + pagina delle impostazioni** (slot `settings.section`): le schede dei risultati portano confidenza e prove, e i casi sospetti permettono di scegliere la correzione; la pagina delle impostazioni gestisce lingua, Modalità collezionista, punto d'ingresso Baidu, endpoint locale, avvertenza legale e note di conformità.
 
 ---
 

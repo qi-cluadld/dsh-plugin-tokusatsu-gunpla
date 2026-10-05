@@ -64,7 +64,7 @@ Un éclair bleu **ne suffit pas** — le compte doit simultanément avoir un suj
 
 **Moteurs de recherche** : Bing chinois en premier ; le point d'entrée Baidu est optionnel et toujours étiqueté « non vérifié » lorsqu'il est affiché ; Google pour les marchés non chinois, Yandex pour le russe ; **360 / Sogou / 2345 ne sont jamais utilisés**.
 
-### Mode enrichi (optionnel)
+### Mode collectionneur (optionnel)
 
 Par défaut, le plugin ne couvre que les articles grand public. Lorsqu'il est activé, il inclut aussi :
 
@@ -127,7 +127,7 @@ Tout se modifie dans le `cordis.patch.yml` du profil :
 
 | Champ | Défaut | Description |
 |---|---|---|
-| `richMode` | `false` | Mode enrichi |
+| `richMode` | `false` | Mode collectionneur |
 | `visionEnabled` | `true` | Faut-il utiliser un point d'accès de vision local |
 | `visionBaseUrl` | `''` | Point d'accès compatible OpenAI ; laisser vide pour sonder automatiquement `127.0.0.1:11434 / :1234 / :8080` |
 | `visionModel` | `''` | Nom du modèle ; laisser vide pour utiliser le premier que le point d'accès annonce |

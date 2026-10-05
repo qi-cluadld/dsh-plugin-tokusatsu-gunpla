@@ -20,12 +20,40 @@ export const REQUIRED_STATEMENTS = {
   notEndorsement: /不背书|No endorsement|not an endorsement|推奨しません|推奨ではありません|不代表推荐|keine\s+Empfehlung|non\s+une\s+recommandation|no\s+una\s+recomendación|não\s+uma\s+recomendação|추천이\s+아닙니다|не\s+recomendación|не\s+рекомендация|non\s+una\s+raccomandazione/iu,
 }
 
-/** How a translation may describe each of the three registered UI surfaces. */
+/**
+ * How a translation may describe each of the three registered UI surfaces. */
 export const SURFACE_PATTERNS = [
   /引导|onboard|guide|startup|ガイド|案内|Anleitung|guía|guia|가이드|руководство|guida/iu,
   /拍照|capture|photo|拍摄|撮影|Foto|foto|촬영|фото|fotograf/iu,
   /结果|result|面板|panel|設定|setting|結果|Ergebnis|résultat|resultado|risultato|결과|результат/iu,
 ]
+
+/**
+ * The product name of the "rich mode" feature, per language, exactly as the UI
+ * shows it.
+ *
+ * The Chinese name is 富哥模式 — literally "rich guy mode" — but the UI deliberately
+ * localises it as a COLLECTOR term in every other language rather than translating
+ * the character 富. Translating it literally yields "Rich mode" / "Reicher Modus",
+ * which is a different name from the switch the user is looking at. Keeping the
+ * table here lets the documentation check fail when the docs and the UI drift.
+ *
+ * Source of truth: the `settings.richMode` entries in lib/client.js.
+ */
+export const RICH_MODE_TERM = {
+  'README.md': '富哥模式',
+  'README.en.md': 'Collector mode',
+  'README.en-GB.md': 'Collector mode',
+  'README.ja.md': 'コレクターモード',
+  'README.de.md': 'Sammler-Modus',
+  'README.fr.md': 'Mode collectionneur',
+  'README.es.md': 'Modo coleccionista',
+  'README.pt.md': 'Modo colecionador',
+  'README.ko.md': '컬렉터 모드',
+  'README.ru.md': 'Режим коллекционера',
+  'README.it.md': 'Modalità collezionista',
+}
+
 
 /**
  * Locate the disclaimer section of a README.

@@ -64,7 +64,7 @@ Ein blauer Blitz **reicht nicht** — der Account muss gleichzeitig ein verifizi
 
 **Suchmaschinen**: Zuerst chinesisches Bing; der Baidu-Einstiegspunkt ist optional und wird immer als „unbestätigt“ gekennzeichnet, wenn er gezeigt wird; Google für nicht-chinesische Märkte, Yandex für Russisch; **360 / Sogou / 2345 werden nie verwendet**.
 
-### Reicher Modus (optional)
+### Sammler-Modus (optional)
 
 Standardmäßig deckt das Plugin nur Mainstream-Artikel ab. Wenn aktiviert, umfasst es zusätzlich:
 
@@ -127,7 +127,7 @@ Alles wird in der `cordis.patch.yml` des Profils geändert:
 
 | Feld | Vorgabe | Beschreibung |
 |---|---|---|
-| `richMode` | `false` | Reicher Modus |
+| `richMode` | `false` | Sammler-Modus |
 | `visionEnabled` | `true` | Ob ein lokaler Vision-Endpunkt verwendet wird |
 | `visionBaseUrl` | `''` | OpenAI-kompatibler Endpunkt; leer lassen, um `127.0.0.1:11434 / :1234 / :8080` automatisch zu prüfen |
 | `visionModel` | `''` | Modellname; leer lassen, um das erste vom Endpunkt gemeldete zu verwenden |

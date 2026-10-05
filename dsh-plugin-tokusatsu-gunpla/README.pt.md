@@ -64,7 +64,7 @@ Um raio azul **não é suficiente** — a conta tem de ter simultaneamente uma e
 
 **Motores de busca**: Bing chinês primeiro; o ponto de entrada do Baidu é opcional e aparece sempre rotulado como "não verificado"; Google para mercados não chineses, Yandex para russo; **360 / Sogou / 2345 nunca são usados**.
 
-### Modo avançado (opcional)
+### Modo colecionador (opcional)
 
 Por predefinição, o plugin cobre apenas artigos de grande consumo. Quando ativado, inclui também:
 
@@ -127,7 +127,7 @@ Tudo se altera no `cordis.patch.yml` do perfil:
 
 | Campo | Predefinição | Descrição |
 |---|---|---|
-| `richMode` | `false` | Modo avançado |
+| `richMode` | `false` | Modo colecionador |
 | `visionEnabled` | `true` | Se deve usar um endpoint de visão local |
 | `visionBaseUrl` | `''` | Endpoint compatível com OpenAI; deixar vazio para sondar automaticamente `127.0.0.1:11434 / :1234 / :8080` |
 | `visionModel` | `''` | Nome do modelo; deixar vazio para usar o primeiro que o endpoint reportar |
@@ -172,9 +172,9 @@ Os valores de retorno das ferramentas já trazem a conclusão e a cadeia de evid
 
 Três superfícies de UI, todas registadas através do sistema de slots do Harness (`conversation.input.dock`, `conversation.composer.dock`, `settings.section`):
 
-1. **Guia de arranque** (acima da área de entrada da conversa): requisitos de fotografias em texto grande + caixa de verificação do aviso legal + notas de conformidade + botão do modo avançado. **A interface de captura não aparece enquanto o consentimento não estiver assinalado.**
+1. **Guia de arranque** (acima da área de entrada da conversa): requisitos de fotografias em texto grande + caixa de verificação do aviso legal + notas de conformidade + botão do Modo colecionador. **A interface de captura não aparece enquanto o consentimento não estiver assinalado.**
 2. **Guia de captura** (persistente): troca de categoria, banner de aviso persistente, lista de fotografias verificável, dicas em tempo real sobre o que ainda falta.
-3. **Painel de resultados + página de definições**: os cartões de resultado trazem confiança e evidência, e os casos suspeitos permitem escolher a correção; a página de definições gere o idioma, o modo avançado, o ponto de entrada do Baidu, o endpoint local, o aviso legal e as notas de conformidade.
+3. **Painel de resultados + página de definições**: os cartões de resultado trazem confiança e evidência, e os casos suspeitos permitem escolher a correção; a página de definições gere o idioma, o Modo colecionador, o ponto de entrada do Baidu, o endpoint local, o aviso legal e as notas de conformidade.
 
 ---
 

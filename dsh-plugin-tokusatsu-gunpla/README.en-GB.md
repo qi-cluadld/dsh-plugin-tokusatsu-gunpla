@@ -64,7 +64,7 @@ A blue bolt **is not enough** — the account must simultaneously have a verifie
 
 **Search engines**: Chinese Bing first; the Baidu entry point is optional and is always labelled "unverified" when shown; Google for non-Chinese markets, Yandex for Russian; **360 / Sogou / 2345 are never used**.
 
-### Rich mode (optional)
+### Collector mode (optional)
 
 By default the plugin covers only mainstream items. When enabled it also includes:
 
@@ -127,7 +127,7 @@ Everything is changed in the profile's `cordis.patch.yml`:
 
 | Field | Default | Description |
 |---|---|---|
-| `richMode` | `false` | Rich mode |
+| `richMode` | `false` | Collector mode |
 | `visionEnabled` | `true` | Whether to use a local vision endpoint |
 | `visionBaseUrl` | `''` | OpenAI-compatible endpoint; leave empty to auto-probe `127.0.0.1:11434 / :1234 / :8080` |
 | `visionModel` | `''` | Model name; leave empty to use the first one the endpoint reports |

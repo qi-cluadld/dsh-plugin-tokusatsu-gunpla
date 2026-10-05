@@ -118,6 +118,12 @@ for (const [name, entry] of Object.entries(readmes)) {
   const missingConfig = CONFIG_KEYS.filter((key) => !text.includes(key))
   check('documents every configuration key', missingConfig.length === 0, missingConfig)
 
+  // The feature must be called what the UI calls it. Translating the Chinese name
+  // literally produced "Rich mode" / "Reicher Modus" while the switch in the
+  // application reads "Collector mode" / "Sammler-Modus".
+  const term = contract.RICH_MODE_TERM[name]
+  check('names the rich-mode feature as the UI does', text.includes(term), { expected: term })
+
   // This language's own disclaimer, clause by clause, ignoring each clause's
   // leading label so a translation may reword it.
   const clauses = i18n.DISCLAIMER[language].split('\n').filter((line) => line.trim() !== '')

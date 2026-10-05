@@ -64,7 +64,7 @@ Un rayo azul **no basta**: la cuenta debe tener a la vez un sujeto verificado, u
 
 **Motores de búsqueda**: primero Bing en chino; el acceso a Baidu es opcional y siempre se etiqueta como «sin verificar» cuando se muestra; Google para mercados no chinos, Yandex para ruso; **360 / Sogou / 2345 no se usan nunca**.
 
-### Modo ampliado (opcional)
+### Modo coleccionista (opcional)
 
 Por defecto el plugin cubre solo artículos mayoritarios. Cuando se activa, también incluye:
 
@@ -127,7 +127,7 @@ Todo se cambia en el `cordis.patch.yml` del perfil:
 
 | Campo | Valor por defecto | Descripción |
 |---|---|---|
-| `richMode` | `false` | Modo ampliado |
+| `richMode` | `false` | Modo coleccionista |
 | `visionEnabled` | `true` | Si se usa un endpoint de visión local |
 | `visionBaseUrl` | `''` | Endpoint compatible con OpenAI; déjalo vacío para sondear automáticamente `127.0.0.1:11434 / :1234 / :8080` |
 | `visionModel` | `''` | Nombre del modelo; déjalo vacío para usar el primero que informe el endpoint |
@@ -172,9 +172,9 @@ Los valores de retorno de las herramientas ya llevan la conclusión y la cadena 
 
 Tres superficies de interfaz, todas registradas a través del sistema de slots de Harness (`conversation.input.dock`, `conversation.composer.dock`, `settings.section`):
 
-1. **Guía de inicio** (encima del área de entrada de la conversación): requisitos de fotos en texto grande + casilla del descargo de responsabilidad + notas de cumplimiento + conmutador de modo ampliado. **La interfaz de captura no aparece hasta que se marca el consentimiento.**
+1. **Guía de inicio** (encima del área de entrada de la conversación): requisitos de fotos en texto grande + casilla del descargo de responsabilidad + notas de cumplimiento + conmutador de Modo coleccionista. **La interfaz de captura no aparece hasta que se marca el consentimiento.**
 2. **Guía de captura** (persistente): cambio de categoría, aviso recordatorio persistente, lista de fotos marcable, indicaciones en vivo sobre lo que aún falta.
-3. **Panel de resultados + página de ajustes**: las tarjetas de resultado llevan confianza y pruebas, y los casos sospechosos te dejan elegir la corrección; la página de ajustes gestiona el idioma, el modo ampliado, el acceso a Baidu, el endpoint local, el descargo de responsabilidad y las notas de cumplimiento.
+3. **Panel de resultados + página de ajustes**: las tarjetas de resultado llevan confianza y pruebas, y los casos sospechosos te dejan elegir la corrección; la página de ajustes gestiona el idioma, el Modo coleccionista, el acceso a Baidu, el endpoint local, el descargo de responsabilidad y las notas de cumplimiento.
 
 ---
 
