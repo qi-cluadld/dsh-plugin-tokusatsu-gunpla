@@ -259,7 +259,7 @@ data/
 
 ---
 
-## License
+## 许可证（License）
 
 [MIT](LICENSE)
 
