@@ -17,7 +17,7 @@
 Ein Identifikationsassistent, der in DeepSeek Harness läuft und für genau zwei Aufgaben gebaut ist:
 
 - **Kamen Rider Gürtel**: DX oder CSM? Ist es ein KO?
-- **Bandai Gunpla Kits**: EG / HG / RG / MG / PG / MB / Dissection Craft Machine — welcher Grad ist es? Ist es eine Raubkopie?
+- **Bandai Gunpla Kits**: EG / HG / RG / MG / PG / MB / Kaitai-Shou-Ki (解体匠机) — welcher Grad ist es? Ist es eine Raubkopie?
 
 Eine Designregel gilt durchgehend: **bei lokaler Erkennung ruft außer beim Schritt „eine Bewertung schreiben“ nichts ein großes Modell auf.** Die Foto-Checkliste, die Erkennung, die DX/CSM-Entscheidung, die Abfragen der Wissensbasis, die Quellenbewertung und die Filterung von Falschnachrichten geschehen alle auf dieser Maschine, bei null Tokens. Die Ergebnisse landen in einem lokalen Cache, sodass die erneute Identifikation desselben Foto-Stapels nichts neu berechnet.
 
@@ -31,10 +31,10 @@ Eine Designregel gilt durchgehend: **bei lokaler Erkennung ruft außer beim Schr
 
 Das Plugin **blockiert** Anfragen, denen der Nachweis fehlt, statt eine ungenaue Antwort zu liefern:
 
-| Kategorie | Muss fotografiert werden | Wenn es keine Box gibt / keine Erfüllung möglich ist |
+| Kategorie | Muss fotografiert werden | Wenn es keine Schachtel vorhanden ist / keine Erfüllung möglich ist |
 |---|---|---|
 | **Gürtel** | Gürtelschnalle **abgenommen und separat fotografiert**, Vorder- und Rückseite (die Rückseite muss das Typenschild zeigen); Verwandlungsgerät **abgenommen und separat fotografiert** | Den ganzen Gürtel ergänzen, das Batteriefach, den Verwandlungssound |
-| **Gunpla** | **Vorderseite der Box** (mit dem Bandai-Markenzeichen und dem Farbband des Grades) | Mehrere Winkel + Funktionsbereiche + Kaufbeleg → wenn nichts davon funktioniert, **das Modell manuell eingeben** |
+| **Gunpla** | **Vorderseite der Schachtel** (mit dem Bandai-Markenzeichen und dem Farbband des Grades) | Mehrere Winkel + Funktionsbereiche + Kaufbeleg → wenn nichts davon funktioniert, **das Modell manuell eingeben** |
 | Sonstiges | Marke, Teilenummer, Nahaufnahme des Typenschilds | Mehrere Winkel |
 
 Der Hinweis erscheint an drei Stellen, entsprechend der Spezifikation: **großer Text in der Startanleitung**, **ein dauerhaftes Banner in der Aufnahmeoberfläche** (nicht nur bei Fehlschlag) und **noch einmal, wenn die Identifikation fehlschlägt**.
@@ -63,7 +63,7 @@ Offizielle Seite > X/YouTube offizieller Account (VPN erforderlich) > inländisc
 **Bilibili-Account-Erkennung**: blauer Blitz = offiziell; gelber Blitz = nur als Hinweis; kein Blitz = am niedrigsten.
 Ein blauer Blitz **reicht nicht** — der Account muss gleichzeitig ein verifiziertes Thema, einen eigenen Avatar und einen Titel **und** eine Beschreibung haben, die beide ein Spielzeug-/Modellthema widerspiegeln. Fehlt eines davon, **öffnet das Plugin einen Dialog zur Bestätigung durch den Nutzer**, und die Bestätigung geht in die Nutzer-Whitelist ein, damit nie wieder gefragt wird.
 
-**Eingangsregel**: Mindestens **2 unabhängige Quellen** müssen übereinstimmen, und mindestens 1 davon muss eine ablegefähige Quelle sein. Andernfalls wird der Eintrag als „unbestätigt“ markiert. **KI-generierte Inhalte dienen nur der Anzeige und werden nie abgelegt.**
+**Aufnahmeregel**: Mindestens **2 unabhängige Quellen** müssen übereinstimmen, und mindestens 1 davon muss eine archivierbare Quelle sein. Andernfalls wird der Eintrag als „unbestätigt“ markiert. **KI-generierte Inhalte dienen nur der Anzeige und werden nie übernommen.**
 
 **Suchmaschinen**: Zuerst chinesisches Bing; der Baidu-Einstiegspunkt ist optional und wird immer als „unbestätigt“ gekennzeichnet, wenn er gezeigt wird; Google für nicht-chinesische Märkte, Yandex für Russisch; **360 / Sogou / 2345 werden nie verwendet**.
 
@@ -71,7 +71,7 @@ Ein blauer Blitz **reicht nicht** — der Account muss gleichzeitig ein verifizi
 
 Standardmäßig deckt das Plugin nur Mainstream-Artikel ab. Wenn aktiviert, umfasst es zusätzlich:
 
-- **Gunpla**: PG / MGEX / MB / Dissection Craft Machine / RE100 / FULL MECHANICS / HI-RESOLUTION / limitierte Editionen / ausländische Nicht-Bandai / GK
+- **Gunpla**: PG / MGEX / MB / Kaitai-Shou-Ki (解体匠机) / RE100 / FULL MECHANICS / HI-RESOLUTION / limitierte Editionen / ausländische Nicht-Bandai / GK
 - **Gürtel**: CSM / CS / Candy Toys / Gashapon / limitierte Editionen / obskures Zubehör
 
 ### Mehrsprachig
@@ -242,7 +242,7 @@ An drei Stellen platziert: in der Startanleitung (hinter einem Kontrollkästchen
 ### GDPR / EU AI Act (EU-Nutzer)
 
 - **GDPR**: Erkennungsdaten bleiben standardmäßig auf dieser Maschine (`$DSH_HOME/plugin-data/tokusatsu-gunpla`), und die Wissensbasis wird niemals hochgeladen. **Wenn Sie einen entfernten Erkennungsendpunkt konfigurieren, werden Fotos an diesen Anbieter gesendet** — das ist Ihre eigene Konfiguration; ein lokaler Endpunkt behält sie hier. Das Löschen des lokalen Datenverzeichnisses übt Ihr Recht auf Löschung aus; das Plugin erstellt keine Nutzerprofile.
-- **EU AI Act**: Dieses Plugin ist ein Open-Source-KI-System für nicht hochriskante Verwendung, das nur unterstützte Identifikation und Informationsorganisation betreibt. Alle KI-generierten Inhalte sind mit ihrer Quellenstufe gekennzeichnet und dienen nur der Anzeige, werden nie abgelegt.
+- **EU AI Act**: Dieses Plugin ist ein Open-Source-KI-System für nicht hochriskante Verwendung, das nur unterstützte Identifikation und Informationsorganisation betreibt. Alle KI-generierten Inhalte sind mit ihrer Quellenstufe gekennzeichnet und dienen nur der Anzeige, werden nie übernommen.
 - **Transparenz**: Ergebnisse kommen mit Konfidenz und einer Nachweiskette, und Nutzerkorrekturen haben Vorrang vor automatischen Ergebnissen.
 
 ---

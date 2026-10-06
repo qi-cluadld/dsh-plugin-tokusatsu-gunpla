@@ -17,7 +17,7 @@
 Un asistente de identificación que se ejecuta dentro de DeepSeek Harness y está hecho para exactamente dos tareas:
 
 - **Cinturones de Kamen Rider**: ¿DX o CSM? ¿Es un KO?
-- **Kits de Gunpla de Bandai**: EG / HG / RG / MG / PG / MB / Dissection Craft Machine — ¿de qué grado es? ¿Es una copia pirata?
+- **Kits de Gunpla de Bandai**: EG / HG / RG / MG / PG / MB / Kaitai-Shou-Ki (解体匠机) — ¿de qué grado es? ¿Es una copia pirata?
 
 Una regla de diseño se mantiene en todo momento: **con reconocimiento local, salvo en el paso de «escribir una reseña», nada llama a un modelo grande.** La lista de fotos obligatorias, el reconocimiento, el veredicto DX/CSM, las consultas a la base de conocimiento, la clasificación de fuentes y el filtrado de noticias falsas ocurren en esta máquina, con cero tokens. Los resultados van a una caché local, así que volver a identificar el mismo lote de fotos no recalcula nada.
 
@@ -71,7 +71,7 @@ Un rayo azul **no basta**: la cuenta debe tener a la vez un sujeto verificado, u
 
 Por defecto el plugin cubre solo artículos mayoritarios. Cuando se activa, también incluye:
 
-- **Gunpla**: PG / MGEX / MB / Dissection Craft Machine / RE100 / FULL MECHANICS / HI-RESOLUTION / ediciones limitadas / no Bandai de ultramar / GK
+- **Gunpla**: PG / MGEX / MB / Kaitai-Shou-Ki (解体匠机) / RE100 / FULL MECHANICS / HI-RESOLUTION / ediciones limitadas / no Bandai de ultramar / GK
 - **Cinturones**: CSM / CS / juguetes de golosina / gashapon / ediciones limitadas / accesorios poco conocidos
 
 ### Multilingüe

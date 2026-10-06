@@ -17,7 +17,7 @@
 An identification assistant that runs inside DeepSeek Harness, built for exactly two jobs:
 
 - **Kamen Rider belts**: DX or CSM? Is it a KO?
-- **Bandai Gunpla kits**: EG / HG / RG / MG / PG / MB / Dissection Craft Machine — which grade is it? Is it a bootleg?
+- **Bandai Gunpla kits**: EG / HG / RG / MG / PG / MB / Kaitai-Shou-Ki (解体匠机) — which grade is it? Is it a bootleg?
 
 One design rule holds throughout: **with local recognition, apart from the "write a review" step, nothing calls a large model.** The photo checklist, recognition, the DX/CSM call, knowledge-base lookups, source grading and fake-news filtering all happen on this machine, at zero tokens. Results go into a local cache, so re-identifying the same batch of photos does not recompute anything.
 
@@ -71,7 +71,7 @@ A blue bolt **is not enough** — the account must simultaneously have a verifie
 
 By default the plugin covers only mainstream items. When enabled it also includes:
 
-- **Gunpla**: PG / MGEX / MB / Dissection Craft Machine / RE100 / FULL MECHANICS / HI-RESOLUTION / limited editions / overseas non-Bandai / GK
+- **Gunpla**: PG / MGEX / MB / Kaitai-Shou-Ki (解体匠机) / RE100 / FULL MECHANICS / HI-RESOLUTION / limited editions / overseas non-Bandai / GK
 - **Belts**: CSM / CS / candy toys / gashapon / limited editions / obscure accessories
 
 ### Multilingual

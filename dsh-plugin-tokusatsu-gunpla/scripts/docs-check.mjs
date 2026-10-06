@@ -171,6 +171,14 @@ for (const [name, entry] of Object.entries(readmes)) {
   check('names the remote endpoint option', /Zhipu/u.test(text))
   check('names a working remote model', text.includes('glm-5.3-flash'))
 
+  // The official Bandai product line must be called what the rest of the project
+  // calls it. A translating subagent invented "Dissection Craft Machine" — a literal
+  // rendering of 解体匠机 — and it reached nine editions, while the client bundle
+  // already said Kaitai-Shou-Ki. Documentation and UI disagreeing about a product
+  // name is the same class of defect as the rich-mode drift.
+  check('names the Kaitai-Shou-Ki product line', text.includes('Kaitai-Shou-Ki'))
+  check('does not use the invented product-line name', !text.includes('Dissection Craft Machine'))
+
   // This language's own disclaimer, clause by clause, ignoring each clause's
   // leading label so a translation may reword it.
   const clauses = i18n.DISCLAIMER[language].split('\n').filter((line) => line.trim() !== '')

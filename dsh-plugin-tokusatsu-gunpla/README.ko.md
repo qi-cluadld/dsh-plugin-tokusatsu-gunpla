@@ -17,7 +17,7 @@
 DeepSeek Harness 안에서 실행되는 식별 도우미로, 정확히 두 가지 작업을 위해 만들었습니다:
 
 - **가면라이더 벨트**: DX인가 CSM인가? KO인가?
-- **반다이 건프라 키트**: EG / HG / RG / MG / PG / MB / Dissection Craft Machine — 어느 등급인가? 짝퉁인가?
+- **반다이 건프라 키트**: EG / HG / RG / MG / PG / MB / Kaitai-Shou-Ki (解体匠机) — 어느 등급인가? 짝퉁인가?
 
 설계 원칙 하나가 처음부터 끝까지 유지됩니다: **로컬 인식을 쓰는 한, "리뷰 작성" 단계를 빼면 아무것도 대형 모델을 호출하지 않습니다.** 사진 체크리스트, 인식, DX/CSM 판정, 지식베이스 조회, 출처 등급 판정, 가짜 뉴스 필터링은 모두 이 컴퓨터에서 토큰 0으로 처리됩니다. 결과는 로컬 캐시에 들어가므로 같은 사진 묶음을 다시 식별해도 아무것도 다시 계산하지 않습니다.
 
@@ -71,7 +71,7 @@ DeepSeek Harness 안에서 실행되는 식별 도우미로, 정확히 두 가�
 
 기본적으로 플러그인은 주류 제품만 다룹니다. 활성화하면 다음도 포함됩니다:
 
-- **건프라**: PG / MGEX / MB / Dissection Craft Machine / RE100 / FULL MECHANICS / HI-RESOLUTION / 한정판 / 해외 비반다이 / GK
+- **건프라**: PG / MGEX / MB / Kaitai-Shou-Ki (解体匠机) / RE100 / FULL MECHANICS / HI-RESOLUTION / 한정판 / 해외 비반다이 / GK
 - **벨트**: CSM / CS / 캔디토이 / 가샤폰 / 한정판 / 비주류 액세서리
 
 ### 다국어
