@@ -5,6 +5,12 @@
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  },
   "exports": {
     ".": {
       "types": "./lib/types/index.d.ts",
@@ -50,6 +56,8 @@
     "lib/**/*.js",
     "lib/types/**/*.d.ts",
     "data/*.json",
+    "docs/*.md",
+    "scripts/*.mjs",
     "cordis.patch.yml",
     "assets"
   ],
@@ -77,6 +85,7 @@
     "test:client": "node scripts/client-test.mjs",
     "test:docs": "node scripts/docs-check.mjs",
     "verify:profile": "node scripts/verify-profile.mjs desktop",
-    "check": "node --check lib/index.js && node --check lib/client.js && node --check lib/tools.js"
+    "check": "node --check lib/index.js && node --check lib/client.js && node --check lib/tools.js",
+    "prepublishOnly": "node scripts/test.mjs"
   }
 }

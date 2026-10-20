@@ -367,6 +367,23 @@ console.log('10. Packaged release contents')
     check(`${read.target} is covered by the published files list`, covered(read.target), manifest.files)
   }
   check('the bundle patch the installer needs is published', covered('cordis.patch.yml'), manifest.files)
+
+  // A declared script whose file is not shipped makes `npm test` fail for every
+  // consumer. The same applies to docs the READMEs link to: shipping the links
+  // without the target produces dead references inside the installed package.
+  for (const [label, target] of [
+    ['the test runner a consumer runs', 'scripts/test.mjs'],
+    ['the documentation the READMEs link to', 'docs/INSTALL.md'],
+    ['the docs contract the check imports', 'scripts/docs-contract.mjs'],
+  ]) {
+    check(`${label} is published`, covered(target), manifest.files)
+  }
+  // Every script the manifest declares must ship, or "npm test" is a broken command.
+  for (const [name, command] of Object.entries(manifest.scripts ?? {})) {
+    const match = /node\s+(scripts\/[\w.-]+)/u.exec(command)
+    if (match === null) continue
+    check(`declared script "${name}" ships its entry point`, covered(match[1]), match[1])
+  }
 }
 
 console.log(`\n${checks - failures.length}/${checks} checks passed`)

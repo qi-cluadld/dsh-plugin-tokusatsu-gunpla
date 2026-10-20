@@ -19,6 +19,26 @@ This plugin is a standard DSH dual-face package: `lib/index.js` is the Host half
 
 ---
 
+## 方式零：从 npm 安装（最省事）
+
+本插件是一个**完整的 npm 包**：代码、内置知识库、排错文档、以及全部测试套件都在同一个 tarball 里（约 210 KB，38 个文件）。
+
+```bash
+npm install @dsh-plugin/tokusatsu-gunpla
+```
+
+装完就能验证它没有损坏——**测试随包发布**，不需要联网也不需要模型：
+
+```bash
+cd node_modules/@dsh-plugin/tokusatsu-gunpla
+npm test        # 4 个套件 / 533 项检查
+```
+
+> 包内含 `docs/INSTALL.md`（就是本文件）与 `scripts/`，所以 11 种语言的 README 里那些文档链接在安装后**不会变成死链**。
+> `npm test` 能跑，是因为 `scripts/` 确实随包发布——这一点有自动化检查守着（见「打包内容」）。
+
+---
+
 ## 方式一：让 DSH 自己装（最省事）
 
 把仓库链接直接发给 DSH：
