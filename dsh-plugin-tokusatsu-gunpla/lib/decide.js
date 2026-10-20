@@ -5,9 +5,9 @@
  * deterministic test over evidence. When the top two candidates stay within the
  * ambiguity margin the engine refuses to guess: it returns a `suspected` verdict
  * with the competing candidates so the UI can ask the user to pick, and that
- * pick is what feeds {@link module:@dsh-plugin/tokusatsu-gunpla/store} as a
+ * pick is what feeds {@link module:dsh-plugin-tokusatsu-gunpla/store} as a
  * correction.
- * @module @dsh-plugin/tokusatsu-gunpla/decide
+ * @module dsh-plugin-tokusatsu-gunpla/decide
  */
 
 /**

@@ -7,7 +7,7 @@
  * Italian, Dutch, and Polish; English as the universal fallback. Every
  * registration declares English as its fallback so an incomplete dictionary can
  * never surface a raw key.
- * @module @dsh-plugin/tokusatsu-gunpla/i18n
+ * @module dsh-plugin-tokusatsu-gunpla/i18n
  */
 
 /**

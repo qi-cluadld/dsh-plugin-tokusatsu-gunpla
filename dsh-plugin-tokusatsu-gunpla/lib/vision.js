@@ -15,7 +15,7 @@
  * When no endpoint answers, the plugin does not silently escalate anywhere: it
  * returns an `unavailable` outcome so the caller can fall back to the photo
  * checklist plus manual model entry, which costs nothing.
- * @module @dsh-plugin/tokusatsu-gunpla/vision
+ * @module dsh-plugin-tokusatsu-gunpla/vision
  */
 
 import { readFile, stat } from 'node:fs/promises'

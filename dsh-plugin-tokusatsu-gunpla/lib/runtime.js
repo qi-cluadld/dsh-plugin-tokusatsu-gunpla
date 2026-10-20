@@ -4,7 +4,7 @@
  *
  * Everything here runs on the Host with no model involvement, which is what
  * keeps recognition, judgment, update checks, and filtering off the token bill.
- * @module @dsh-plugin/tokusatsu-gunpla/runtime
+ * @module dsh-plugin-tokusatsu-gunpla/runtime
  */
 
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises'

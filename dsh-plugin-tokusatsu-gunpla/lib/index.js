@@ -10,7 +10,7 @@
  * The browser half ships separately as `./client` (declared through
  * `package.json` → `dsh.client`), so the same package provides the onboarding
  * page, capture guide, result panel, and settings section.
- * @module @dsh-plugin/tokusatsu-gunpla
+ * @module dsh-plugin-tokusatsu-gunpla
  */
 
 import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs'

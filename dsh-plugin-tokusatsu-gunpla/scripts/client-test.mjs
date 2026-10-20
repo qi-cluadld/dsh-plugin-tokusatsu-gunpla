@@ -235,7 +235,7 @@ await check('the bundle registers itself with the module loader', () => {
 })
 
 await check('it registers under the package name the host graph row uses', () => {
-  assert.equal(registration.id, '@dsh-plugin/tokusatsu-gunpla')
+  assert.equal(registration.id, 'dsh-plugin-tokusatsu-gunpla')
 })
 
 await check('the factory requires only react and react/jsx-runtime', () => {
@@ -628,7 +628,7 @@ await check('composer docks are height-capped and scroll internally', () => {
   // column past the viewport, which takes the CONVERSATION's scroll with it and
   // makes the whole page unscrollable. Every dock must be bounded and scroll
   // inside itself.
-  const styleTag = styleTags.find((tag) => tag.dataset.pluginCss === '@dsh-plugin/tokusatsu-gunpla/styles')
+  const styleTag = styleTags.find((tag) => tag.dataset.pluginCss === 'dsh-plugin-tokusatsu-gunpla/styles')
   assert.ok(styleTag !== undefined, 'no stylesheet was injected')
   const css = styleTag.textContent
   const dockRule = css.match(/\.TKG_dock\{[^}]*\}/u)
@@ -644,7 +644,7 @@ await check('composer docks are height-capped and scroll internally', () => {
 })
 
 await check('the onboarding gate is exempt from the dock cap', () => {
-  const styleTag = styleTags.find((tag) => tag.dataset.pluginCss === '@dsh-plugin/tokusatsu-gunpla/styles')
+  const styleTag = styleTags.find((tag) => tag.dataset.pluginCss === 'dsh-plugin-tokusatsu-gunpla/styles')
   const css = styleTag.textContent
   const gateRule = css.match(/\.TKG_gateDock\{[^}]*\}/u)
   assert.ok(gateRule !== null, 'no .TKG_gateDock exemption rule')
@@ -989,7 +989,7 @@ await check('the client bundle stays pure ASCII', () => {
 
 await check('the stylesheet is injected exactly once with a stable tag', () => {
   assert.equal(styleTags.length, 1, `expected 1 style tag, got ${styleTags.length}`)
-  assert.equal(styleTags[0].dataset.pluginCss, '@dsh-plugin/tokusatsu-gunpla/styles')
+  assert.equal(styleTags[0].dataset.pluginCss, 'dsh-plugin-tokusatsu-gunpla/styles')
 })
 
 await check('the bundle declares no package-row dependency', async () => {

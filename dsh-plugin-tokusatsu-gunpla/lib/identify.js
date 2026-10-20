@@ -4,7 +4,7 @@
  * Pipeline: evidence → counterfeit gate → knowledge match → line-specific
  * judgment → confidence → answer. Only the final "write a review" step may
  * involve a model; everything here is local, cached, and free.
- * @module @dsh-plugin/tokusatsu-gunpla/identify
+ * @module dsh-plugin-tokusatsu-gunpla/identify
  */
 
 import { judgeConfidence } from './checklist.js'

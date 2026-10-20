@@ -19,11 +19,11 @@
  * ASCII so no toolchain encoding round-trip can corrupt the copy; rendering
  * elements rather than calling components keeps each component's hooks in its own
  * slot list, which is what React's hook bookkeeping requires.
- * @module @dsh-plugin/tokusatsu-gunpla/client
+ * @module dsh-plugin-tokusatsu-gunpla/client
  */
 
 window.__ModuleLoader__.load({
-  id: '@dsh-plugin/tokusatsu-gunpla',
+  id: 'dsh-plugin-tokusatsu-gunpla',
   factory: (require) => {
     const module = { exports: {} }
     const exports = module.exports
@@ -119,10 +119,10 @@ window.__ModuleLoader__.load({
       '.TKG_checks{display:flex;flex-direction:column;gap:8px}',
     ].join('')
 
-    const STYLE_ID = '@dsh-plugin/tokusatsu-gunpla/styles'
+    const STYLE_ID = 'dsh-plugin-tokusatsu-gunpla/styles'
     if (typeof document !== 'undefined' && document.querySelector(`style[data-plugin-css=${JSON.stringify(STYLE_ID)}]`) === null) {
       const tag = document.createElement('style')
-      tag.dataset.plugin = '@dsh-plugin/tokusatsu-gunpla'
+      tag.dataset.plugin = 'dsh-plugin-tokusatsu-gunpla'
       tag.dataset.pluginCss = STYLE_ID
       tag.textContent = CSS
       document.head.appendChild(tag)

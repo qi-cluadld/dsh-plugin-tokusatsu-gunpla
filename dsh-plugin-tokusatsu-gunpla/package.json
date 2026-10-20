@@ -1,5 +1,5 @@
 {
-  "name": "@dsh-plugin/tokusatsu-gunpla",
+  "name": "dsh-plugin-tokusatsu-gunpla",
   "version": "0.1.0",
   "description": "假面骑士DX腰带 & 万代高达识别助手 — local-first Kamen Rider DX belt and Bandai Gunpla identification assistant for DeepSeek Harness",
   "type": "module",

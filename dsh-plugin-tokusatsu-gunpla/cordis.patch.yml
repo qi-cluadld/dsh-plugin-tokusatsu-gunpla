@@ -15,7 +15,7 @@
 # rebuilt from scratch.
 - insert:
     - id: tokusatsu-gunpla
-      name: '@dsh-plugin/tokusatsu-gunpla'
+      name: 'dsh-plugin-tokusatsu-gunpla'
       disabled: false
       config:
         # 富哥模式：纳入 PG / MB / 解体匠机 / 限定 / 海外第三方，以及 CSM / CS / 食玩 / 限定配件

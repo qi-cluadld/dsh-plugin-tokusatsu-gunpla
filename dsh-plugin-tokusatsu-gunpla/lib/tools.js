@@ -6,7 +6,7 @@
  * in-process for free; the tool descriptions explicitly forbid the model from
  * doing this work itself, which is what keeps the token bill bounded to the
  * one thing only a model can do — writing the review text.
- * @module @dsh-plugin/tokusatsu-gunpla/tools
+ * @module dsh-plugin-tokusatsu-gunpla/tools
  */
 
 import { isAbsolute, resolve } from 'node:path'

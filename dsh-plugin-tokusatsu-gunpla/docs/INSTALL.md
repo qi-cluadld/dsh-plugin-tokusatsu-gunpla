@@ -24,13 +24,13 @@ This plugin is a standard DSH dual-face package: `lib/index.js` is the Host half
 本插件是一个**完整的 npm 包**：代码、内置知识库、排错文档、以及全部测试套件都在同一个 tarball 里（约 210 KB，38 个文件）。
 
 ```bash
-npm install @dsh-plugin/tokusatsu-gunpla
+npm install dsh-plugin-tokusatsu-gunpla
 ```
 
 装完就能验证它没有损坏——**测试随包发布**，不需要联网也不需要模型：
 
 ```bash
-cd node_modules/@dsh-plugin/tokusatsu-gunpla
+cd node_modules/dsh-plugin-tokusatsu-gunpla
 npm test        # 4 个套件 / 533 项检查
 ```
 
@@ -64,7 +64,7 @@ DSH 会自己 clone、装依赖、写 profile 配置。
 D:\deepseek harness\dsh-plugin-tokusatsu-gunpla
 ```
 
-或从 GitHub 装：`target` 填 `@dsh-plugin/tokusatsu-gunpla`。
+或从 GitHub 装：`target` 填 `dsh-plugin-tokusatsu-gunpla`。
 
 `install_bundle` 会依次完成：
 
@@ -81,12 +81,12 @@ D:\deepseek harness\dsh-plugin-tokusatsu-gunpla
 
 ```json
 {
-  "name": "@dsh-plugin/tokusatsu-gunpla",
+  "name": "dsh-plugin-tokusatsu-gunpla",
   "version": "0.1.0",
   "enabled": true,
   "installed": true,
   "removable": true,
-  "rows": [{ "rowId": "tokusatsu-gunpla", "moduleName": "@dsh-plugin/tokusatsu-gunpla", "entryId": "include:tokusatsu-gunpla" }]
+  "rows": [{ "rowId": "tokusatsu-gunpla", "moduleName": "dsh-plugin-tokusatsu-gunpla", "entryId": "include:tokusatsu-gunpla" }]
 }
 ```
 
@@ -94,8 +94,8 @@ profile 的 `package.json` 会被自动改写（**这是正确的，不要手改
 
 ```json
 {
-  "dependencies": { "@dsh-plugin/tokusatsu-gunpla": "link:D:/deepseek harness/dsh-plugin-tokusatsu-gunpla" },
-  "dsh": { "profile": { "bundles": ["@deepseek-ai/dsh-base", "@deepseek-ai/dsh-web-app", "@dsh-plugin/tokusatsu-gunpla"] } }
+  "dependencies": { "dsh-plugin-tokusatsu-gunpla": "link:D:/deepseek harness/dsh-plugin-tokusatsu-gunpla" },
+  "dsh": { "profile": { "bundles": ["@deepseek-ai/dsh-base", "@deepseek-ai/dsh-web-app", "dsh-plugin-tokusatsu-gunpla"] } }
 }
 ```
 
@@ -112,7 +112,7 @@ profile 的 `package.json` 会被自动改写（**这是正确的，不要手改
 `install_bundle` 会拿插件的 `peerDependencies` 和**本机 dsh 运行时**比对，不匹配就直接拒绝安装：
 
 ```
-dsh: installation rejected: Plugin @dsh-plugin/tokusatsu-gunpla@0.1.0 is incompatible with dsh 0.2.0-rc.2:
+dsh: installation rejected: Plugin dsh-plugin-tokusatsu-gunpla@0.1.0 is incompatible with dsh 0.2.0-rc.2:
 peerDependencies {"@deepseek-ai/dsh-tools":"^0.1.5-rc.3"}.
 ```
 
@@ -153,7 +153,7 @@ New-Item -ItemType Junction -Path $link -Target "D:\path\to\dsh-plugin-tokusatsu
 ```bash
 mkdir -p ~/.dsh/profiles/desktop/node_modules/@dsh-plugin
 ln -s /path/to/dsh-plugin-tokusatsu-gunpla \
-      ~/.dsh/profiles/desktop/node_modules/@dsh-plugin/tokusatsu-gunpla
+      ~/.dsh/profiles/desktop/node_modules/dsh-plugin-tokusatsu-gunpla
 ```
 
 ### 2. 确认依赖能解析
@@ -177,7 +177,7 @@ node --input-type=module -e "
 编辑 `$DSH_HOME/profiles/desktop/cordis.patch.yml`，在**已有的 patch 数组**末尾追加：
 
 ```yaml
-- name: '@dsh-plugin/tokusatsu-gunpla'
+- name: 'dsh-plugin-tokusatsu-gunpla'
   config:
     richMode: false
     visionEnabled: true
@@ -322,7 +322,7 @@ DSH 加载器的行为是：**一个插件的 `inject` 里只要有一个服务�
 $probe = "$env:USERPROFILE\.dsh\profiles\desktop\node_modules\@dsh-plugin\_probe"
 New-Item -ItemType Directory -Force $probe | Out-Null
 Set-Content "$probe\t.mjs" -Encoding UTF8 -Value @'
-const mod = await import('@dsh-plugin/tokusatsu-gunpla')
+const mod = await import('dsh-plugin-tokusatsu-gunpla')
 console.log('import OK, inject =', JSON.stringify(mod.inject))
 '@
 & (Get-Command node).Source "$probe\t.mjs"
@@ -354,7 +354,7 @@ PASS  the composition provides "tools"
 note: session projection available in this composition (optional)
 PASS  the plugin row is present in the composition
 PASS  the row is explicitly enabled
-row: {"id":"tokusatsu-gunpla","name":"@dsh-plugin/tokusatsu-gunpla","disabled":false,...}
+row: {"id":"tokusatsu-gunpla","name":"dsh-plugin-tokusatsu-gunpla","disabled":false,...}
 ```
 
 看到 `the plugin row itself is not left disabled` 失败，或行里出现 `"disabled": true`，按下面处理。
@@ -366,7 +366,7 @@ row: {"id":"tokusatsu-gunpla","name":"@dsh-plugin/tokusatsu-gunpla","disabled":f
 ```yaml
 - insert:
     - id: tokusatsu-gunpla
-      name: "@dsh-plugin/tokusatsu-gunpla"
+      name: "dsh-plugin-tokusatsu-gunpla"
       disabled: false      # 必须显式写；否则持久化的停用会一直生效
       config:
         richMode: false

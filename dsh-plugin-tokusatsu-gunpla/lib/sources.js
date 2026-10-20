@@ -11,7 +11,7 @@
  *    lightning bolt become a user-confirmation prompt, and single-source,
  *    AI-generated, or low-tier claims are marked display-only so they can never
  *    be filed into the knowledge base.
- * @module @dsh-plugin/tokusatsu-gunpla/sources
+ * @module dsh-plugin-tokusatsu-gunpla/sources
  */
 
 import { fileURLToPath } from 'node:url'

@@ -99,7 +99,7 @@ console.log(`  user layer: ${userPatches.length} patches; shapes ${JSON.stringif
 entries = applyEntryPatches(entries, userPatches, warn)
 
 console.log('')
-const row = entries.find((entry) => entry.name === '@dsh-plugin/tokusatsu-gunpla')
+const row = entries.find((entry) => entry.name === 'dsh-plugin-tokusatsu-gunpla')
 if (row === undefined) {
   // The profile's `bundles` list is owned by the running app's bundle manager,
   // which rewrites it as it reconciles its own enabled set. A missing row is
@@ -118,7 +118,7 @@ if (row === undefined) {
 
 // The shipped bundles disable many optional features by default, so this only
 // asserts that the plugin row itself was not left disabled.
-const disabledPluginRow = entries.find((entry) => entry.name === '@dsh-plugin/tokusatsu-gunpla' && entry.disabled === true)
+const disabledPluginRow = entries.find((entry) => entry.name === 'dsh-plugin-tokusatsu-gunpla' && entry.disabled === true)
 check('the plugin row itself is not left disabled', disabledPluginRow === undefined, disabledPluginRow)
 
 console.log(`\n${failures.length === 0 ? 'OK' : `${failures.length} FAILED`}`)

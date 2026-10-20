@@ -9,7 +9,7 @@
  * Layer 3 is the feedback loop the product depends on: when the user picks the
  * right answer from a "疑似" prompt, that choice must survive every later
  * update, so corrections are written to their own file that updates never touch.
- * @module @dsh-plugin/tokusatsu-gunpla/store
+ * @module dsh-plugin-tokusatsu-gunpla/store
  */
 
 import { fileURLToPath } from 'node:url'

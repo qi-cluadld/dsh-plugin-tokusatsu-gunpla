@@ -6,7 +6,7 @@
  * judgment runs. Titles and hints carry stable ids; the client translates them,
  * and the Host falls back to the Chinese strings so a tool result is always
  * readable on its own.
- * @module @dsh-plugin/tokusatsu-gunpla/checklist
+ * @module dsh-plugin-tokusatsu-gunpla/checklist
  */
 
 /**
