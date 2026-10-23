@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-tokusatsu-gunpla",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "假面骑士DX腰带 & 万代高达识别助手 — local-first Kamen Rider DX belt and Bandai Gunpla identification assistant for DeepSeek Harness",
   "type": "module",
   "main": "lib/index.js",
@@ -62,11 +62,13 @@
     "assets"
   ],
   "dependencies": {
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
     "@deepseek-ai/cordis": "^4.0.4",
     "@deepseek-ai/dsh-session-projection": "^0.2.0-rc.2",
     "@deepseek-ai/dsh-tools": "^0.2.0-rc.2",
-    "@deepseek-ai/schemastery": "^3.18.4",
-    "zod": "^4.0.0"
+    "@deepseek-ai/schemastery": "^3.18.4"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.4",
@@ -86,6 +88,7 @@
     "test:docs": "node scripts/docs-check.mjs",
     "verify:profile": "node scripts/verify-profile.mjs desktop",
     "check": "node --check lib/index.js && node --check lib/client.js && node --check lib/tools.js",
-    "prepublishOnly": "node scripts/test.mjs"
+    "check:manifest": "node scripts/package-check.mjs",
+    "prepublishOnly": "node scripts/package-check.mjs && node scripts/test.mjs"
   }
 }

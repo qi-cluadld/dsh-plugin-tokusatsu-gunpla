@@ -197,6 +197,23 @@ for (const [name, entry] of Object.entries(readmes)) {
   check('renders the disclaimer as seven numbered clauses', numbered === 7, numbered)
 }
 
+// docs/INSTALL.md is linked from all eleven READMEs, so it is the page a stuck
+// user actually reaches rather than the READMEs themselves. It must keep the one
+// instruction whose absence cost a working environment on 2026-10-20: never
+// delete the DSH home to fix a plugin. The reason travels with the rule, because
+// a bare "don't" gets dropped the first time someone is in a hurry.
+{
+  console.log('\ndocs/INSTALL.md')
+  const install = await read('docs/INSTALL.md')
+
+  check('warns against deleting the DSH home to fix the plugin', install.includes('不要用「删掉 ~/.dsh」来修插件'))
+  check('names the conversation history as a casualty', install.includes('所有会话记录'))
+  check('says a reset is not recoverable', install.includes('不可恢复'))
+  check('names the corrections store as a casualty', install.includes('纠正库'))
+  check('says a backup inside the home is no backup', install.includes('备份放在 home 里面，等于没备'))
+  check('puts the diagnostic command before any deletion', install.includes('verify-profile.mjs desktop'))
+}
+
 console.log(`\n${checks - failures.length}/${checks} checks passed`)
 
 if (failures.length > 0) {

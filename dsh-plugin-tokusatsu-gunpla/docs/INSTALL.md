@@ -1,5 +1,7 @@
 # 安装指南 · Installation
 
+> **0.1.0 有依赖声明缺陷，安装会破坏宿主的依赖树，请勿使用。** 当前版本 **0.1.1** 已修复，说明见 [docs/RELEASE-0.1.1.md](RELEASE-0.1.1.md)。
+
 本插件是一个标准的 DSH **双面插件包**：`lib/index.js` 是 Host 半边（工具、配置、结果投影），`lib/client.js` 是浏览器半边（界面）。两侧由 `package.json` 的 `dsh.client` 声明联系起来。
 
 This plugin is a standard DSH dual-face package: `lib/index.js` is the Host half (tools, config, result projection) and `lib/client.js` is the browser half (UI). `package.json` → `dsh.client` links the two.
@@ -283,6 +285,8 @@ Host 侧失败会在日志里出现 `tokusatsu-gunpla:` 前缀且**没有**界�
 
 ## 排查
 
+> ⚠️ **动手之前**：修插件的第一步永远是 `node scripts/verify-profile.mjs desktop`，**不是删 `~/.dsh`**。重置 home 会连同会话记录、纠正库、依赖链一起清空，且不可恢复——见本节末尾「不要用『删掉 ~/.dsh』来修插件」。
+
 | 现象 | 原因 / 处理 |
 |---|---|
 | 界面和四个工具都没有 | 插件被加载器自动停用了。见下面「插件被自动停用」 |
@@ -387,6 +391,29 @@ $DSH_HOME/plugin-data/tokusatsu-gunpla/boot-trace.log
 | **文件不存在** | `apply()` 没被调用 → **模块加载失败**，按上面处理 |
 | 有 `apply() entered`、没有 `tools registered` | 注册工具时抛异常，堆栈也记在同一文件 |
 | 三条都在 | `apply()` 成功；若界面仍无，问题在 inject 或加载器层 |
+
+### 不要用「删掉 ~/.dsh」来修插件
+
+现象对不上时，最顺手的做法是「把 `$DSH_HOME` 删了重装一遍」。**别这么干**——它修不了插件，只会把别的东西一起带走。
+
+DSH 启动时会重建一个空 home，所以删完看起来「正常」：`profiles/desktop/` 回来了，`sessions/` 和 `storages/` 也回来了，只是**里面是空的**。真正没了的：
+
+| 丢了什么 | 后果 |
+|---|---|
+| `sessions/` | **所有会话记录**（`*.jsonl.zstd`），不进回收站、不进卷影副本；对话历史当场清零 |
+| `profiles/` | 全部 profile 配置；手工接的依赖链接随之悬空——这正是「模块加载失败」的成因 |
+| `plugin-data/` | 本插件的纠正库、已核实条目、官方账号白名单 |
+| `storages/` | 工作区列表与会话缓存 |
+
+**2026-10-20 出过一次**：改包名之后为了看清插件在真界面里的样子，手工往 profile 里接 `node_modules`，随后 home 被整体重置。代码一行没坏——工作区与 npm 上的 0.1.0 逐字节相同——死的是环境：会话记录、纠正库、依赖链全部归零，且**不可恢复**（回收站无条目，`Win32_ShadowCopy` 计数为 0）。
+
+正确顺序是先诊断、再只动那一条：
+
+1. `node scripts/verify-profile.mjs desktop` —— 先确认插件行在不在、有没有被写成 `disabled: true`；
+2. 在 **设置 → 插件** 里开关一次，让应用自己把状态写回 profile；
+3. 仍然不行，只改 `cordis.patch.yml` 里**那一条**，不要碰整个目录。
+
+如果已经重置过：会话记录只能靠 `~/.dsh` **之外**的备份找回，没有备份就是没了；`plugin-data/` 同理。备份放在 home 里面，等于没备。
 
 ---
 

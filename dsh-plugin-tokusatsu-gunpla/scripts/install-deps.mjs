@@ -23,8 +23,8 @@ import { fileURLToPath } from 'node:url'
 const root = dirname(fileURLToPath(new URL('../package.json', import.meta.url)))
 const manifest = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'))
 
-/** Packages the plugin imports at runtime. */
-const REQUIRED = Object.keys(manifest.dependencies ?? {})
+/** Packages this workspace needs locally; they are host-provided at runtime. */
+const REQUIRED = Object.keys(manifest.devDependencies ?? {})
 if (REQUIRED.length === 0) {
   console.error('package.json declares no dependencies; nothing to install')
   process.exit(1)
